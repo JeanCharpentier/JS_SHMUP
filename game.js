@@ -4,6 +4,8 @@ let imageLoader = new ImageLoader();
 let gameReady = false;
 let lstSprites = [];
 
+let spriteBG = null;
+let lstBackgrounds = [];
 let spriteEnemy = null;
 let spritePlayer = null;
 
@@ -29,27 +31,33 @@ function update(dt) {
         return;
     }
 
+    // Background
+    lstBackgrounds.forEach(bg => {
+        bg.x -= dt*200;
+        if((bg.x + (bg.tileSize.x*bg.scaleX)) < 0 ) {
+            bg.x = canvas.width-1s; 
+        }
+    });
+    
+
+    // Inputs
     if(keyRight){
-        
+        spritePlayer.x++;
     }
     if(keyLeft){
-
+        spritePlayer.x--;
     }
     if(keyUp){
-
+        spritePlayer.y--;
     }
     if(keyDown){
-
+        spritePlayer.y++;
     }
 
     // Update des sprites
     lstSprites.forEach(sprite => {
         sprite.update(dt);
     });
-
-    if(spritePlayer.currentAnimation.end) {
-        spritePlayer.startAnimation("TURNRIGHT");
-    }
 }
 
 function draw(pCtx) {
@@ -121,11 +129,28 @@ function startGame() {
 
     lstSprites = [];
 
+    // Background
+    let imageBG = imageLoader.getImage("images/background.png");
+    spriteBG = new Sprite(imageBG);
+    spriteBG.setTileSheet(320,200);
+    spriteBG.setScale(2,2);
+
+    spriteBG2 = new Sprite(imageBG);
+    spriteBG2.x = canvas.width;
+    spriteBG2.setTileSheet(320,200);
+    spriteBG2.setScale(2,2);
+
+    lstBackgrounds.push(spriteBG);
+    lstBackgrounds.push(spriteBG2);
+
+    
+
+
     // Ennemi rouge
     let imageEnemy = imageLoader.getImage("images/enemyred.png");
     spriteEnemy = new Sprite(imageEnemy);
     spriteEnemy.setTileSheet(24,24);
-    spriteEnemy.setScale(4,4);
+    spriteEnemy.setScale(2,2);
     spriteEnemy.addAnimation("TURN", [0,1,2,3,4,5], 0.07, true);
     spriteEnemy.startAnimation("TURN");
 
@@ -134,7 +159,7 @@ function startGame() {
     let imagePlayer = imageLoader.getImage("images/player.png");
     spritePlayer = new Sprite(imagePlayer);
     spritePlayer.setTileSheet(30,16);
-    spritePlayer.setScale(3,3);
+    spritePlayer.setScale(2,2);
     spritePlayer.x = 200;
     spritePlayer.addAnimation("TURNRIGHT", [0,1,2,3,4,5,6,7,8], 0.07, false);
     spritePlayer.addAnimation("TURNUP", [9,10,11,12,13,14,15,16,17,18,19,20], 0.07, false);
@@ -142,6 +167,8 @@ function startGame() {
     
 
     // Push des sprites
+    lstSprites.push(spriteBG);
+    lstSprites.push(spriteBG2);
     lstSprites.push(spriteEnemy);
     lstSprites.push(spritePlayer);
 
