@@ -26,6 +26,10 @@ class ImageLoader{
         return this.loadedImageCount / this.getTotalImages;
     }
 
+    getImage(pPath) {
+        return this.lstImages[pPath];
+    }
+
     start(pCallBack) {
         this.callback = pCallBack;
         this.lstPaths.forEach(path => {

@@ -20,6 +20,13 @@ function run() {
 
 function init(){
     console.log("Script is running !");
+    // Supprimer le lissage des sprites
+    ctx.imageSmoothingEnabled = false;
+    ctx.msImageSmoothingEnabled = false;
+    ctx.webkitImageSmoothingEnabled = false;
+    ctx.mozImageSmoothingEnabled = false;
+    
+    
     load();
     interval = setInterval(run, 1000/60);
 

@@ -4,6 +4,9 @@ let imageLoader = new ImageLoader();
 let gameReady = false;
 let lstSprites = [];
 
+let spriteEnemy = null;
+let spritePlayer = null;
+
 let keyRight = false;
 let keyLeft = false;
 let keyUp = false;
@@ -26,18 +29,26 @@ function update(dt) {
         return;
     }
 
-
     if(keyRight){
-        img.x++;
+        
     }
     if(keyLeft){
-        img.x--;
+
     }
     if(keyUp){
-        img.y--;
+
     }
     if(keyDown){
-        img.y++;
+
+    }
+
+    // Update des sprites
+    lstSprites.forEach(sprite => {
+        sprite.update(dt);
+    });
+
+    if(spritePlayer.currentAnimation.end) {
+        spritePlayer.startAnimation("TURNRIGHT");
     }
 }
 
@@ -52,9 +63,11 @@ function draw(pCtx) {
         return;
     }
 
+    //---- Affiche les sprites ----
     lstSprites.forEach(sprite => {
         sprite.draw(pCtx);
     });
+
 }
 
 /*
@@ -107,14 +120,30 @@ function kbUp(t) {
 function startGame() {
 
     lstSprites = [];
-    console.log(imageLoader.getListImages().length)
 
-    for (let image of Object.values(imageLoader.getListImages())) {
-        let mySprite = new Sprite(image);
-        mySprite.x = rnd(100,500);
-        mySprite.y = rnd(1,800);
-        lstSprites.push(mySprite);
-    }
+    // Ennemi rouge
+    let imageEnemy = imageLoader.getImage("images/enemyred.png");
+    spriteEnemy = new Sprite(imageEnemy);
+    spriteEnemy.setTileSheet(24,24);
+    spriteEnemy.setScale(4,4);
+    spriteEnemy.addAnimation("TURN", [0,1,2,3,4,5], 0.07, true);
+    spriteEnemy.startAnimation("TURN");
+
+
+    // Player
+    let imagePlayer = imageLoader.getImage("images/player.png");
+    spritePlayer = new Sprite(imagePlayer);
+    spritePlayer.setTileSheet(30,16);
+    spritePlayer.setScale(3,3);
+    spritePlayer.x = 200;
+    spritePlayer.addAnimation("TURNRIGHT", [0,1,2,3,4,5,6,7,8], 0.07, false);
+    spritePlayer.addAnimation("TURNUP", [9,10,11,12,13,14,15,16,17,18,19,20], 0.07, false);
+    spritePlayer.startAnimation("TURNUP");
+    
+
+    // Push des sprites
+    lstSprites.push(spriteEnemy);
+    lstSprites.push(spritePlayer);
 
     gameReady = true;
 }
