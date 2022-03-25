@@ -111,7 +111,7 @@ function startGame() {
 
     for (let image of Object.values(imageLoader.getListImages())) {
         let mySprite = new Sprite(image);
-        mySprite.x = rnd(1,600);
+        mySprite.x = rnd(100,500);
         mySprite.y = rnd(1,800);
         lstSprites.push(mySprite);
     }

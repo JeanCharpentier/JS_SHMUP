@@ -1,9 +1,9 @@
 class ImageLoader{
     constructor() {
-        this.lstPaths = [];
-        this.lstImages = [];
+        this.lstPaths = []; // Infos de base des images
+        this.lstImages = []; // Liste des images chargées
         this.callback = null;
-        this.loadedImageCount = 0;
+        this.loadedImageCount = 0; // Nb d'images chargées
     }
 
     add(pPathImage) {
