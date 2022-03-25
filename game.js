@@ -15,12 +15,7 @@ function load() {
     document.addEventListener("keydown", kbDown, false);
     document.addEventListener("keyup", kbUp, false);
 
-    //background = new Background("images/background.png")
-    //background_overlay = new Background("images/background-overlay.png")
-    img = new Sprite("images/ship.png");
-
-    imageLoader.add("images/background.png");
-    imageLoader.add("images/background-overlay.png");
+    loadImages(); // Charge les images dans l'ImageLoader
 
     imageLoader.start(startGame);
 }

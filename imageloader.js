@@ -25,13 +25,14 @@ class ImageLoader{
     getLoadedRatio() {
         return this.loadedImageCount / this.getTotalImages;
     }
+
     start(pCallBack) {
         this.callback = pCallBack;
         this.lstPaths.forEach(path => {
             let img = new Image();
             img.onload = this.imageLoaded.bind(this);
             img.src = path;
-            this.lstImages[path] = img;
+            this.lstImages[path] = img; // ???? Pourquoi pas un push ?
         });
     }
 

@@ -1,24 +1,29 @@
 class Sprite{
-    constructor(pSrc,pX=0,pY=0){
+    constructor(pSrc,pX=0,pY=0,pW=100,pH=100){
         this.img = pSrc;
         this.x = pX;
         this.y = pY;
+        this.width = pW;
+        this.height = pH;
     }
 
     draw(pCtx) {
-        pCtx.drawImage(this.img,this.x,this.y);
+        pCtx.drawImage(this.img,this.x,this.y,this.width,this.height);
     }
 }
 
-class Background{
-    constructor(pSrc,pY=0,pScale=1) {
-        this.img = new Image();
-        this.img.src = pSrc;
-        this.y = pY;
-        this.width = 400;
-    }
+function loadImages() {
+    imageLoader.add("images/background.png");
+    imageLoader.add("images/background-overlay.png");
 
-    draw(pCtx){
-        pCtx.drawImage(this.img,0,this.y)
-    }
+    imageLoader.add("images/player.png");
+
+    imageLoader.add("images/bullets.png");
+    imageLoader.add("images/chain.png");
+
+    imageLoader.add("images/enemies.png");
+
+    imageLoader.add("images/explosion1.png");
+    imageLoader.add("images/explosion2.png");
+    imageLoader.add("images/explosion3.png");
 }
