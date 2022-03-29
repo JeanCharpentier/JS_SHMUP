@@ -1,37 +1,41 @@
 let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d"); // Contexte de dessin
-
-let lastUpdate = Date.now(); // Pour le DT
-
+let ctx = canvas.getContext("2d");
 let interval;
+let fps = 0;
 
-function run() {
+let derniereUpdate = 0;
 
-    // Delta Time
-    let curUpdate = Date.now();
-    let dt = (curUpdate - lastUpdate) / 1000;
-    lastUpdate = curUpdate;
-    // Delta Time
+function showFPS() {
+    ctx.fillStyle = "White";
+    ctx.font = "normal 16pt Arial";
 
-    update(dt);
-    ctx.clearRect(0,0,canvas.width, canvas.height);
-    draw(ctx);
+    ctx.fillText(Math.floor(fps) + " fps", 10, 20);
 }
 
-function init(){
-    console.log("Script is running !");
-    // Supprimer le lissage des sprites
+function run(time) {
+    requestAnimationFrame(run);
+    let dt = (time - derniereUpdate) / 1000;
+
+    if (dt < (1 / 60) - 0.001) {
+        return;
+    }
+
+    fps = 1 / dt;
+    derniereUpdate = time;
+    update(dt);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    draw(ctx);
+    showFPS();
+}
+
+function init() {
     ctx.imageSmoothingEnabled = false;
     ctx.msImageSmoothingEnabled = false;
     ctx.webkitImageSmoothingEnabled = false;
     ctx.mozImageSmoothingEnabled = false;
-    
-    
     load();
-    interval = setInterval(run, 1000/60);
-
-    /*canvas.width = window.innerWidth; // Resize auto du canevas
-    canvas.height = window.innerHeight;*/
+    //interval = setInterval(run, 1000 / 60);
+    requestAnimationFrame(run);
 }
 
 init();

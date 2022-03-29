@@ -1,9 +1,10 @@
-class ImageLoader{
+
+class ImageLoader {
     constructor() {
-        this.lstPaths = []; // Infos de base des images
-        this.lstImages = []; // Liste des images chargées
-        this.callback = null;
-        this.loadedImageCount = 0; // Nb d'images chargées
+        this.lstPaths = [];
+        this.lstImages = [];
+        this.callBack = null;
+        this.loadedImageCount = 0;
     }
 
     add(pPathImage) {
@@ -11,40 +12,41 @@ class ImageLoader{
     }
 
     getTotalImages() {
-        return this.lstPaths.length; // Nb d'images enregistrées, PAS CHARGEES !
+        return this.lstPaths.length;
     }
 
     getTotalImagesLoaded() {
-         return this.loadedImageCount; // Nb d'images chargées
+        return this.loadedImageCount;
+    }
+
+    getLoadedRatio() {
+        return this.loadedImageCount / this.getTotalImages();
     }
 
     getListImages() {
         return this.lstImages;
     }
 
-    getLoadedRatio() {
-        return this.loadedImageCount / this.getTotalImages;
-    }
-
-    getImage(pPath) {
-        return this.lstImages[pPath];
-    }
-
     start(pCallBack) {
-        this.callback = pCallBack;
+        this.callBack = pCallBack;
         this.lstPaths.forEach(path => {
             let img = new Image();
             img.onload = this.imageLoaded.bind(this);
             img.src = path;
-            this.lstImages[path] = img; // ???? Pourquoi pas un push ?
+            this.lstImages[path] = img;
         });
     }
 
     imageLoaded(e) {
         this.loadedImageCount++;
-        console.log("img chargée", e.target.currentSrc);
-        if(this.loadedImageCount == this.lstPaths.length) {
-            this.callback();
+        console.log("Image chargée : ", e.target.currentSrc);
+        if (this.loadedImageCount == this.lstPaths.length) {
+            console.log("Tout a été chargé !");
+            this.callBack();
         }
+    }
+
+    getImage(pPath) {
+        return this.lstImages[pPath];
     }
 }
