@@ -2,14 +2,14 @@ class Player {
     constructor(pX,pY) {
         let imgShip = imageLoader.getImage("images/player.png");
         this.sprShip = new Sprite(imgShip,pX,pY);
-        this.sprShip.setTileSheet(30,16);
-        this.sprShip.currentFrame = 9;
+        this.sprShip.setTileSheet(16,16);
+        this.sprShip.currentFrame = 0;
 
-        let imgCanon = imageLoader.getImage("images/ShotTiny.png");
+        /*let imgCanon = imageLoader.getImage("images/ShotTiny.png");
         this.sprCanon = new Sprite(imgCanon,pX,pY);
         this.sprCanon.setTileSheet(18,14);
         this.sprCanon.addAnimation("idle", [0,1], 0.2, true);
-        this.sprCanon.startAnimation("idle");
+        this.sprCanon.startAnimation("idle");*/
 
         this.x = this.sprShip.x;
         this.y = this.sprShip.y;
@@ -20,27 +20,27 @@ class Player {
 
     getShotPosition(pBulletHeight) {
         let position = {x:0,y:0};
-        let midShip = this.y + (this.sprShip.tileSize.y/2) - (pBulletHeight/2);
-        position.x = this.x + (this.sprShip.tileSize.x);
-        position.y = midShip;
+        let midShip = this.x + (this.sprShip.tileSize.x/2) - (pBulletHeight/2);
+        position.y = this.y - (this.sprShip.tileSize.y);
+        position.x = midShip;
         return position;
     }
     update(dt) {
         this.sprShip.update(dt);
-        this.sprCanon.update(dt);
+        //this.sprCanon.update(dt);
 
         this.sprShip.x = this.x;
         this.sprShip.y = this.y;
 
-        let position = this.getShotPosition(14);
-        this.sprCanon.x = position.x - 5;
-        this.sprCanon.y = position.y;
+        //let position = this.getShotPosition(14);
+        //this.sprCanon.x = position.x - 5;
+        //this.sprCanon.y = position.y;
     }
 
     draw(pCtx) {
         this.sprShip.draw(pCtx);
-        if(this.showCanon) {
+        /*if(this.showCanon) {
             this.sprCanon.draw(pCtx);
-        }
+        }*/
     }
 }

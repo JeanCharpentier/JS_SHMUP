@@ -1,5 +1,6 @@
 let imageLoader = new ImageLoader();
 let gameReady = false;
+const SCALE = 3;
 
 let sceneJeu = new SceneJeu();
 
@@ -23,13 +24,15 @@ function load() {
     document.addEventListener("keyup", toucheRelachee, false);
 
     imageLoader.add("images/background.png");
-    imageLoader.add("images/enemyball.png");
-    imageLoader.add("images/enemyblade.png");
+    imageLoader.add("images/background-overlay.png");
+    imageLoader.add("images/bullets.png");
 
-    imageLoader.add("images/ShotTiny.png");
-    imageLoader.add("images/ShotBasic.png");
+    imageLoader.add("images/chain.png");
+    imageLoader.add("images/enemies.png");
 
     imageLoader.add("images/player.png");
+
+    imageLoader.add("images/explosion.png");
 
     imageLoader.start(startGame);
 }

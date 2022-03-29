@@ -40,15 +40,15 @@ class AlienWave {
             if(alien.started == false) {
                 alien.timer += dt;
                 if(alien.timer >= alien.pendingDelay) {
-                    //console.log("un alien demarre en Y : "+alien.sprite.y);
+                    //console.log("Alien : "+alien.sprite.x+"/"+alien.sprite.y);
                     alien.started = true;
                 }
             }
 
             if (alien.started) {
                 alien.update(dt);
-                alien.sprite.x -= alien.speed;
-                if(alien.sprite.x < 0 - alien.sprite.tileSize.x){
+                alien.sprite.y += alien.speed;
+                if(alien.sprite.y > canvas.height +  alien.sprite.tileSize.y){
                     //console.log("del d'un alien hors ecran");
                     this.alienList.splice(i,1);
                 }
@@ -71,11 +71,12 @@ class WavesManager {
 
     addWave(pWave) {
         this.wavesList.push(pWave);
+        
     }
 
     startWave(pWave) {
         pWave.started = true;
-
+        console.log("vague!");
         if(pWave.currentWave != null){
             this.stopWave(pWave);
         }
@@ -86,12 +87,13 @@ class WavesManager {
 
             let alien = new Alien(mySprite);
             alien.sprite.x = pWave.x;
+            alien.sprite.y = pWave.y;
             if(pWave.shape == "line") {
-                alien.sprite.y = pWave.y;
+                alien.sprite.x = pWave.x;
             }else if (pWave.shape == "sine") {
-                alien.sprite.y = pWave.y + (Math.sin(i)*pWave.shapePower);
+                alien.sprite.x = pWave.x + (Math.sin(i)*pWave.shapePower);
             }else if (pWave.shape == "slash") {
-                alien.sprite.y = pWave.y - (i*pWave.shapePower);
+                alien.sprite.x = pWave.x + (i*pWave.shapePower);
             }
             alien.pendingDelay = i * pWave.pendingDelay;
             pWave.addAlien(alien);

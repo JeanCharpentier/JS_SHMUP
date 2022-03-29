@@ -14,25 +14,26 @@ class SceneJeu {
     load(pImageLoader) {
         this.imageLoader = pImageLoader;
         this.imgBackground = this.imageLoader.getImage("images/background.png");
-        this.background = new ScrollingBackground(this.imgBackground);
-        this.background.speed = 1.5;
+        this.background = new Sprite(this.imgBackground,0,0);
+
+        this.imgBackgroundOverlay = this.imageLoader.getImage("images/background-overlay.png");
+        this.backgroundOverlay = new ScrollingBackground(this.imgBackgroundOverlay);
+        this.backgroundOverlay.speed = 1.5;
 
         this.player = new Player(5,100);
 
-        let imgEnemyBall = this.imageLoader.getImage("images/enemyball.png");
+        let imgEnemyBall = this.imageLoader.getImage("images/enemies.png");
         let spriteEnemyBall = new Sprite(imgEnemyBall);
-        spriteEnemyBall.setTileSheet(17,14);
-        spriteEnemyBall.addAnimation("IDLE", [0,1,2,3,4,5,6,7,8,9,10],0.1,true);
-        spriteEnemyBall.startAnimation("IDLE");
+        spriteEnemyBall.setTileSheet(16,16);
+        spriteEnemyBall.currentFrame = 0;
 
-        let imgEnemyBlade = this.imageLoader.getImage("images/enemyblade.png");
+        let imgEnemyBlade = this.imageLoader.getImage("images/enemies.png");
         let spriteEnemyBlade = new Sprite(imgEnemyBlade);
-        spriteEnemyBlade.setTileSheet(32,32);
-        spriteEnemyBlade.addAnimation("IDLE", [0,1,2,3],0.1,true);
-        spriteEnemyBlade.startAnimation("IDLE");
+        spriteEnemyBlade.setTileSheet(16,16);
+        spriteEnemyBlade.currentFrame = 1;
 
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0,250,320,100,"slash",20));
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBlade,10,0.4,1000,320,100,"sine",50));
+        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.1,250,0,-100,"line",20));
+        this.wavesManager.addWave(new AlienWave(spriteEnemyBlade,11,0.3,500,0,-100,"slash",10));
 
         /*// Particules
         this.pEmitter = new ParticleEmitter(100,100);
@@ -42,24 +43,26 @@ class SceneJeu {
     }
 
     update(dt) {
-        this.background.update(dt);
-        this.wavesManager.update(dt,this.background.distance);
+        this.backgroundOverlay.update(dt);
+        //console.log(this.player.x);
+
+        this.wavesManager.update(dt,this.backgroundOverlay.distance);
         //this.pEmitter.update(dt);
 
         this.lstBullets.forEach(b => {
             b.update(dt);
         });
 
-        if (this.keyboard["KeyS"] && this.player.y < 180) {
+        if (this.keyboard["KeyS"] && this.player.y < (canvas.height/SCALE) - this.player.sprShip.tileSize.y - 1) {
             this.player.y += 2;
         }
-        if (this.keyboard["KeyW"] && this.player.y > 1) {
+        if (this.keyboard["KeyW"] && this.player.y > 1/SCALE) {
             this.player.y -= 2;
         }
-        if (this.keyboard["KeyA"] && this.player.x > 1) {
+        if (this.keyboard["KeyA"] && this.player.x > 1/SCALE) {
             this.player.x -= 2;
         }
-        if (this.keyboard["KeyD"] && this.player.x < 300) {
+        if (this.keyboard["KeyD"] && this.player.x < (canvas.width/SCALE)- this.player.sprShip.tileSize.x - 1) {
             this.player.x += 2;
         }
         if (this.keyboard["Space"]) {
@@ -81,10 +84,12 @@ class SceneJeu {
 
     draw(pCtx) {
         pCtx.save();
-        pCtx.scale(2, 2);
+        pCtx.scale(SCALE, SCALE);
 
         // Dessine le fond qui scrolle
         this.background.draw(pCtx);
+        this.backgroundOverlay.draw(pCtx);
+
         this.wavesManager.draw(pCtx);
         //this.pEmitter.draw(pCtx);
 
@@ -98,9 +103,11 @@ class SceneJeu {
     }
 
     shoot() {
-        let position = this.player.getShotPosition(14);
-        let b = new Bullet(position.x,position.y, 5,0,"PLAYER");
-        this.lstBullets.push(b);
+        let position = this.player.getShotPosition(16);
+        let bL = new Bullet(position.x-3,position.y+10, 0,-5,"PLAYER");
+        let bR = new Bullet(position.x+5,position.y+10, 0,-5,"PLAYER");
+        this.lstBullets.push(bL);
+        this.lstBullets.push(bR);
     }
 
     keypressed(pKey) {        
