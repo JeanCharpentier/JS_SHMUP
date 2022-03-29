@@ -20,7 +20,7 @@ class SceneJeu {
         this.backgroundOverlay = new ScrollingBackground(this.imgBackgroundOverlay);
         this.backgroundOverlay.speed = 1.5;
 
-        this.player = new Player(5,100);
+        this.player = new Player(5,100,4);
 
         let imgEnemyBall = this.imageLoader.getImage("images/enemies.png");
         let spriteEnemyBall = new Sprite(imgEnemyBall);
@@ -53,6 +53,20 @@ class SceneJeu {
             b.update(dt);
         });
 
+        if (!this.keyboard["KeyQ"]) {
+            this.player.canSwap = true;
+        }
+
+        if (this.keyboard["KeyQ"] && this.player.canSwap == true) {
+            this.player.canSwap = false;
+            if (this.player.state == 0) {
+                this.player.state = 1;
+            }else if (this.player.state == 1 ) {
+                this.player.state = 0;
+            }
+            
+            console.log("Anim Offset : " + this.player.animOffset);
+        }
         if (this.keyboard["KeyS"] && this.player.y < (canvas.height/SCALE) - this.player.sprShip.tileSize.y - 1) {
             this.player.y += 2;
         }
@@ -61,10 +75,30 @@ class SceneJeu {
         }
         if (this.keyboard["KeyA"] && this.player.x > 1/SCALE) {
             this.player.x -= 2;
+            if (this.player.state == 0) {
+                this.player.sprShip.currentFrame = 2;
+            }else if (this.player.state == 1 ) {
+                this.player.sprShip.currentFrame = 2 + this.player.animOffset;
+            }
         }
         if (this.keyboard["KeyD"] && this.player.x < (canvas.width/SCALE)- this.player.sprShip.tileSize.x - 1) {
             this.player.x += 2;
+            if (this.player.state == 0) {
+                this.player.sprShip.currentFrame = 1;
+            }else if (this.player.state == 1 ) {
+                this.player.sprShip.currentFrame = 1 + this.player.animOffset;
+            }
         }
+        if(!this.keyboard["KeyD"] && !this.keyboard["KeyA"]) {
+            if (this.player.state == 0) {
+                this.player.sprShip.currentFrame = 0;
+            }else if (this.player.state == 1 ) {
+                this.player.sprShip.currentFrame = 0 + this.player.animOffset;
+            }
+        }
+
+
+
         if (this.keyboard["Space"]) {
             this.player.showCanon = true;
             if(this.shotTimer <= 0) {
@@ -110,6 +144,7 @@ class SceneJeu {
         this.lstBullets.push(bR);
     }
 
-    keypressed(pKey) {        
+    keypressed(pKey) {   
+        //console.log(pKey);
     }
 }
