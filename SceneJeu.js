@@ -64,17 +64,19 @@ class SceneJeu {
             }else if (this.player.state == 1 ) {
                 this.player.state = 0;
             }
-            
-            console.log("Anim Offset : " + this.player.animOffset);
         }
+
+
         if (this.keyboard["KeyS"] && this.player.y < (canvas.height/SCALE) - this.player.sprShip.tileSize.y - 1) {
-            this.player.y += 2;
+            this.player.vy = 2;
+            this.backgroundOverlay.speed = 1.5 - 0.3;
         }
         if (this.keyboard["KeyW"] && this.player.y > 1/SCALE) {
-            this.player.y -= 2;
+            this.player.vy = -2;
+            this.backgroundOverlay.speed = 1.5 + 1;
         }
         if (this.keyboard["KeyA"] && this.player.x > 1/SCALE) {
-            this.player.x -= 2;
+            this.player.vx = -2;
             if (this.player.state == 0) {
                 this.player.sprShip.currentFrame = 2;
             }else if (this.player.state == 1 ) {
@@ -82,7 +84,7 @@ class SceneJeu {
             }
         }
         if (this.keyboard["KeyD"] && this.player.x < (canvas.width/SCALE)- this.player.sprShip.tileSize.x - 1) {
-            this.player.x += 2;
+            this.player.vx = 2;
             if (this.player.state == 0) {
                 this.player.sprShip.currentFrame = 1;
             }else if (this.player.state == 1 ) {
@@ -90,11 +92,16 @@ class SceneJeu {
             }
         }
         if(!this.keyboard["KeyD"] && !this.keyboard["KeyA"]) {
+            this.player.vx = 0;
             if (this.player.state == 0) {
                 this.player.sprShip.currentFrame = 0;
             }else if (this.player.state == 1 ) {
                 this.player.sprShip.currentFrame = 0 + this.player.animOffset;
             }
+        }
+        if(!this.keyboard["KeyS"] && !this.keyboard["KeyW"]) {
+            this.player.vy = 0;
+            this.backgroundOverlay.speed = 1.5;
         }
 
 
@@ -137,9 +144,15 @@ class SceneJeu {
     }
 
     shoot() {
+        let type = "PLAYERW";
+        if (this.player.state == 0) {
+            type = "PLAYERW";
+        }else if (this.player.state == 1) {
+            type = "PLAYERB";
+        }
         let position = this.player.getShotPosition(16);
-        let bL = new Bullet(position.x-3,position.y+10, 0,-5,"PLAYER");
-        let bR = new Bullet(position.x+5,position.y+10, 0,-5,"PLAYER");
+        let bL = new Bullet(position.x-3,position.y+10, 0,-5,type);
+        let bR = new Bullet(position.x+5,position.y+10, 0,-5,type);
         this.lstBullets.push(bL);
         this.lstBullets.push(bR);
     }

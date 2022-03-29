@@ -2,11 +2,18 @@ class Bullet extends Sprite {
     constructor(px,py,pVX,pVY,pType) {
         let img;
         switch (pType) {
-            case "PLAYER":
+            case "PLAYERW":
                 img = imageLoader.getImage("images/bullets.png");
                 super(img,px,py);
                 this.setTileSheet(16,16);
                 this.currentFrame = 0;
+                this.friendly = true;
+                break;
+            case "PLAYERB":
+                img = imageLoader.getImage("images/bullets.png");
+                super(img,px,py);
+                this.setTileSheet(16,16);
+                this.currentFrame = 1;
                 this.friendly = true;
                 break;
             case "ALIEN":

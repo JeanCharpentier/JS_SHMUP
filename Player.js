@@ -5,10 +5,6 @@ class Player {
         this.sprShip.setTileSheet(16,16);
         this.sprShip.currentFrame = 0;
 
-        this.sprShipBlack = new Sprite(imgShip,pX,pY);
-        this.sprShipBlack.setTileSheet(16,16);
-        this.sprShipBlack.currentFrame = 4;
-
         /*let imgCanon = imageLoader.getImage("images/ShotTiny.png");
         this.sprCanon = new Sprite(imgCanon,pX,pY);
         this.sprCanon.setTileSheet(18,14);
@@ -17,6 +13,8 @@ class Player {
 
         this.x = this.sprShip.x;
         this.y = this.sprShip.y;
+        this.vx = 0;
+        this.vy = 0;
 
         this.state = 0;
         this.animOffset = pOffset;
@@ -35,17 +33,12 @@ class Player {
     }
 
     update(dt) {
-        if (this.state == 0) {
-            this.sprShip.update(dt);
-            //this.sprCanon.update(dt);
-            this.sprShip.x = this.x;
-            this.sprShip.y = this.y;
-        } else if (this.state == 1) {
-            this.sprShipBlack.update(dt);
-            //this.sprCanon.update(dt);
-            this.sprShipBlack.x = this.x;
-            this.sprShipBlack.y = this.y;
-        }
+        this.sprShip.update(dt);
+        //this.sprCanon.update(dt);
+        this.sprShip.x = this.x + this.vx;
+        this.sprShip.y = this.y + this.vy;
+        this.x = this.sprShip.x;
+        this.y = this.sprShip.y;
         
 
         //let position = this.getShotPosition(14);
@@ -54,17 +47,9 @@ class Player {
     }
 
     draw(pCtx) {
-        if (this.state == 0) {
-            this.sprShip.draw(pCtx);
-            /*if(this.showCanon) {
-                this.sprCanon.draw(pCtx);
-            }*/
-        }else if (this.state == 1) {
-            this.sprShipBlack.draw(pCtx);
-            /*if(this.showCanon) {
-                this.sprCanon.draw(pCtx);
-            }*/
-        }
-        
+        this.sprShip.draw(pCtx);
+        /*if(this.showCanon) {
+            this.sprCanon.draw(pCtx);
+        }*/
     }
 }
