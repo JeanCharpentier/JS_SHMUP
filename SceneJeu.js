@@ -73,7 +73,7 @@ class SceneJeu {
         }
         if (this.keyboard["KeyW"] && this.player.y > 1/SCALE) {
             this.player.vy = -2;
-            this.backgroundOverlay.speed = 1.5 + 1;
+            this.backgroundOverlay.speed = 1.5 + 0.5;
         }
         if (this.keyboard["KeyA"] && this.player.x > 1/SCALE) {
             this.player.vx = -2;
