@@ -1,9 +1,43 @@
+class GameplayService { // Super-classe à injecter
+    constructor() {
+        this.canvas == null;
+        this.bulletsManager == null;
+        this.wavesManager == null;
+        this.player == null;
+        this.scrollingBackground == null;
+    }
+
+    setCanvas(pCanvas) { // Déclare le canvas utilisé
+        this.canvas = pCanvas;
+    }
+
+    setBulletManager(pBulletManager) { // Déclare la classe BulletManager
+        this.bulletsManager = pBulletManager;
+    }
+
+    setWaveManager(pWaveManager) {
+        this.wavesManager = pWaveManager;
+    }
+
+    setPlayer(pPlayer) {
+        this.player = pPlayer;
+    }
+
+    setScrollingBackground(pScrollingBackground) {
+        this.scrollingBackground = pScrollingBackground;
+    }
+
+}
+
 class SceneJeu {
     constructor() {
         this.keyboard = null;
         this.imageLoader = null;
         this.imgBackground = null;
-        this.wavesManager = new WavesManager();
+
+        this.gameplayService = new GameplayService();
+        this.bulletsManager = new bulletsManager();
+        this.wavesManager = new WavesManager(this.gameplayService);
 
         this.lstBullets = [];
 
@@ -44,10 +78,9 @@ class SceneJeu {
 
     update(dt) {
         this.backgroundOverlay.update(dt);
-        //console.log(this.player.x);
-
         this.wavesManager.update(dt,this.backgroundOverlay.distance);
         //this.pEmitter.update(dt);
+        this.bulletsManager.update();
 
         this.lstBullets.forEach(b => {
             b.update(dt);
@@ -109,7 +142,7 @@ class SceneJeu {
         if (this.keyboard["Space"]) {
             this.player.showCanon = true;
             if(this.shotTimer <= 0) {
-                this.shoot();
+                this.bulletsManager.shoot(this.player.x,this.player.y,1,2,0);
                 this.shotTimer = this.shotSpeed;
             }
         } else {
@@ -132,6 +165,9 @@ class SceneJeu {
         this.backgroundOverlay.draw(pCtx);
 
         this.wavesManager.draw(pCtx);
+
+        this.bulletsManager.draw(pCtx);
+
         //this.pEmitter.draw(pCtx);
 
         this.lstBullets.forEach(b => {
@@ -143,7 +179,7 @@ class SceneJeu {
         pCtx.restore();
     }
 
-    shoot() {
+    /*shoot() {
         let type = "PLAYERW";
         if (this.player.state == 0) {
             type = "PLAYERW";
@@ -155,7 +191,7 @@ class SceneJeu {
         let bR = new Bullet(position.x+5,position.y+10, 0,-5,type);
         this.lstBullets.push(bL);
         this.lstBullets.push(bR);
-    }
+    }*/
 
     keypressed(pKey) {   
         //console.log(pKey);

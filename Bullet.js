@@ -41,3 +41,39 @@ class Bullet extends Sprite {
         this.y += this.vy;
     }
 }
+
+class bulletsManager {
+    constructor() {
+        this.lstBullets = [];
+    }
+
+    clear() {
+        this.lstBullets = [];
+    }
+
+    shoot(pX,pY,pAngle,pSpeed,pType) {
+        /*let type = "PLAYERW";
+        if (this.player.state == 0) {
+            type = "PLAYERW";
+        }else if (this.player.state == 1) {
+            type = "PLAYERB";
+        }*/
+        //let position = this.player.getShotPosition(16);
+        let vx,vy;
+        vx = pSpeed * Math.cos(pAngle);
+        vy = pSpeed * Math.sin(pAngle);
+
+        let bL = new Bullet(pX-3,pY+10, 0,-5,pType);
+        let bR = new Bullet(pX+5,pY+10, 0,-5,pType);
+        this.lstBullets.push(bL);
+        this.lstBullets.push(bR);
+    }
+
+    update() {
+
+    }
+
+    draw() {
+
+    }
+}
