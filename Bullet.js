@@ -20,7 +20,7 @@ class Bullet extends Sprite {
                 img = imageLoader.getImage("images/bullets.png");
                 super(img,px,py);
                 this.setTileSheet(16,16);
-                this.currentFrame = 5;
+                this.currentFrame = 0;
                 this.friendly = false;
                 break;
             case "BOSS":
@@ -40,40 +40,14 @@ class Bullet extends Sprite {
         this.x += this.vx;
         this.y += this.vy;
     }
-}
 
-class bulletsManager {
-    constructor() {
-        this.lstBullets = [];
-    }
-
-    clear() {
-        this.lstBullets = [];
-    }
-
-    shoot(pX,pY,pAngle,pSpeed,pType) {
-        /*let type = "PLAYERW";
-        if (this.player.state == 0) {
-            type = "PLAYERW";
-        }else if (this.player.state == 1) {
-            type = "PLAYERB";
-        }*/
-        //let position = this.player.getShotPosition(16);
-        let vx,vy;
-        vx = pSpeed * Math.cos(pAngle);
-        vy = pSpeed * Math.sin(pAngle);
-
-        let bL = new Bullet(pX-3,pY+10, 0,-5,pType);
-        let bR = new Bullet(pX+5,pY+10, 0,-5,pType);
-        this.lstBullets.push(bL);
-        this.lstBullets.push(bR);
-    }
-
-    update() {
-
-    }
-
-    draw() {
-
+    isOutSideScreen(pListe) {
+        for (let i=pListe.length-1;i==0;i--) {
+            let b=pListe[i];
+            if(b.x<0 || b.x>(canvas.width/SCALE) || b.y<0 || b.y>(canvas.height/SCALE)) {
+                pListe.splice(i,1);
+                console.log("Destroy bullet!");
+            }
+        }   
     }
 }

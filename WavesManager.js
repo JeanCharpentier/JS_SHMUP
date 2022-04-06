@@ -5,14 +5,54 @@ class Alien {
         this.timer = 0;
         this.speed = 1;
         this.started = false;
+
+        this.shootType = null;
+        this.canShoot = false;
+        this.shootSpeed = 2;
+        this.shootTimer = 0;
+
+        this.bullets = [];
+        
     }
 
     update(dt) {
         this.sprite.update(dt);
+        if(this.sprite.y > 20) {
+            if(this.shootType == "slash") {
+                this.canShoot = true;
+                this.shootSpeed = 2;
+            }
+            if(this.shootType == "sine") {
+                this.canShoot = true;
+                this.shootSpeed = 0.2;
+            }
+        }
+        
+        
+        if(this.canShoot) {
+            if(this.shootTimer <= 0) {
+                this.shoot();
+                this.shootTimer = this.shootSpeed;
+            }
+            this.shootTimer -= dt;
+
+            this.bullets.forEach(b => {
+                b.update(dt);
+                b.isOutSideScreen(this.bullets);      
+            });
+        }
     }
 
     draw(pCtx) {
         this.sprite.draw(pCtx);
+        this.bullets.forEach(b => {
+            b.draw(pCtx);
+        })
+    }
+
+    shoot() {
+        let b = new Bullet(this.sprite.x,this.sprite.y,0,5,"ALIEN");
+        this.bullets.push(b);
     }
 }
 
@@ -48,7 +88,7 @@ class AlienWave {
             if (alien.started) {
                 alien.update(dt);
                 alien.sprite.y += alien.speed;
-                if(alien.sprite.y > canvas.height +  alien.sprite.tileSize.y){
+                if(alien.sprite.y > (canvas.height/SCALE) +  alien.sprite.tileSize.y){
                     //console.log("del d'un alien hors ecran");
                     this.alienList.splice(i,1);
                 }
@@ -88,6 +128,7 @@ class WavesManager {
             let alien = new Alien(mySprite);
             alien.sprite.x = pWave.x;
             alien.sprite.y = pWave.y;
+            alien.shootType = pWave.shape;
             if(pWave.shape == "line") {
                 alien.sprite.x = pWave.x;
             }else if (pWave.shape == "sine") {

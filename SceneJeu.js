@@ -1,12 +1,9 @@
-
-
 class SceneJeu {
     constructor() {
         this.keyboard = null;
         this.imageLoader = null;
         this.imgBackground = null;
 
-        this.bulletsManager = new bulletsManager();
         this.wavesManager = new WavesManager();
 
         this.lstBullets = [];
@@ -36,7 +33,7 @@ class SceneJeu {
         spriteEnemyBlade.setTileSheet(16,16);
         spriteEnemyBlade.currentFrame = 1;
 
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.1,250,0,-100,"line",20));
+        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.1,250,0,-100,"sine",20));
         this.wavesManager.addWave(new AlienWave(spriteEnemyBlade,11,0.3,500,0,-100,"slash",10));
 
         /*// Particules
