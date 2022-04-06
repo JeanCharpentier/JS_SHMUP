@@ -80,7 +80,7 @@ class SceneJeu {
         this.backgroundOverlay.update(dt);
         this.wavesManager.update(dt,this.backgroundOverlay.distance);
         //this.pEmitter.update(dt);
-        this.bulletsManager.update();
+        //this.bulletsManager.update();
 
         this.lstBullets.forEach(b => {
             b.update(dt);
@@ -142,7 +142,7 @@ class SceneJeu {
         if (this.keyboard["Space"]) {
             this.player.showCanon = true;
             if(this.shotTimer <= 0) {
-                this.bulletsManager.shoot(this.player.x,this.player.y,1,2,0);
+                this.shoot();
                 this.shotTimer = this.shotSpeed;
             }
         } else {
@@ -166,7 +166,7 @@ class SceneJeu {
 
         this.wavesManager.draw(pCtx);
 
-        this.bulletsManager.draw(pCtx);
+        //this.bulletsManager.draw(pCtx);
 
         //this.pEmitter.draw(pCtx);
 
@@ -179,7 +179,7 @@ class SceneJeu {
         pCtx.restore();
     }
 
-    /*shoot() {
+    shoot() {
         let type = "PLAYERW";
         if (this.player.state == 0) {
             type = "PLAYERW";
@@ -191,7 +191,7 @@ class SceneJeu {
         let bR = new Bullet(position.x+5,position.y+10, 0,-5,type);
         this.lstBullets.push(bL);
         this.lstBullets.push(bR);
-    }*/
+    }
 
     keypressed(pKey) {   
         //console.log(pKey);
