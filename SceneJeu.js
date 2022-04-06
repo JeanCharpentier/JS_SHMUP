@@ -1,33 +1,4 @@
-class GameplayService { // Super-classe à injecter
-    constructor() {
-        this.canvas == null;
-        this.bulletsManager == null;
-        this.wavesManager == null;
-        this.player == null;
-        this.scrollingBackground == null;
-    }
 
-    setCanvas(pCanvas) { // Déclare le canvas utilisé
-        this.canvas = pCanvas;
-    }
-
-    setBulletManager(pBulletManager) { // Déclare la classe BulletManager
-        this.bulletsManager = pBulletManager;
-    }
-
-    setWaveManager(pWaveManager) {
-        this.wavesManager = pWaveManager;
-    }
-
-    setPlayer(pPlayer) {
-        this.player = pPlayer;
-    }
-
-    setScrollingBackground(pScrollingBackground) {
-        this.scrollingBackground = pScrollingBackground;
-    }
-
-}
 
 class SceneJeu {
     constructor() {
@@ -35,9 +6,8 @@ class SceneJeu {
         this.imageLoader = null;
         this.imgBackground = null;
 
-        this.gameplayService = new GameplayService();
         this.bulletsManager = new bulletsManager();
-        this.wavesManager = new WavesManager(this.gameplayService);
+        this.wavesManager = new WavesManager();
 
         this.lstBullets = [];
 
