@@ -18,11 +18,27 @@ class Alien {
     update(dt) {
         this.sprite.update(dt);
         if(this.sprite.y > 20) {
-            if(this.shootType == "slash") {
+            if(this.shootType == "SMALLW") {
                 this.canShoot = true;
                 this.shootSpeed = 2;
             }
-            if(this.shootType == "sine") {
+            if(this.shootType == "SMALLB") {
+                this.canShoot = true;
+                this.shootSpeed = 0.2;
+            }
+            if(this.shootType == "SRINGW") {
+                this.canShoot = true;
+                this.shootSpeed = 2;
+            }
+            if(this.shootType == "SRINGB") {
+                this.canShoot = true;
+                this.shootSpeed = 0.2;
+            }
+            if(this.shootType == "BRINGW") {
+                this.canShoot = true;
+                this.shootSpeed = 2;
+            }
+            if(this.shootType == "BRINGB") {
                 this.canShoot = true;
                 this.shootSpeed = 0.2;
             }
@@ -51,13 +67,14 @@ class Alien {
     }
 
     shoot() {
-        let b = new Bullet(this.sprite.x,this.sprite.y,0,5,"ALIEN");
+        console.log(this.shootType);
+        let b = new Bullet(this.sprite.x,this.sprite.y,0,5,this.shootType);
         this.bullets.push(b);
     }
 }
 
 class AlienWave {
-    constructor(pSprite,pNumber,pPendingDelay,pStartDistance,pX,pY,pShape="line",pShapePower=10) {
+    constructor(pSprite,pNumber,pPendingDelay,pStartDistance,pX,pY,pShape="line",pShapePower=10,pShoot="") {
         this.alienList = [];
         this.startDistance = pStartDistance;
         this.started = false;
@@ -68,6 +85,7 @@ class AlienWave {
         this.y = pY;
         this.shape = pShape;
         this.shapePower = pShapePower;
+        this.shootType = pShoot;
     }
 
     addAlien(pAlien){
@@ -80,7 +98,6 @@ class AlienWave {
             if(alien.started == false) {
                 alien.timer += dt;
                 if(alien.timer >= alien.pendingDelay) {
-                    //console.log("Alien : "+alien.sprite.x+"/"+alien.sprite.y);
                     alien.started = true;
                 }
             }
@@ -89,7 +106,6 @@ class AlienWave {
                 alien.update(dt);
                 alien.sprite.y += alien.speed;
                 if(alien.sprite.y > (canvas.height/SCALE) +  alien.sprite.tileSize.y){
-                    //console.log("del d'un alien hors ecran");
                     this.alienList.splice(i,1);
                 }
             }
@@ -111,7 +127,6 @@ class WavesManager {
 
     addWave(pWave) {
         this.wavesList.push(pWave);
-        
     }
 
     startWave(pWave) {
@@ -128,7 +143,8 @@ class WavesManager {
             let alien = new Alien(mySprite);
             alien.sprite.x = pWave.x;
             alien.sprite.y = pWave.y;
-            alien.shootType = pWave.shape;
+            alien.shootType = pWave.shootType;
+            //console.log(alien.shootType);
             if(pWave.shape == "line") {
                 alien.sprite.x = pWave.x;
             }else if (pWave.shape == "sine") {

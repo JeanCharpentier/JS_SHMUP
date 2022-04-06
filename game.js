@@ -1,6 +1,5 @@
 let imageLoader = new ImageLoader();
 let gameReady = false;
-const SCALE = 3;
 
 let sceneJeu = new SceneJeu();
 
