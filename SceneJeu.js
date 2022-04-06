@@ -35,6 +35,7 @@ class SceneJeu {
 
         this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.5,250,(canvas.width/SCALE)/2,-100,"sine",50));
         this.wavesManager.addWave(new AlienWave(spriteEnemyBlade,8,0.3,1000,0,-100,"slash",20,"BRINGB"));
+        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.5,1500,(canvas.width/SCALE)/2,-100,"sine",50,"SMALLW"));
 
         /*// Particules
         this.pEmitter = new ParticleEmitter(100,100);

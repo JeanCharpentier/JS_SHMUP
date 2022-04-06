@@ -1,4 +1,4 @@
-const SCALE = 2;
+const SCALE = 2.5;
 
 function rnd(min, max) {
     min = Math.ceil(min);

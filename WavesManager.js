@@ -17,30 +17,32 @@ class Alien {
 
     update(dt) {
         this.sprite.update(dt);
-        if(this.sprite.y > 20) {
-            if(this.shootType == "SMALLW") {
-                this.canShoot = true;
-                this.shootSpeed = 2;
-            }
-            if(this.shootType == "SMALLB") {
-                this.canShoot = true;
-                this.shootSpeed = 0.2;
-            }
-            if(this.shootType == "SRINGW") {
-                this.canShoot = true;
-                this.shootSpeed = 2;
-            }
-            if(this.shootType == "SRINGB") {
-                this.canShoot = true;
-                this.shootSpeed = 0.2;
-            }
-            if(this.shootType == "BRINGW") {
-                this.canShoot = true;
-                this.shootSpeed = 2;
-            }
-            if(this.shootType == "BRINGB") {
-                this.canShoot = true;
-                this.shootSpeed = 0.2;
+        if(this.sprite.y > 0) {
+            switch(this.shootType) {
+                case "SMALLW":
+                    this.canShoot = true;
+                    this.shootSpeed = 2;
+                    break;
+                case "SMALLB":
+                    this.canShoot = true;
+                    this.shootSpeed = 0.2;
+                    break;
+                case "SRINGW":
+                    this.canShoot = true;
+                    this.shootSpeed = 0.2;
+                    break;
+                case "SRINGB":
+                    this.canShoot = true;
+                    this.shootSpeed = 0.2;
+                    break;
+                case "BRINGW":
+                    this.canShoot = true;
+                    this.shootSpeed = 0.2;
+                    break;
+                case "BRINGB":
+                    this.canShoot = true;
+                    this.shootSpeed = 0.2;
+                    break;
             }
         }
         
@@ -67,7 +69,7 @@ class Alien {
     }
 
     shoot() {
-        console.log(this.shootType);
+        //console.log(this.shootType);
         let b = new Bullet(this.sprite.x,this.sprite.y,0,5,this.shootType);
         this.bullets.push(b);
     }
@@ -122,7 +124,6 @@ class AlienWave {
 class WavesManager {
     constructor(){
         this.wavesList = [];
-        this.currentWave = null;
     }
 
     addWave(pWave) {
@@ -131,11 +132,7 @@ class WavesManager {
 
     startWave(pWave) {
         pWave.started = true;
-        console.log("vague!");
-        if(pWave.currentWave != null){
-            this.stopWave(pWave);
-        }
-        this.currentWave = pWave;
+        console.log("Nouvelle vague!");
         for(let i=0;i<pWave.number;i++){
             let mySprite = new Sprite(pWave.sprite.img);
             Object.assign(mySprite,pWave.sprite);
@@ -144,7 +141,6 @@ class WavesManager {
             alien.sprite.x = pWave.x;
             alien.sprite.y = pWave.y;
             alien.shootType = pWave.shootType;
-            //console.log(alien.shootType);
             if(pWave.shape == "line") {
                 alien.sprite.x = pWave.x;
             }else if (pWave.shape == "sine") {
@@ -154,7 +150,6 @@ class WavesManager {
             }
             alien.pendingDelay = i * pWave.pendingDelay;
             pWave.addAlien(alien);
-            //console.log("Creer Alien "+ i);
         }
         
     }
@@ -172,15 +167,20 @@ class WavesManager {
             if(pDistance >= wave.startDistance && !wave.started) {
                 this.startWave(wave);
             }
+            if(wave.alienList.length == 0 && wave.started) {
+                this.stopWave(wave);
+            }
+            if(wave.started){
+                wave.update(dt);
+            }
         });
-        if(this.currentWave != null) {
-            this.currentWave.update(dt);
-        }
     }
 
     draw(pCtx) {
-        if(this.currentWave != null) {
-            this.currentWave.draw(pCtx);
-        }
+        this.wavesList.forEach(wave => {
+            if(wave.started){
+                wave.draw(pCtx);
+            }
+        });
     }
 }
