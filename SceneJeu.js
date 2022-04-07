@@ -19,7 +19,7 @@ class SceneJeu {
 
         this.imgBackgroundOverlay = this.imageLoader.getImage("images/background-overlay.png");
         this.backgroundOverlay = new ScrollingBackground(this.imgBackgroundOverlay);
-        this.backgroundOverlay.speed = 1.5;
+        this.backgroundOverlay.setSpeed(1.5);
 
         let imgEnemyBall = this.imageLoader.getImage("images/enemies.png");
         let spriteEnemyBall = new Sprite(imgEnemyBall);
@@ -48,14 +48,14 @@ class SceneJeu {
     }
 
     update(dt) {
-
-        this.kbInputs.update(dt);
         this.backgroundOverlay.update(dt);
+        this.kbInputs.update(dt,this.backgroundOverlay);
         this.wavesManager.update(dt,this.backgroundOverlay.distance);
         //this.pEmitter.update(dt);
         //this.bulletsManager.update();
 
         this.gs.player.update(dt);
+        //console.log(this.backgroundOverlay);
     }
 
     draw(pCtx) {

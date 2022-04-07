@@ -6,6 +6,10 @@ class ScrollingBackground {
         this.distance = this.image.height;
     }
 
+    setSpeed(pSpeed) {
+        this.speed = pSpeed;
+    }
+    
     update(dt) {
         this.y += this.speed;
         this.distance += this.speed;

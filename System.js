@@ -1,4 +1,5 @@
 const SCALE = 2.5;
+const BG_SPEED = 1.5;
 
 function rnd(min, max) {
     min = Math.ceil(min);
@@ -43,7 +44,7 @@ class Inputs{
         this.shotTimer = 0;
     }
 
-    update(dt) {
+    update(dt,pBGO) {
         if (!this.keyboard["KeyQ"]) {
             this.gs.player.canSwap = true;
         }
@@ -59,10 +60,10 @@ class Inputs{
 
         if (this.keyboard["KeyS"] && this.gs.player.y < (canvas.height/SCALE) - this.gs.player.sprShip.tileSize.y - 1) {
             this.gs.player.vy = 2;
-            //this.backgroundOverlay.speed = 1.5 - 0.3;
+            pBGO.setSpeed(BG_SPEED - 0.3);
         }else if (this.keyboard["KeyW"] && this.gs.player.y > 1/SCALE) {
             this.gs.player.vy = -2;
-            //this.backgroundOverlay.speed = 1.5 + 1;
+            pBGO.setSpeed(BG_SPEED + 1);
         }else {
             this.gs.player.vy = 0;
         }
@@ -95,7 +96,7 @@ class Inputs{
         }
         if(!this.keyboard["KeyS"] && !this.keyboard["KeyW"]) {
             this.gs.player.vy = 0;
-            //this.backgroundOverlay.speed = 1.5;
+            pBGO.setSpeed(BG_SPEED);
         }
 
 
