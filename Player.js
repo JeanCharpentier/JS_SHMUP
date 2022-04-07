@@ -35,7 +35,7 @@ class Player {
     }*/
 
     fire() {
-        let type = "PLAYERW";
+        let type = "PLAYERW"; // Change le sprite selon l'état du joueur
         if (this.state == 0) {
             type = "PLAYERW";
         }else if (this.state == 1) {

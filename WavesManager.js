@@ -8,15 +8,14 @@ class Alien {
 
         this.gs = pGS;
 
-        this.angle = 0;
+        this.angle = 1;
+        this.angleOffset = 0;
+        this.nbArms = 1;
 
         this.shootType = null;
         this.canShoot = false;
-        this.shootAngle = (3/2)*Math.PI;
         this.shootSpeed = 2;
         this.shootTimer = 0;
-
-        this.bullets = [];
         
     }
 
@@ -25,33 +24,49 @@ class Alien {
         //console.log(this.gs.bulletsManager);
 
         this.sprite.update(dt);
-        this.angle += 10;
         if(this.sprite.y > 0) {
             switch(this.shootType) {
                 case "SMALLW":
                     this.canShoot = true;
                     this.shootSpeed = 0.1;
-                    this.shootAngle = Math.cos(this.angle)*10;
+                    this.angleOffset = 0;
+                    this.nbArms = 1;
                     break;
                 case "SMALLB":
                     this.canShoot = true;
                     this.shootSpeed = 0.2;
+                    this.angleOffset = 0;
+                    this.nbArms = 1;
                     break;
                 case "SRINGW":
                     this.canShoot = true;
                     this.shootSpeed = 0.2;
+                    this.angleOffset = 0;
+                    this.nbArms = 1;
                     break;
                 case "SRINGB":
                     this.canShoot = true;
                     this.shootSpeed = 0.2;
+                    this.angleOffset = 0;
+                    this.nbArms = 1;
                     break;
                 case "BRINGW":
                     this.canShoot = true;
                     this.shootSpeed = 0.2;
+                    this.angleOffset = 0;
+                    this.nbArms = 1;
                     break;
                 case "BRINGB":
                     this.canShoot = true;
                     this.shootSpeed = 0.2;
+                    this.angleOffset = 0;
+                    this.nbArms = 1;
+                    break;
+                case "BOSS":
+                    this.canShoot = true;
+                    this.shootSpeed = 0.2;
+                    this.angleOffset = 0.05;
+                    this.nbArms = 4;
                     break;
                 default:
                     this.canShoot = false;
@@ -70,7 +85,15 @@ class Alien {
     fire() {
         if(this.canShoot) {
             if(this.shootTimer <= 0) {
-                this.gs.bulletsManager.shoot(this.sprite.x, this.sprite.y, Math.PI/2, 5, this.shootType);
+                if(this.nbArms != 1) {
+                    for(let i=1;i<=this.nbArms;i++){
+                        this.angle += this.angleOffset;
+                        this.gs.bulletsManager.shoot(this.sprite.x, this.sprite.y, this.angle * (2*Math.PI), 2, this.shootType);
+                    }
+                }else {
+                    this.gs.bulletsManager.shoot(this.sprite.x, this.sprite.y, this.angle * (-1*(3*Math.PI)/2), 5, this.shootType);
+                }
+                
                 this.shootTimer = this.shootSpeed;
             }
         }

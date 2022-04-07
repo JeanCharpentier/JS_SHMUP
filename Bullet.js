@@ -59,6 +59,10 @@ class Bullet extends Sprite {
                 this.friendly = false;
                 break;
             case "BOSS":
+                img = imageLoader.getImage("images/bullets.png");
+                super(img,px,py);
+                this.setTileSheet(16,16);
+                this.currentFrame = 5;
                 this.friendly = false;
                 break;
             default:
