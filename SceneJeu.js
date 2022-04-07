@@ -1,18 +1,18 @@
 class SceneJeu {
     constructor() {
-        this.keyboard = null;
+        //this.keyboard = null;
+        this.gs = new GS();
+
         this.imageLoader = null;
         this.imgBackground = null;
 
-        this.wavesManager = new WavesManager();
-
-        this.lstBullets = [];
-
-        this.shotSpeed = 0.1;
-        this.shotTimer = 0;
+        this.kbInputs = new Inputs(this.gs);
+        this.wavesManager = new WavesManager(this.gs);
     }
 
     load(pImageLoader) {
+        this.gs.setPlayer(new Player(5,100,4));
+
         this.imageLoader = pImageLoader;
         this.imgBackground = this.imageLoader.getImage("images/background.png");
         this.background = new Sprite(this.imgBackground,0,0);
@@ -20,8 +20,6 @@ class SceneJeu {
         this.imgBackgroundOverlay = this.imageLoader.getImage("images/background-overlay.png");
         this.backgroundOverlay = new ScrollingBackground(this.imgBackgroundOverlay);
         this.backgroundOverlay.speed = 1.5;
-
-        this.player = new Player(5,100,4);
 
         let imgEnemyBall = this.imageLoader.getImage("images/enemies.png");
         let spriteEnemyBall = new Sprite(imgEnemyBall);
@@ -38,9 +36,9 @@ class SceneJeu {
         spriteBoss01.setTileSheet(16,16);
         spriteBoss01.currentFrame = 12;
 
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.5,250,(canvas.width/SCALE)/2,-100,"sine",50,"",2));
+        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.5,250,(canvas.width/SCALE)/2,-100,"sine",50,"BRINGW",2));
         this.wavesManager.addWave(new AlienWave(spriteEnemyBlade,8,0.3,1000,0,-100,"slash",20,"BRINGB",1));
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,1,0.5,1500,(canvas.width/SCALE)/2,-100,"line",50,"SMALLW",0.1));
+        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,1,0.5,1500,(canvas.width/SCALE)/2,-100,"line",50,"SMALLW",1));
 
         /*// Particules
         this.pEmitter = new ParticleEmitter(100,100);
@@ -50,87 +48,14 @@ class SceneJeu {
     }
 
     update(dt) {
+
+        this.kbInputs.update(dt);
         this.backgroundOverlay.update(dt);
         this.wavesManager.update(dt,this.backgroundOverlay.distance);
         //this.pEmitter.update(dt);
         //this.bulletsManager.update();
 
-        this.lstBullets.forEach(b => {
-            b.update(dt);
-        });
-
-        if (!this.keyboard["KeyQ"]) {
-            this.player.canSwap = true;
-        }
-
-        if (this.keyboard["KeyQ"] && this.player.canSwap == true) {
-            this.player.canSwap = false;
-            if (this.player.state == 0) {
-                this.player.state = 1;
-            }else if (this.player.state == 1 ) {
-                this.player.state = 0;
-            }
-        }
-
-
-        if (this.keyboard["KeyS"] && this.player.y < (canvas.height/SCALE) - this.player.sprShip.tileSize.y - 1) {
-            this.player.vy = 2;
-            this.backgroundOverlay.speed = 1.5 - 0.3;
-        }else if (this.keyboard["KeyW"] && this.player.y > 1/SCALE) {
-            this.player.vy = -2;
-            this.backgroundOverlay.speed = 1.5 + 1;
-        }else {
-            this.player.vy = 0;
-        }
-        if (this.keyboard["KeyA"] && this.player.x > 1/SCALE) {
-            this.player.vx = -2;
-            if (this.player.state == 0) {
-                this.player.sprShip.currentFrame = 2;
-            }else if (this.player.state == 1 ) {
-                this.player.sprShip.currentFrame = 2 + this.player.animOffset;
-            }
-        }else if (this.keyboard["KeyD"] && this.player.x < (canvas.width/SCALE)- this.player.sprShip.tileSize.x - 1) {
-            this.player.vx = 2;
-            if (this.player.state == 0) {
-                this.player.sprShip.currentFrame = 1;
-            }else if (this.player.state == 1 ) {
-                this.player.sprShip.currentFrame = 1 + this.player.animOffset;
-            }
-        }else {
-            this.player.vx = 0;
-        }
-
-
-        if(!this.keyboard["KeyD"] && !this.keyboard["KeyA"]) {
-            this.player.vx = 0;
-            if (this.player.state == 0) {
-                this.player.sprShip.currentFrame = 0;
-            }else if (this.player.state == 1 ) {
-                this.player.sprShip.currentFrame = 0 + this.player.animOffset;
-            }
-        }
-        if(!this.keyboard["KeyS"] && !this.keyboard["KeyW"]) {
-            this.player.vy = 0;
-            this.backgroundOverlay.speed = 1.5;
-        }
-
-
-
-        if (this.keyboard["Space"]) {
-            this.player.showCanon = true;
-            if(this.shotTimer <= 0) {
-                this.shoot();
-                this.shotTimer = this.shotSpeed;
-            }
-        } else {
-            this.player.showCanon = false;
-        }
-
-        if(this.shotTimer >= 0) {
-            this.shotTimer -= dt;
-        }
-
-        this.player.update(dt);
+        this.gs.player.update(dt);
     }
 
     draw(pCtx) {
@@ -147,27 +72,9 @@ class SceneJeu {
 
         //this.pEmitter.draw(pCtx);
 
-        this.lstBullets.forEach(b => {
-            b.draw(pCtx);
-        });
-
-        this.player.draw(pCtx);
+        this.gs.player.draw(pCtx);
 
         pCtx.restore();
-    }
-
-    shoot() {
-        let type = "PLAYERW";
-        if (this.player.state == 0) {
-            type = "PLAYERW";
-        }else if (this.player.state == 1) {
-            type = "PLAYERB";
-        }
-        let position = this.player.getShotPosition(16);
-        let bL = new Bullet(position.x-3,position.y+10, 0,-5,type);
-        let bR = new Bullet(position.x+5,position.y+10, 0,-5,type);
-        this.lstBullets.push(bL);
-        this.lstBullets.push(bR);
     }
 
     keypressed(pKey) {   

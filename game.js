@@ -51,7 +51,7 @@ function update(dt) {
         return;
     }
     // Suite quand le jeu est prêt
-    sceneJeu.keyboard = keyboard;
+    sceneJeu.kbInputs.keyboard = keyboard;
     sceneJeu.update(dt);
 }
 

@@ -21,6 +21,7 @@ class Player {
         this.canSwap = true;
 
         this.showCanon = false;
+        this.lstBullets = [];
     }
 
 
@@ -32,6 +33,20 @@ class Player {
         return position;
     }
 
+    shoot() {
+        let type = "PLAYERW";
+        if (this.state == 0) {
+            type = "PLAYERW";
+        }else if (this.state == 1) {
+            type = "PLAYERB";
+        }
+        let position = this.getShotPosition(16);
+        let bL = new Bullet(position.x-3,position.y+10, 0,-5,type);
+        let bR = new Bullet(position.x+5,position.y+10, 0,-5,type);
+        this.lstBullets.push(bL);
+        this.lstBullets.push(bR);
+    }
+
     update(dt) {
         this.sprShip.update(dt);
         //this.sprCanon.update(dt);
@@ -39,6 +54,10 @@ class Player {
         this.sprShip.y = this.y + this.vy;
         this.x = this.sprShip.x;
         this.y = this.sprShip.y;
+
+        this.lstBullets.forEach(b => {
+            b.update(dt);
+        });
         
 
         //let position = this.getShotPosition(14);
@@ -51,5 +70,8 @@ class Player {
         /*if(this.showCanon) {
             this.sprCanon.draw(pCtx);
         }*/
+        this.lstBullets.forEach(b => {
+            b.draw(pCtx);
+        });
     }
 }

@@ -1,10 +1,12 @@
 class Alien {
-    constructor(pSprite) {
+    constructor(pSprite,pGS) {
         this.sprite = pSprite;
         this.pendingDelay = 0;
         this.timer = 0;
         this.speed = 1;
         this.started = false;
+
+        this.gs = pGS;
 
         this.angle = 0;
 
@@ -60,7 +62,11 @@ class Alien {
 
             this.bullets.forEach(b => {
                 b.update(dt);
-                b.isOutSideScreen(this.bullets);      
+                b.isOutSideScreen(this.bullets); 
+                if(isColliding(b.x,b.y,16,16,this.gs.player.x,this.gs.player.y,16,16)) {
+                    console.log("Collide player !");
+                    this.bullets.splice(b,1);
+                }     
             });
         }
     }
@@ -126,8 +132,9 @@ class AlienWave {
 }
 
 class WavesManager {
-    constructor(){
+    constructor(pGS){
         this.wavesList = [];
+        this.gs = pGS;
     }
 
     addWave(pWave) {
@@ -141,7 +148,7 @@ class WavesManager {
             let mySprite = new Sprite(pWave.sprite.img);
             Object.assign(mySprite,pWave.sprite);
 
-            let alien = new Alien(mySprite);
+            let alien = new Alien(mySprite,this.gs);
             alien.sprite.x = pWave.x;
             alien.sprite.y = pWave.y;
             alien.shootType = pWave.shootType;
