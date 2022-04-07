@@ -33,9 +33,14 @@ class SceneJeu {
         spriteEnemyBlade.setTileSheet(16,16);
         spriteEnemyBlade.currentFrame = 1;
 
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.5,250,(canvas.width/SCALE)/2,-100,"sine",50));
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBlade,8,0.3,1000,0,-100,"slash",20,"BRINGB"));
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.5,1500,(canvas.width/SCALE)/2,-100,"sine",50,"SMALLW"));
+        let imgBoss01 = this.imageLoader.getImage("images/enemies.png");
+        let spriteBoss01 = new Sprite(imgBoss01);
+        spriteBoss01.setTileSheet(16,16);
+        spriteBoss01.currentFrame = 12;
+
+        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.5,250,(canvas.width/SCALE)/2,-100,"sine",50,"",2));
+        this.wavesManager.addWave(new AlienWave(spriteEnemyBlade,8,0.3,1000,0,-100,"slash",20,"BRINGB",1));
+        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,1,0.5,1500,(canvas.width/SCALE)/2,-100,"line",50,"SMALLW",0.1));
 
         /*// Particules
         this.pEmitter = new ParticleEmitter(100,100);

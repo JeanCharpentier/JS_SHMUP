@@ -6,8 +6,11 @@ class Alien {
         this.speed = 1;
         this.started = false;
 
+        this.angle = 0;
+
         this.shootType = null;
         this.canShoot = false;
+        this.shootAngle = (3/2)*Math.PI;
         this.shootSpeed = 2;
         this.shootTimer = 0;
 
@@ -17,11 +20,13 @@ class Alien {
 
     update(dt) {
         this.sprite.update(dt);
+        this.angle += 10;
         if(this.sprite.y > 0) {
             switch(this.shootType) {
                 case "SMALLW":
                     this.canShoot = true;
-                    this.shootSpeed = 2;
+                    this.shootSpeed = 0.1;
+                    this.shootAngle = Math.cos(this.angle)*10;
                     break;
                 case "SMALLB":
                     this.canShoot = true;
@@ -46,10 +51,9 @@ class Alien {
             }
         }
         
-        
         if(this.canShoot) {
             if(this.shootTimer <= 0) {
-                this.shoot();
+                this.shoot(this.shootAngle);
                 this.shootTimer = this.shootSpeed;
             }
             this.shootTimer -= dt;
@@ -68,15 +72,14 @@ class Alien {
         })
     }
 
-    shoot() {
-        //console.log(this.shootType);
-        let b = new Bullet(this.sprite.x,this.sprite.y,0,5,this.shootType);
+    shoot(pAngle=(3/2)*Math.PI) {
+        let b = new Bullet(this.sprite.x,this.sprite.y,Math.cos(pAngle),5,this.shootType);
         this.bullets.push(b);
     }
 }
 
 class AlienWave {
-    constructor(pSprite,pNumber,pPendingDelay,pStartDistance,pX,pY,pShape="line",pShapePower=10,pShoot="") {
+    constructor(pSprite,pNumber,pPendingDelay,pStartDistance,pX,pY,pShape="line",pShapePower=10,pShoot="",pSpeed=1) {
         this.alienList = [];
         this.startDistance = pStartDistance;
         this.started = false;
@@ -88,6 +91,7 @@ class AlienWave {
         this.shape = pShape;
         this.shapePower = pShapePower;
         this.shootType = pShoot;
+        this.speed = pSpeed;
     }
 
     addAlien(pAlien){
@@ -141,6 +145,7 @@ class WavesManager {
             alien.sprite.x = pWave.x;
             alien.sprite.y = pWave.y;
             alien.shootType = pWave.shootType;
+            alien.speed = pWave.speed;
             if(pWave.shape == "line") {
                 alien.sprite.x = pWave.x;
             }else if (pWave.shape == "sine") {
