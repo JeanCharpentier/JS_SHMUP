@@ -27,10 +27,19 @@ function isColliding(px1,py1,pw1,ph1,px2,py2,pw2,ph2){
 class GS{
     constructor() {
         this.player = null;
+        this.bulletsManager = null;
+        this.wavesManager = null;
     }
 
     setPlayer(pPlayer){
         this.player = pPlayer;
+    }
+
+    setBulletsManager(pBManager) {
+        this.bulletsManager = pBManager;
+    }
+    setWavesManager(pWManager) {
+        this.wavesManager = pWManager;
     }
 }
 
@@ -104,7 +113,7 @@ class Inputs{
         if (this.keyboard["Space"]) {
             this.gs.player.showCanon = true;
             if(this.shotTimer <= 0) {
-                this.gs.player.shoot();
+                this.gs.player.fire();
                 this.shotTimer = this.shotSpeed;
             }
         } else {

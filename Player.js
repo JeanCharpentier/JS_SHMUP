@@ -1,5 +1,7 @@
 class Player {
-    constructor(pX,pY,pOffset) {
+    constructor(pX,pY,pOffset,pGS) {
+        this.gs = pGS;
+
         let imgShip = imageLoader.getImage("images/player.png");
         this.sprShip = new Sprite(imgShip,pX,pY);
         this.sprShip.setTileSheet(16,16);
@@ -21,30 +23,27 @@ class Player {
         this.canSwap = true;
 
         this.showCanon = false;
-        this.lstBullets = [];
     }
 
 
-    getShotPosition(pBulletHeight) {
+    /*getShotPosition(pBulletHeight) {
         let position = {x:0,y:0};
         let midShip = this.x + (this.sprShip.tileSize.x/2) - (pBulletHeight/2);
         position.y = this.y - (this.sprShip.tileSize.y);
         position.x = midShip;
         return position;
-    }
+    }*/
 
-    shoot() {
+    fire() {
         let type = "PLAYERW";
         if (this.state == 0) {
             type = "PLAYERW";
         }else if (this.state == 1) {
             type = "PLAYERB";
         }
-        let position = this.getShotPosition(16);
-        let bL = new Bullet(position.x-3,position.y+10, 0,-5,type);
-        let bR = new Bullet(position.x+5,position.y+10, 0,-5,type);
-        this.lstBullets.push(bL);
-        this.lstBullets.push(bR);
+
+        this.gs.bulletsManager.shoot(this.sprShip.x-3,this.sprShip.y,Math.PI/2,-5,type);
+        this.gs.bulletsManager.shoot(this.sprShip.x+5,this.sprShip.y,Math.PI/2,-5,type);
     }
 
     update(dt) {
@@ -53,12 +52,7 @@ class Player {
         this.sprShip.x = this.x + this.vx;
         this.sprShip.y = this.y + this.vy;
         this.x = this.sprShip.x;
-        this.y = this.sprShip.y;
-
-        this.lstBullets.forEach(b => {
-            b.update(dt);
-        });
-        
+        this.y = this.sprShip.y;        
 
         //let position = this.getShotPosition(14);
         //this.sprCanon.x = position.x - 5;
@@ -70,8 +64,5 @@ class Player {
         /*if(this.showCanon) {
             this.sprCanon.draw(pCtx);
         }*/
-        this.lstBullets.forEach(b => {
-            b.draw(pCtx);
-        });
     }
 }

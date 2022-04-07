@@ -21,6 +21,9 @@ class Alien {
     }
 
     update(dt) {
+
+        //console.log(this.gs.bulletsManager);
+
         this.sprite.update(dt);
         this.angle += 10;
         if(this.sprite.y > 0) {
@@ -50,37 +53,27 @@ class Alien {
                     this.canShoot = true;
                     this.shootSpeed = 0.2;
                     break;
+                default:
+                    this.canShoot = false;
+                    break;
+
             }
         }
         
-        if(this.canShoot) {
-            if(this.shootTimer <= 0) {
-                this.shoot(this.shootAngle);
-                this.shootTimer = this.shootSpeed;
-            }
-            this.shootTimer -= dt;
-
-            this.bullets.forEach(b => {
-                b.update(dt);
-                b.isOutSideScreen(this.bullets); 
-                if(isColliding(b.x,b.y,16,16,this.gs.player.x,this.gs.player.y,16,16)) {
-                    console.log("Collide player !");
-                    this.bullets.splice(b,1);
-                }     
-            });
-        }
+        this.shootTimer -= dt;
     }
 
     draw(pCtx) {
         this.sprite.draw(pCtx);
-        this.bullets.forEach(b => {
-            b.draw(pCtx);
-        })
     }
 
-    shoot(pAngle=(3/2)*Math.PI) {
-        let b = new Bullet(this.sprite.x,this.sprite.y,Math.cos(pAngle),5,this.shootType);
-        this.bullets.push(b);
+    fire() {
+        if(this.canShoot) {
+            if(this.shootTimer <= 0) {
+                this.gs.bulletsManager.shoot(this.sprite.x, this.sprite.y, Math.PI/2, 5, this.shootType);
+                this.shootTimer = this.shootSpeed;
+            }
+        }
     }
 }
 
@@ -116,6 +109,7 @@ class AlienWave {
 
             if (alien.started) {
                 alien.update(dt);
+                alien.fire();
                 alien.sprite.y += alien.speed;
                 if(alien.sprite.y > (canvas.height/SCALE) +  alien.sprite.tileSize.y){
                     this.alienList.splice(i,1);

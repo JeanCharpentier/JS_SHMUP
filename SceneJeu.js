@@ -1,17 +1,21 @@
 class SceneJeu {
     constructor() {
-        //this.keyboard = null;
-        this.gs = new GS();
+        this.gs = new GS(); // Game Services
 
         this.imageLoader = null;
         this.imgBackground = null;
 
         this.kbInputs = new Inputs(this.gs);
+        this.bulletsManager = new BulletsManager();
         this.wavesManager = new WavesManager(this.gs);
+        
+        this.gs.setBulletsManager(this.bulletsManager); // Ajoute le Bullets Manager au Game Service
+        this.gs.setWavesManager(this.wavesManager);
     }
 
     load(pImageLoader) {
-        this.gs.setPlayer(new Player(5,100,4));
+        this.gs.setPlayer(new Player(5,100,4,this.gs)); // Créer le Player dans le Game Services
+        console.log(this.gs.wavesManager);
 
         this.imageLoader = pImageLoader;
         this.imgBackground = this.imageLoader.getImage("images/background.png");
@@ -36,8 +40,8 @@ class SceneJeu {
         spriteBoss01.setTileSheet(16,16);
         spriteBoss01.currentFrame = 12;
 
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.5,250,(canvas.width/SCALE)/2,-100,"sine",50,"BRINGW",2));
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBlade,8,0.3,1000,0,-100,"slash",20,"BRINGB",1));
+        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.5,250,(canvas.width/SCALE)/2,-100,"sine",50,"",2));
+        this.wavesManager.addWave(new AlienWave(spriteEnemyBlade,8,0.3,1000,0,-100,"slash",20,"BRINGW",1));
         this.wavesManager.addWave(new AlienWave(spriteEnemyBall,1,0.5,1500,(canvas.width/SCALE)/2,-100,"line",50,"SMALLW",1));
 
         /*// Particules
@@ -52,10 +56,9 @@ class SceneJeu {
         this.kbInputs.update(dt,this.backgroundOverlay);
         this.wavesManager.update(dt,this.backgroundOverlay.distance);
         //this.pEmitter.update(dt);
-        //this.bulletsManager.update();
 
         this.gs.player.update(dt);
-        //console.log(this.backgroundOverlay);
+        this.gs.bulletsManager.update(dt);
     }
 
     draw(pCtx) {
@@ -68,11 +71,10 @@ class SceneJeu {
 
         this.wavesManager.draw(pCtx);
 
-        //this.bulletsManager.draw(pCtx);
-
         //this.pEmitter.draw(pCtx);
 
         this.gs.player.draw(pCtx);
+        this.gs.bulletsManager.draw(pCtx);
 
         pCtx.restore();
     }

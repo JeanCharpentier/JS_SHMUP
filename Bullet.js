@@ -76,12 +76,45 @@ class Bullet extends Sprite {
         this.y += this.vy;
     }
 
-    isOutSideScreen(pListe) {
-        for (let i=pListe.length-1;i==0;i--) {
-            let b=pListe[i];
-            if(b.x<0 || b.x>(canvas.width/SCALE) || b.y<0 || b.y>(canvas.height/SCALE)) {
-                pListe.splice(i,1);
+    outOfScreen(pWidth, pHeight) {
+        if (this.x + this.tileSize.x < 0 || this.y + this.tileSize.y < 0 || this.x > pWidth || this.y > pHeight) {
+            return true;
+        } else { return false; }
+    }
+}
+
+class BulletsManager{
+    constructor() {
+        this.lstBullets = [];
+    }
+
+    clear() {
+        this.lstBullets = [];
+    }
+
+    shoot(px, py, pAngle, pSpeed, pType) {
+        //console.log("angle " + pAngle.toString());
+        let vx, vy;
+        vx = pSpeed * Math.cos(pAngle);
+        vy = pSpeed * Math.sin(pAngle);
+        let b = new Bullet(px, py, vx, vy, pType);
+        this.lstBullets.push(b);
+    }
+
+    update(dt) {
+        for (let index = this.lstBullets.length - 1; index >= 0; index--) {
+            let b = this.lstBullets[index];
+            b.update(dt);
+            if (b.outOfScreen(canvas.width, canvas.height)) {
+                this.lstBullets.splice(index, 1);
+                //console.log("Remove bullet out of screen, reste " + this.lstBullets.length.toString());
             }
-        }   
+        }
+    }
+
+    draw(pCtx) {
+        this.lstBullets.forEach(b => {
+            b.draw(pCtx);
+        });
     }
 }
