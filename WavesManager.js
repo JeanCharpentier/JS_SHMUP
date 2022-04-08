@@ -20,9 +20,6 @@ class Alien {
     }
 
     update(dt) {
-
-        //console.log(this.gs.bulletsManager);
-
         this.sprite.update(dt);
         if(this.sprite.y > 0) {
             switch(this.shootType) {
