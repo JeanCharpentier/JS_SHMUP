@@ -7,6 +7,11 @@ class Player {
         this.sprShip.setTileSheet(16,16);
         this.sprShip.currentFrame = 0;
 
+        let imgLifes = imageLoader.getImage("images/chain.png");
+        this.sprLifes = new Sprite(imgLifes,5,(canvas.height/SCALE)-16);
+        this.sprLifes.setTileSheet(24,16);
+        this.sprLifes.currentFrame = 5;
+
         /*let imgCanon = imageLoader.getImage("images/ShotTiny.png");
         this.sprCanon = new Sprite(imgCanon,pX,pY);
         this.sprCanon.setTileSheet(18,14);
@@ -22,17 +27,10 @@ class Player {
         this.animOffset = pOffset;
         this.canSwap = true;
 
+        this.lifes = 3;
+
         this.showCanon = false;
     }
-
-
-    /*getShotPosition(pBulletHeight) {
-        let position = {x:0,y:0};
-        let midShip = this.x + (this.sprShip.tileSize.x/2) - (pBulletHeight/2);
-        position.y = this.y - (this.sprShip.tileSize.y);
-        position.x = midShip;
-        return position;
-    }*/
 
     fire() {
         let type = "PLAYERW"; // Change le sprite selon l'état du joueur
@@ -61,6 +59,8 @@ class Player {
 
     draw(pCtx) {
         this.sprShip.draw(pCtx);
+
+        this.sprLifes.draw(pCtx);
         /*if(this.showCanon) {
             this.sprCanon.draw(pCtx);
         }*/

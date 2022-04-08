@@ -1,55 +1,69 @@
 class Bullet extends Sprite {
     constructor(px,py,pVX,pVY,pType) {
         let img;
-        img = imageLoader.getImage("images/bullets.png");
-        super(img,px,py);
-        this.setTileSheet(16,16);
-
         switch (pType) {
             case "PLAYERW":
+                img = imageLoader.getImage("images/bullets.png");
+                super(img,px,py);
+                this.setTileSheet(16,16);
                 this.currentFrame = 0;
                 this.friendly = true;
-                this.state = 0;
                 break;
             case "PLAYERB":
+                img = imageLoader.getImage("images/bullets.png");
+                super(img,px,py);
+                this.setTileSheet(16,16);
                 this.currentFrame = 1;
                 this.friendly = true;
-                this.state = 1;
                 break;
             case "SMALLW":
+                img = imageLoader.getImage("images/bullets.png");
+                super(img,px,py);
+                this.setTileSheet(16,16);
                 this.currentFrame = 0;
                 this.friendly = false;
-                this.state = 0;
                 break;
             case "SMALLB":
+                img = imageLoader.getImage("images/bullets.png");
+                super(img,px,py);
+                this.setTileSheet(16,16);
                 this.currentFrame = 1;
                 this.friendly = false;
-                this.state = 1;
                 break;
             case "SRINGW":
+                img = imageLoader.getImage("images/bullets.png");
+                super(img,px,py);
+                this.setTileSheet(16,16);
                 this.currentFrame = 7;
                 this.friendly = false;
-                this.state = 0;
                 break;
             case "SRINGB":
+                img = imageLoader.getImage("images/bullets.png");
+                super(img,px,py);
+                this.setTileSheet(16,16);
                 this.currentFrame = 6;
                 this.friendly = false;
-                this.state = 1;
                 break;
             case "BRINGW":
+                img = imageLoader.getImage("images/bullets.png");
+                super(img,px,py);
+                this.setTileSheet(16,16);
                 this.currentFrame = 5;
                 this.friendly = false;
-                this.state = 0;
                 break;
             case "BRINGB":
+                img = imageLoader.getImage("images/bullets.png");
+                super(img,px,py);
+                this.setTileSheet(16,16);
                 this.currentFrame = 4;
                 this.friendly = false;
-                this.state = 1;
                 break;
             case "BOSS":
+                img = imageLoader.getImage("images/bullets.png");
+                super(img,px,py);
+                this.setTileSheet(16,16);
                 this.currentFrame = 5;
                 this.friendly = false;
-                this.state = 0;
                 break;
             default:
                 console.log("Erreur : Pas de type de bullet");
@@ -100,21 +114,7 @@ class BulletsManager{
             // Collisions
             if(!b.friendly) { // Bullets touchent Joueur
                 if(isColliding(b.x,b.y,b.tileSize.x,b.tileSize.y,this.gs.player.x,this.gs.player.y,this.gs.player.sprShip.tileSize.x,this.gs.player.sprShip.tileSize.y)) {
-                    if(b.state == this.gs.player.state) {
-                        this.lstBullets.splice(index, 1);
-                        if(this.gs.player.sprLifes.currentFrame < 5){
-                            this.gs.player.sprLifes.currentFrame += 1;
-                        }
-                    }else {
-                        this.lstBullets.splice(index, 1);
-                        if(this.gs.player.sprLifes.currentFrame > 0){
-                            this.gs.player.sprLifes.currentFrame -= 1;
-                        }
-                        if(this.gs.player.sprLifes.currentFrame == 0){
-                            console.log("GAME OVER");
-                        }
-                            
-                    }
+                    this.lstBullets.splice(index, 1);
                 }
             }
             

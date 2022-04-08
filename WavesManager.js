@@ -61,8 +61,8 @@ class Alien {
                     break;
                 case "BOSS":
                     this.canShoot = true;
-                    this.shootSpeed = 0.2;
-                    this.angleOffset = 0.05;
+                    this.shootSpeed = 0.5;
+                    this.angleOffset = 0.01;
                     this.nbArms = 4;
                     break;
                 default:
