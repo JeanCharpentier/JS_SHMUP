@@ -16,7 +16,7 @@ class SceneJeu {
     }
 
     load(pImageLoader) {
-        this.gs.setPlayer(new Player(5,100,4,this.gs)); // Créer le Player dans le Game Services
+        this.gs.setPlayer(new Player((canvas.width/SCALE)/2,(canvas.height/SCALE)-50,4,this.gs)); // Créer le Player dans le Game Services
 
         this.imageLoader = pImageLoader;
 
@@ -46,8 +46,8 @@ class SceneJeu {
         sprBossW.setTileSheet(16,16);
         sprBossW.currentFrame = 0;
 
-        this.wavesManager.addWave(new AlienWave(sprEnWSmall,2,0.7,250,(canvas.width/SCALE)/2+30,-100,"sine",10,"SRINGW",1));
-        this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.7,250,(canvas.width/SCALE)/2-30,-100,"sine",10,"SRINGB",1));
+        this.wavesManager.addWave(new AlienWave(sprEnWSmall,5,0.7,250,(canvas.width/SCALE)/2+30,-100,"sine",10,"SRINGW",1));
+        this.wavesManager.addWave(new AlienWave(sprEnWSmall,5 ,0.7,250,(canvas.width/SCALE)/2-30,-100,"sine",10,"SRINGW",1));
         this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.3,1500,0,-100,"slash",20,"SRINGB",1));
         this.wavesManager.addWave(new AlienWave(sprBossB,1,0.5,2000,(canvas.width/SCALE)/2,-100,"boss",50,"BOSSB",0.4));
     }

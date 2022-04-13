@@ -9,7 +9,7 @@ class Player {
 
         let imgLifes = imageLoader.getImage("images/chain.png");
         this.sprLifes = new Sprite(imgLifes,5,(canvas.height/SCALE)-16);
-        this.sprLifes.setTileSheet(24,16);
+        this.sprLifes.setTileSheet(48,16);
         this.sprLifes.currentFrame = 5;
 
         this.x = this.sprShip.x;
