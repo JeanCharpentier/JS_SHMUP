@@ -98,6 +98,7 @@ class BulletsManager{
                 if(isColliding(b.x,b.y,b.tileSize.x,b.tileSize.y,this.gs.player.x,this.gs.player.y,this.gs.player.sprShip.tileSize.x,this.gs.player.sprShip.tileSize.y)) {
                     if(b.state == this.gs.player.state) {
                         this.lstBullets.splice(index, 1);
+                        this.gs.player.score++;
                         if(this.gs.player.sprLifes.currentFrame < 5){
                             this.gs.player.sprLifes.currentFrame += 1;
                         }
@@ -126,7 +127,8 @@ class BulletsManager{
                                 this.pEmitter = new ParticleEmitter(b.x,b.y);
                                 for (let n=0;n<=50;n++) {
                                     this.pEmitter.add();
-                                }
+                                }                            
+                                this.gs.player.score += w.alienList[n].points; // Ajout des points au joueur
                                 w.alienList.splice(n,1);
                             }
                             

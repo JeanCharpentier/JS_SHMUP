@@ -12,12 +12,6 @@ class Player {
         this.sprLifes.setTileSheet(24,16);
         this.sprLifes.currentFrame = 5;
 
-        /*let imgCanon = imageLoader.getImage("images/ShotTiny.png");
-        this.sprCanon = new Sprite(imgCanon,pX,pY);
-        this.sprCanon.setTileSheet(18,14);
-        this.sprCanon.addAnimation("idle", [0,1], 0.2, true);
-        this.sprCanon.startAnimation("idle");*/
-
         this.x = this.sprShip.x;
         this.y = this.sprShip.y;
         this.vx = 0;
@@ -30,6 +24,7 @@ class Player {
         this.lifes = 3;
 
         this.showCanon = false;
+        this.score = 0;
     }
 
     fire() {
@@ -46,23 +41,19 @@ class Player {
 
     update(dt) {
         this.sprShip.update(dt);
-        //this.sprCanon.update(dt);
         this.sprShip.x = this.x + this.vx;
         this.sprShip.y = this.y + this.vy;
         this.x = this.sprShip.x;
         this.y = this.sprShip.y;        
-
-        //let position = this.getShotPosition(14);
-        //this.sprCanon.x = position.x - 5;
-        //this.sprCanon.y = position.y;
     }
 
     draw(pCtx) {
         this.sprShip.draw(pCtx);
 
         this.sprLifes.draw(pCtx);
-        /*if(this.showCanon) {
-            this.sprCanon.draw(pCtx);
-        }*/
+        pCtx.fillStyle = "White";
+        pCtx.textAlign = "right";
+        pCtx.font = "normal "+ 16/SCALE + "pt Arial";
+        pCtx.fillText("Score : " + this.score,(canvas.width/SCALE)-(10/SCALE),20/SCALE);
     }
 }

@@ -6,6 +6,7 @@ class Alien {
         this.speed = 1;
         this.started = false;
         this.life = 1;
+        this.points = 0;
 
         this.gs = pGS;
 
@@ -33,13 +34,13 @@ class Alien {
         switch(this.shootType) {
             case "BOSSW":
                 this.shootSpeed = 0.2;
-                this.angleOffset = 0.01;
-                this.nbArms = 4;
+                this.nbArms = 10;
+                this.angleOffset = ((2*Math.PI)/this.nbArms)/10;
                 break;
             case "BOSSB":
-                this.shootSpeed = 0.2;
-                this.angleOffset = 0.01;
-                this.nbArms = 4;
+                this.shootSpeed = 0.05;
+                this.nbArms = 10;
+                this.angleOffset = ((2*Math.PI)/this.nbArms)/10;    
                 break;
             case "SRINGW":
                 this.shootSpeed = 0.4;
@@ -166,18 +167,22 @@ class WavesManager {
                     alien.sprite.x = pWave.x + (Math.sin(i)*pWave.shapePower);
                     alien.amplitude = 0.5;
                     alien.life = 3;
+                    alien.points = 30;
                     break;
                 case "slash":
                     alien.sprite.x = pWave.x + (i*pWave.shapePower);
                     alien.life = 10;
+                    alien.points = 10;
                     break;
                 case "circle":
                     alien.sprite.x = pWave.x;
                     alien.amplitude = 0.5;
+                    alien.points = 30;
                     break;
                 case "boss":
                     alien.sprite.x = pWave.x;
                     alien.life = 100;
+                    alien.points = 500;
                 default:
                     alien.sprite.x = pWave.x;
                     break;
