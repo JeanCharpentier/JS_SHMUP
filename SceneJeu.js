@@ -27,36 +27,35 @@ class SceneJeu {
         this.backgroundOverlay = new ScrollingBackground(this.imgBackgroundOverlay);
         this.backgroundOverlay.setSpeed(1.5);
 
+        // Création des ennemis
         let imgEnemies = this.imageLoader.getImage("images/enemies.png");
 
-        let spriteEnemyBall = new Sprite(imgEnemies);
-        spriteEnemyBall.setTileSheet(16,16);
-        spriteEnemyBall.currentFrame = 0;
+        let sprEnWSmall = new Sprite(imgEnemies);
+        sprEnWSmall.setTileSheet(16,16);
+        sprEnWSmall.currentFrame = 8;
 
-        let spriteEnemyBlade = new Sprite(imgEnemies);
-        spriteEnemyBlade.setTileSheet(16,16);
-        spriteEnemyBlade.currentFrame = 1;
+        let sprEnBSmall = new Sprite(imgEnemies);
+        sprEnBSmall.setTileSheet(16,16);
+        sprEnBSmall.currentFrame = 13;
 
-        let spriteBoss01 = new Sprite(imgEnemies);
-        spriteBoss01.setTileSheet(16,16);
-        spriteBoss01.currentFrame = 12;
+        let sprBossB = new Sprite(imgEnemies);
+        sprBossB.setTileSheet(16,16);
+        sprBossB.currentFrame = 4;
 
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.5,250,(canvas.width/SCALE)/2,-100,"circle",10,"SMALLB",1));
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBlade,8,0.3,1000,0,-100,"slash",20,"BRINGW",1));
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,1,0.5,1000,(canvas.width/SCALE)/2,-100,"line",50,"BOSS",0.1));
+        let sprBossW = new Sprite(imgEnemies);
+        sprBossW.setTileSheet(16,16);
+        sprBossW.currentFrame = 0;
 
-        // Particules
-        /*this.pEmitter = new ParticleEmitter(100,100);
-        for (let n=0;n<=50;n++) {
-            this.pEmitter.add();
-        }*/
+        this.wavesManager.addWave(new AlienWave(sprEnWSmall,8,0.7,250,(canvas.width/SCALE)/2+30,-100,"sine",10,"SRINGW",1));
+        this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.7,250,(canvas.width/SCALE)/2-30,-100,"sine",10,"SRINGB",1));
+        this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.3,1500,0,-100,"slash",20,"SRINGB",1));
+        this.wavesManager.addWave(new AlienWave(sprBossB,1,0.5,2000,(canvas.width/SCALE)/2,-100,"boss",50,"BOSSB",0.4));
     }
 
     update(dt) {
         this.backgroundOverlay.update(dt);
         this.kbInputs.update(dt,this.backgroundOverlay);
         this.wavesManager.update(dt,this.backgroundOverlay.distance);
-        //this.pEmitter.update(dt);
 
         this.gs.player.update(dt);
         this.gs.bulletsManager.update(dt);
@@ -71,8 +70,6 @@ class SceneJeu {
         this.backgroundOverlay.draw(pCtx);
 
         this.wavesManager.draw(pCtx);
-
-        //this.pEmitter.draw(pCtx);
 
         this.gs.player.draw(pCtx);
         this.gs.bulletsManager.draw(pCtx);

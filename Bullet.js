@@ -16,16 +16,6 @@ class Bullet extends Sprite {
                 this.friendly = true;
                 this.state = 1;
                 break;
-            case "SMALLW":
-                this.currentFrame = 0;
-                this.friendly = false;
-                this.state = 0;
-                break;
-            case "SMALLB":
-                this.currentFrame = 1;
-                this.friendly = false;
-                this.state = 1;
-                break;
             case "SRINGW":
                 this.currentFrame = 7;
                 this.friendly = false;
@@ -46,10 +36,15 @@ class Bullet extends Sprite {
                 this.friendly = false;
                 this.state = 1;
                 break;
-            case "BOSS":
+            case "BOSSW":
                 this.currentFrame = 5;
                 this.friendly = false;
                 this.state = 0;
+                break;
+            case "BOSSB":
+                this.currentFrame = 6;
+                this.friendly = false;
+                this.state = 1;
                 break;
             default:
                 console.log("Erreur : Pas de type de bullet");
@@ -123,14 +118,18 @@ class BulletsManager{
                 this.gs.wavesManager.wavesList.forEach(w => {
                     for (let n=w.alienList.length-1;n>=0;n--) {
                         if(isColliding(b.x,b.y,b.tileSize.x,b.tileSize.y,w.alienList[n].sprite.x,w.alienList[n].sprite.y,w.alienList[n].sprite.tileSize.x,w.alienList[n].sprite.tileSize.y)) {
-                            // Particules
-                            this.pEmitter = new ParticleEmitter(b.x,b.y);
-                            for (let n=0;n<=50;n++) {
-                                this.pEmitter.add();
-                                console.log("particles!");
-                            }
                             this.lstBullets.splice(index, 1);
-                            w.alienList.splice(n,1);
+                            if(w.alienList[n].life > 0) {
+                                w.alienList[n].life--;
+                            }else {
+                                // Particules
+                                this.pEmitter = new ParticleEmitter(b.x,b.y);
+                                for (let n=0;n<=50;n++) {
+                                    this.pEmitter.add();
+                                }
+                                w.alienList.splice(n,1);
+                            }
+                            
                         }
                     }
                 });

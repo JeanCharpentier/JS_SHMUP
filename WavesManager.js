@@ -5,6 +5,7 @@ class Alien {
         this.timer = 0;
         this.speed = 1;
         this.started = false;
+        this.life = 1;
 
         this.gs = pGS;
 
@@ -15,65 +16,12 @@ class Alien {
         this.amplitude = 0;
 
         this.shootType = null;
-        this.canShoot = false;
         this.shootSpeed = 2;
-        this.shootTimer = 0;
-        
+        this.shootTimer = 0;       
     }
 
     update(dt) {
-        this.sprite.update(dt);
-        if(this.sprite.y > 0) {
-            switch(this.shootType) {
-                case "SMALLW":
-                    this.canShoot = true;
-                    this.shootSpeed = 0.1;
-                    this.angleOffset = 0;
-                    this.nbArms = 1;
-                    break;
-                case "SMALLB":
-                    this.canShoot = true;
-                    this.shootSpeed = 0.2;
-                    this.angleOffset = 0;
-                    this.nbArms = 1;
-                    break;
-                case "SRINGW":
-                    this.canShoot = true;
-                    this.shootSpeed = 0.2;
-                    this.angleOffset = 0;
-                    this.nbArms = 1;
-                    break;
-                case "SRINGB":
-                    this.canShoot = true;
-                    this.shootSpeed = 0.2;
-                    this.angleOffset = 0;
-                    this.nbArms = 1;
-                    break;
-                case "BRINGW":
-                    this.canShoot = true;
-                    this.shootSpeed = 0.2;
-                    this.angleOffset = 0;
-                    this.nbArms = 1;
-                    break;
-                case "BRINGB":
-                    this.canShoot = true;
-                    this.shootSpeed = 0.2;
-                    this.angleOffset = 0;
-                    this.nbArms = 1;
-                    break;
-                case "BOSS":
-                    this.canShoot = true;
-                    this.shootSpeed = 0.5;
-                    this.angleOffset = 0.01;
-                    this.nbArms = 4;
-                    break;
-                default:
-                    this.canShoot = false;
-                    break;
-
-            }
-        }
-        
+        this.sprite.update(dt);        
         this.shootTimer -= dt;
     }
 
@@ -82,7 +30,34 @@ class Alien {
     }
 
     fire() {
-        if(this.canShoot) {
+        switch(this.shootType) {
+            case "BOSSW":
+                this.shootSpeed = 0.2;
+                this.angleOffset = 0.01;
+                this.nbArms = 4;
+                break;
+            case "BOSSB":
+                this.shootSpeed = 0.2;
+                this.angleOffset = 0.01;
+                this.nbArms = 4;
+                break;
+            case "SRINGW":
+                this.shootSpeed = 0.4;
+                break;
+            case "SRINGB":
+                this.shootSpeed = 0.4;
+                break;
+            case "BRINGW":
+                this.shootSpeed = 0.5;
+                break;
+            case "BRINGB":
+                this.shootSpeed = 0.5;
+                break;
+            default:
+                break;
+        }
+
+        if(this.shootType != "NONE") {
             if(this.shootTimer <= 0) {
                 if(this.nbArms != 1) {
                     for(let i=1;i<=this.nbArms;i++){
@@ -100,7 +75,7 @@ class Alien {
 }
 
 class AlienWave {
-    constructor(pSprite,pNumber,pPendingDelay,pStartDistance,pX,pY,pShape="line",pShapePower=10,pShoot="",pSpeed=1) {
+    constructor(pSprite,pNumber,pPendingDelay,pStartDistance,pX,pY,pShape="line",pShapePower=10,pShoot=null,pSpeed=1) {
         this.alienList = [];
         this.startDistance = pStartDistance;
         this.started = false;
@@ -144,7 +119,10 @@ class AlienWave {
                         break;
                 }
                 alien.update(dt);
-                alien.fire();
+                if(this.shootType != "NONE") {
+                    alien.fire();
+                }
+                
                 alien.sprite.y += alien.speed;
                 if(alien.sprite.y > (canvas.height/SCALE) +  alien.sprite.tileSize.y){
                     this.alienList.splice(i,1);
@@ -182,16 +160,27 @@ class WavesManager {
             alien.sprite.y = pWave.y;
             alien.shootType = pWave.shootType;
             alien.speed = pWave.speed;
-            if(pWave.shape == "line") {
-                alien.sprite.x = pWave.x;
-            }else if (pWave.shape == "sine") {
-                alien.sprite.x = pWave.x + (Math.sin(i)*pWave.shapePower);
-                alien.amplitude = 0.5;
-            }else if (pWave.shape == "slash") {
-                alien.sprite.x = pWave.x + (i*pWave.shapePower);
-            }else if(pWave.shape == "circle") {
-                alien.sprite.x = pWave.x;
-                alien.amplitude = 0.5;
+
+            switch(pWave.shape) {
+                case "sine":
+                    alien.sprite.x = pWave.x + (Math.sin(i)*pWave.shapePower);
+                    alien.amplitude = 0.5;
+                    alien.life = 3;
+                    break;
+                case "slash":
+                    alien.sprite.x = pWave.x + (i*pWave.shapePower);
+                    alien.life = 10;
+                    break;
+                case "circle":
+                    alien.sprite.x = pWave.x;
+                    alien.amplitude = 0.5;
+                    break;
+                case "boss":
+                    alien.sprite.x = pWave.x;
+                    alien.life = 100;
+                default:
+                    alien.sprite.x = pWave.x;
+                    break;
             }
             alien.pendingDelay = i * pWave.pendingDelay;
             pWave.addAlien(alien);
