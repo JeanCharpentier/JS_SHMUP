@@ -135,6 +135,10 @@ class AlienWave {
                     case "sine":
                         alien.sprite.x += (Math.sin(alien.sprite.y/40)*alien.amplitude);
                         break;
+                    case "circle":
+                        alien.sprite.x += (Math.sin(alien.sprite.y/40)*alien.amplitude);
+                        //alien.sprite.y += (Math.cos(alien.sprite.x/40)*alien.amplitude);
+                        break;
                     default :
                         alien.sprite.x += 0;
                         break;
@@ -185,6 +189,9 @@ class WavesManager {
                 alien.amplitude = 0.5;
             }else if (pWave.shape == "slash") {
                 alien.sprite.x = pWave.x + (i*pWave.shapePower);
+            }else if(pWave.shape == "circle") {
+                alien.sprite.x = pWave.x;
+                alien.amplitude = 0.5;
             }
             alien.pendingDelay = i * pWave.pendingDelay;
             pWave.addAlien(alien);

@@ -76,6 +76,7 @@ class Bullet extends Sprite {
 class BulletsManager{
     constructor(pGS) {
         this.lstBullets = [];
+        this.pEmitter = null;
         this.gs = pGS;
     }
 
@@ -122,6 +123,12 @@ class BulletsManager{
                 this.gs.wavesManager.wavesList.forEach(w => {
                     for (let n=w.alienList.length-1;n>=0;n--) {
                         if(isColliding(b.x,b.y,b.tileSize.x,b.tileSize.y,w.alienList[n].sprite.x,w.alienList[n].sprite.y,w.alienList[n].sprite.tileSize.x,w.alienList[n].sprite.tileSize.y)) {
+                            // Particules
+                            this.pEmitter = new ParticleEmitter(b.x,b.y);
+                            for (let n=0;n<=50;n++) {
+                                this.pEmitter.add();
+                                console.log("particles!");
+                            }
                             this.lstBullets.splice(index, 1);
                             w.alienList.splice(n,1);
                         }
@@ -132,11 +139,17 @@ class BulletsManager{
                 this.lstBullets.splice(index, 1);
             }
         }
+        if(this.pEmitter != null) {
+            this.pEmitter.update(dt);
+        }
     }
 
     draw(pCtx) {
         this.lstBullets.forEach(b => {
             b.draw(pCtx);
         });
+        if(this.pEmitter != null) {
+            this.pEmitter.draw(pCtx);
+        }
     }
 }
