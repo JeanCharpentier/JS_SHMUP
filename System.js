@@ -24,6 +24,8 @@ function isColliding(px1,py1,pw1,ph1,px2,py2,pw2,ph2){
     }
 }
 
+
+
 class GS{
     constructor() {
         this.player = null;

@@ -12,6 +12,8 @@ class Alien {
         this.angleOffset = 0;
         this.nbArms = 1;
 
+        this.amplitude = 0;
+
         this.shootType = null;
         this.canShoot = false;
         this.shootSpeed = 2;
@@ -118,6 +120,7 @@ class AlienWave {
     }
 
     update(dt) {
+        
         for (let i=this.alienList.length-1;i>=0;i--){
             let alien = this.alienList[i];
             if(alien.started == false) {
@@ -128,6 +131,14 @@ class AlienWave {
             }
 
             if (alien.started) {
+                switch(this.shape){
+                    case "sine":
+                        alien.sprite.x += (Math.sin(alien.sprite.y/40)*alien.amplitude);
+                        break;
+                    default :
+                        alien.sprite.x += 0;
+                        break;
+                }
                 alien.update(dt);
                 alien.fire();
                 alien.sprite.y += alien.speed;
@@ -171,6 +182,7 @@ class WavesManager {
                 alien.sprite.x = pWave.x;
             }else if (pWave.shape == "sine") {
                 alien.sprite.x = pWave.x + (Math.sin(i)*pWave.shapePower);
+                alien.amplitude = 0.5;
             }else if (pWave.shape == "slash") {
                 alien.sprite.x = pWave.x + (i*pWave.shapePower);
             }

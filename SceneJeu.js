@@ -15,7 +15,6 @@ class SceneJeu {
 
     load(pImageLoader) {
         this.gs.setPlayer(new Player(5,100,4,this.gs)); // Créer le Player dans le Game Services
-        console.log(this.gs.wavesManager);
 
         this.imageLoader = pImageLoader;
         this.imgBackground = this.imageLoader.getImage("images/background.png");
@@ -40,7 +39,7 @@ class SceneJeu {
         spriteBoss01.setTileSheet(16,16);
         spriteBoss01.currentFrame = 12;
 
-        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.5,250,(canvas.width/SCALE)/2,-100,"sine",50,"SMALLB",1));
+        this.wavesManager.addWave(new AlienWave(spriteEnemyBall,8,0.5,250,(canvas.width/SCALE)/2,-100,"sine",10,"SMALLB",1));
         this.wavesManager.addWave(new AlienWave(spriteEnemyBlade,8,0.3,1000,0,-100,"slash",20,"BRINGW",1));
         this.wavesManager.addWave(new AlienWave(spriteEnemyBall,1,0.5,1500,(canvas.width/SCALE)/2,-100,"line",50,"BOSS",1));
 
