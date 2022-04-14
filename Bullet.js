@@ -95,14 +95,25 @@ class BulletsManager{
 
             // Collisions
             if(!b.friendly) { // Bullets touchent Joueur
-                if(isColliding(b.x,b.y,b.tileSize.x,b.tileSize.y,this.gs.player.x,this.gs.player.y,this.gs.player.sprShip.tileSize.x,this.gs.player.sprShip.tileSize.y)) {
-                    if(b.state == this.gs.player.state) {
+                let boxPlayer = {
+                    x: this.gs.player.sprShip.tileSize.x/4,
+                    y: this.gs.player.sprShip.tileSize.y/4
+                }
+                let boxBullet = {
+                    x: b.tileSize.x/4,
+                    y: b.tileSize.y/4
+                }
+                if(isColliding(b.x+boxBullet.x,b.y+boxBullet.y,b.tileSize.x-boxBullet.x,b.tileSize.y-boxBullet.y,this.gs.player.x+boxPlayer.x,this.gs.player.y+boxPlayer.y,this.gs.player.sprShip.tileSize.x-boxPlayer.x,this.gs.player.sprShip.tileSize.y-boxPlayer.y)) {
+                    this.pEmitter = new ParticleEmitter(this.gs.player.x+(this.gs.player.sprShip.tileSize.x/2),this.gs.player.y+(this.gs.player.sprShip.tileSize.y/2),"black","darkred");
+                    this.pEmitter.add(4); 
+
+                    if(b.state == this.gs.player.state) { // Si les bullets sont du même type que l'état du joueur, on score + recharge la vie
                         this.lstBullets.splice(index, 1);
                         this.gs.player.score++;
                         if(this.gs.player.sprLifes.currentFrame < 5){
                             this.gs.player.sprLifes.currentFrame += 1;
                         }
-                    }else {
+                    }else { // Sinon le joueur pert de la vie
                         this.lstBullets.splice(index, 1);
                         if(this.gs.player.sprLifes.currentFrame > 0){
                             this.gs.player.sprLifes.currentFrame -= 1;
@@ -122,11 +133,11 @@ class BulletsManager{
                             this.lstBullets.splice(index, 1);
                             if(w.alienList[n].life > 0) {
                                 w.alienList[n].life--;
-                                this.pEmitter = new ParticleEmitter(b.x,b.y,"#e6007e","orange");
+                                this.pEmitter = new ParticleEmitter(b.x+(b.tileSize.x/2),b.y+(b.tileSize.y/2),"#e6007e","orange");
                                 this.pEmitter.add(4); 
                             }else {
                                 // Particules
-                                this.pEmitter = new ParticleEmitter(b.x,b.y,"grey","darkgrey");
+                                this.pEmitter = new ParticleEmitter(b.x+(b.tileSize.x/2),b.y+(b.tileSize.y/2),"grey","darkgrey");
                                 this.pEmitter.add(20);   
                                 
                                 //Score
