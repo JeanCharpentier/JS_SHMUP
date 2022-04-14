@@ -122,13 +122,16 @@ class BulletsManager{
                             this.lstBullets.splice(index, 1);
                             if(w.alienList[n].life > 0) {
                                 w.alienList[n].life--;
+                                this.pEmitter = new ParticleEmitter(b.x,b.y,"#e6007e","orange");
+                                this.pEmitter.add(4); 
                             }else {
                                 // Particules
-                                this.pEmitter = new ParticleEmitter(b.x,b.y);
-                                for (let n=0;n<=50;n++) {
-                                    this.pEmitter.add();
-                                }                            
+                                this.pEmitter = new ParticleEmitter(b.x,b.y,"grey","darkgrey");
+                                this.pEmitter.add(20);   
+                                
+                                //Score
                                 this.gs.player.score += w.alienList[n].points; // Ajout des points au joueur
+                                
                                 w.alienList.splice(n,1);
                             }
                             
