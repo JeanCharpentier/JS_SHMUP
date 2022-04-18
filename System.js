@@ -7,15 +7,6 @@ function rnd(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-/*function drawParticles(pCtx,pX,pY,pRadius,pColor="white",pBorder="white") {
-    pCtx.beginPath();
-        pCtx.strokeStyle = pBorder;
-        pCtx.arc(pX,pY,pRadius,0,2*Math.PI);
-        pCtx.fillStyle = pColor;
-        pCtx.fill();
-        pCtx.stroke();
-}*/
-
 function isColliding(px1,py1,pw1,ph1,px2,py2,pw2,ph2){
     if(px1<px2+pw2 && px2<px1+pw1 && py1<py2+ph2 && py2<py1+ph1) {
         return true;

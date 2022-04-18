@@ -25,6 +25,8 @@ class Player {
 
         this.showCanon = false;
         this.score = 0;
+
+        this.powerup = "";
     }
 
     fire() {
@@ -34,7 +36,10 @@ class Player {
         }else if (this.state == 1) {
             type = "PLAYERB";
         }
-
+        if(this.powerup == "QUAD") {
+            this.gs.bulletsManager.shoot(this.sprShip.x-8,this.sprShip.y,Math.PI/2,-5,type);
+            this.gs.bulletsManager.shoot(this.sprShip.x+10,this.sprShip.y,Math.PI/2,-5,type);
+        }
         this.gs.bulletsManager.shoot(this.sprShip.x-3,this.sprShip.y,Math.PI/2,-5,type);
         this.gs.bulletsManager.shoot(this.sprShip.x+5,this.sprShip.y,Math.PI/2,-5,type);
     }

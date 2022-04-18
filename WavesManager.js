@@ -18,12 +18,18 @@ class Alien {
 
         this.shootType = null;
         this.shootSpeed = 2;
-        this.shootTimer = 0;       
+        this.shootTimer = 0;   
+        
+        this.collidePlayer = false;
     }
 
     update(dt) {
         this.sprite.update(dt);        
         this.shootTimer -= dt;
+
+        if(isColliding(this.sprite.x,this.sprite.y,this.sprite.tileSize.x,this.sprite.tileSize.y,this.gs.player.x,this.gs.player.y,this.gs.player.sprShip.tileSize.x,this.gs.player.sprShip.tileSize.y)) {
+            this.collidePlayer = true;
+        }
     }
 
     draw(pCtx) {
@@ -119,15 +125,22 @@ class AlienWave {
                         alien.sprite.x += 0;
                         break;
                 }
-                alien.update(dt);
-                if(this.shootType != "NONE") {
+                
+                if(this.shootType != "NONE") { // Tire si il peut tirer
                     alien.fire();
                 }
-                
-                alien.sprite.y += alien.speed;
-                if(alien.sprite.y > (canvas.height/SCALE) +  alien.sprite.tileSize.y){
+
+                if(alien.sprite.y > (canvas.height/SCALE) +  alien.sprite.tileSize.y){ // Sortie bas de l'écran
                     this.alienList.splice(i,1);
                 }
+
+                if(alien.collidePlayer) {
+                    this.alienList.splice(i,1);
+                }
+                alien.sprite.y += alien.speed;
+                alien.update(dt);
+
+
             }
         }
     }

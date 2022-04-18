@@ -8,11 +8,9 @@ class SceneJeu {
         this.kbInputs = new Inputs(this.gs);
         this.bulletsManager = new BulletsManager(this.gs);
         this.wavesManager = new WavesManager(this.gs);
-       // this.pEmitter = new ParticleEmitter(100,100);
         
         this.gs.setBulletsManager(this.bulletsManager); // Ajoute le Bullets Manager au Game Service
         this.gs.setWavesManager(this.wavesManager);
-        //this.gs.setPartEmitter();
     }
 
     load(pImageLoader) {
