@@ -23,6 +23,7 @@ class GS{
         this.bulletsManager = null;
         this.wavesManager = null;
         this.partEmitter = null;
+        this.puManager = null;
     }
 
     setPlayer(pPlayer){
@@ -37,6 +38,10 @@ class GS{
     }
     setPartEmitter(pEmitter) {
         this.partEmitter = pEmitter;
+    }
+
+    setPUManager(pPUManager) {
+        this.puManager = pPUManager;
     }
 }
 

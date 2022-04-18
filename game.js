@@ -33,6 +33,8 @@ function load() {
 
     imageLoader.add("images/explosion.png");
 
+    imageLoader.add("images/powerups.png");
+
     imageLoader.start(startGame);
 }
 

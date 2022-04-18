@@ -54,9 +54,8 @@ class Player {
 
     draw(pCtx) {
         this.sprShip.draw(pCtx);
-
         this.sprLifes.draw(pCtx);
-        pCtx.fillStyle = "White";
+        pCtx.fillStyle = "Orange";
         pCtx.textAlign = "right";
         pCtx.font = "normal "+ 16/SCALE + "pt Arial";
         pCtx.fillText("Score : " + this.score,(canvas.width/SCALE)-(10/SCALE),20/SCALE);

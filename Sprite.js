@@ -23,7 +23,7 @@ class Sprite {
     addAnimation(pName, pFrames, pSpeed, pLoop = true) {
         let animation = {
             name: pName,
-            frames: pFrames,    // Exemple : [10,11,12,13]
+            frames: pFrames,
             speed: pSpeed,
             loop: pLoop,
             end: false

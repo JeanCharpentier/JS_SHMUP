@@ -135,7 +135,14 @@ class BulletsManager{
                                 w.alienList[n].life--;
                                 this.pEmitter = new ParticleEmitter(b.x+(b.tileSize.x/2),b.y+(b.tileSize.y/2),"#e6007e","orange");
                                 this.pEmitter.add(4); 
-                            }else {
+                            }else { // Kill enemy
+                                // Loots
+                                let loot = rnd(0,10);
+                                if(loot < 1) {
+                                    this.gs.puManager.addPowerup(b.x,b.y,"QUAD");
+                                }
+                                
+
                                 // Particules
                                 this.pEmitter = new ParticleEmitter(b.x+(b.tileSize.x/2),b.y+(b.tileSize.y/2),"grey","darkgrey");
                                 this.pEmitter.add(20);   

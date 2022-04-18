@@ -5,18 +5,25 @@ class SceneJeu {
         this.imageLoader = null;
         this.imgBackground = null;
 
+        this.puManager = new PowerupManager();
+
         this.kbInputs = new Inputs(this.gs);
         this.bulletsManager = new BulletsManager(this.gs);
         this.wavesManager = new WavesManager(this.gs);
         
         this.gs.setBulletsManager(this.bulletsManager); // Ajoute le Bullets Manager au Game Service
         this.gs.setWavesManager(this.wavesManager);
+        this.gs.setPUManager(this.puManager);
     }
 
     load(pImageLoader) {
+        this.imageLoader = pImageLoader;
+
+        //this.tmpPU = new Powerup(10,10); // REMOVE
+
         this.gs.setPlayer(new Player((canvas.width/SCALE)/2,(canvas.height/SCALE)-50,4,this.gs)); // Créer le Player dans le Game Services
 
-        this.imageLoader = pImageLoader;
+        
 
         this.imgBackground = this.imageLoader.getImage("images/background.png");
         this.background = new Sprite(this.imgBackground,0,0);
@@ -51,10 +58,13 @@ class SceneJeu {
     }
 
     update(dt) {
+
+        //this.tmpPU.update(dt); // REMOVE
         this.backgroundOverlay.update(dt);
         this.kbInputs.update(dt,this.backgroundOverlay);
         this.wavesManager.update(dt,this.backgroundOverlay.distance);
 
+        this.puManager.update(dt);
         this.gs.player.update(dt);
         this.gs.bulletsManager.update(dt);
     }
@@ -63,11 +73,17 @@ class SceneJeu {
         pCtx.save();
         pCtx.scale(SCALE, SCALE);
 
+        
+
         // Dessine le fond qui scrolle
         this.background.draw(pCtx);
         this.backgroundOverlay.draw(pCtx);
 
+        //this.tmpPU.draw(pCtx); // REMOVE
+
         this.wavesManager.draw(pCtx);
+
+        this.puManager.draw(pCtx);
 
         this.gs.player.draw(pCtx);
         this.gs.bulletsManager.draw(pCtx);
