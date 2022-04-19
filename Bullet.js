@@ -123,7 +123,7 @@ class BulletsManager{
                                 this.gs.player.lifes--;
                                 this.gs.player.sprEnergy.currentFrame = 5;
 
-                                this.gs.player.sprShip.changeAnimLoop("blink",true);
+                                //this.gs.player.sprShip.changeAnimLoop("blink",true);
                                 this.gs.player.sprShip.startAnimation("blink");
                             }else {
                                 console.warn("GAME OVER");

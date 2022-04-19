@@ -10,7 +10,7 @@ class Player {
         this.sprShip = new Sprite(imgShip,pX,pY);
         this.sprShip.setTileSheet(16,16);
         this.sprShip.currentFrame = 0;
-        this.sprShip.addAnimation("blink",[0+this.animOffset,3+this.animOffset],0.15,false);
+        this.sprShip.addAnimation("blink",[0+this.animOffset,3+this.animOffset],0.15,5);
 
         let imgEnergy = imageLoader.getImage("images/energy.png");
         this.sprEnergy = new Sprite(imgEnergy,5,(canvas.height/SCALE)-16);

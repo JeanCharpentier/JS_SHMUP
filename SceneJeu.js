@@ -44,7 +44,7 @@ class SceneJeu {
         let sprBossB = new Sprite(imgBosses);
         sprBossB.setTileSheet(32,32);
         sprBossB.currentFrame = 0;
-        sprBossB.addAnimation("spin",[0,1,2,3],0.1,true);
+        sprBossB.addAnimation("spin",[0,1,2,3],0.1,0);
         sprBossB.startAnimation("spin");
 
         let sprBossW = new Sprite(imgBosses);

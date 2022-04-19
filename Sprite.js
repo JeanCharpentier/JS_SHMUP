@@ -20,7 +20,7 @@ class Sprite {
         this.animations = [];
     }
 
-    addAnimation(pName, pFrames, pSpeed, pLoop = true) {
+    addAnimation(pName, pFrames, pSpeed, pLoop=0) {
         let animation = {
             name: pName,
             frames: pFrames,
@@ -69,19 +69,26 @@ class Sprite {
     update(dt) {
         if (this.currentAnimation != null) {
             this.frameTimer += dt;
-            if (this.frameTimer >= this.currentAnimation.speed) {
-                this.frameTimer = 0;
-                this.currentFrameInAnimation++;
-                if (this.currentFrameInAnimation > this.currentAnimation.frames.length - 1) {
-                    if (this.currentAnimation.loop) {
-                        this.currentFrameInAnimation = 0;
+            if(!this.currentAnimation.end) {
+                if (this.frameTimer >= this.currentAnimation.speed) {
+                    this.frameTimer = 0;
+                    this.currentFrameInAnimation++;
+                    if (this.currentFrameInAnimation > this.currentAnimation.frames.length - 1) {
+                        if (this.currentAnimation.loop == 0) {
+                            this.currentFrameInAnimation = 0;
+                        }
+                        else {
+                            if(this.currentAnimation.loop > 1) {
+                                this.currentAnimation.loop--;
+                                this.currentFrameInAnimation = this.currentAnimation.frames.length - 1;
+                            }else {
+                                this.currentAnimation.end = true;
+                            }
+                            
+                        }
                     }
-                    else {
-                        this.currentFrameInAnimation = this.currentAnimation.frames.length - 1;
-                        this.currentAnimation.end = true;
-                    }
+                    this.currentFrame = this.currentAnimation.frames[this.currentFrameInAnimation];
                 }
-                this.currentFrame = this.currentAnimation.frames[this.currentFrameInAnimation];
             }
         }
     }
