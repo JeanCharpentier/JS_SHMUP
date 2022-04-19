@@ -31,6 +31,14 @@ class Sprite {
         this.animations.push(animation);
     }
 
+    changeAnimLoop(pName,pLoop) {
+        this.animations.forEach(e => {
+            if(e.name == pName) {
+                e.loop = pLoop;
+            }
+        });
+    }
+
     startAnimation(pName) {
         if (this.currentAnimation != null) {
             if (this.currentAnimation.name == pName) {

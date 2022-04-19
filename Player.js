@@ -2,11 +2,15 @@ class Player {
     constructor(pX,pY,pOffset,pGS) {
         this.gs = pGS;
 
+        this.state = 0;
+        this.animOffset = pOffset;
+        this.canSwap = true;
+
         let imgShip = imageLoader.getImage("images/player.png");
         this.sprShip = new Sprite(imgShip,pX,pY);
         this.sprShip.setTileSheet(16,16);
         this.sprShip.currentFrame = 0;
-        this.sprShip.addAnimation("blink",[0,3],0.15,false);
+        this.sprShip.addAnimation("blink",[0+this.animOffset,3+this.animOffset],0.15,false);
 
         let imgEnergy = imageLoader.getImage("images/energy.png");
         this.sprEnergy = new Sprite(imgEnergy,5,(canvas.height/SCALE)-16);
@@ -22,10 +26,6 @@ class Player {
         this.y = this.sprShip.y;
         this.vx = 0;
         this.vy = 0;
-
-        this.state = 0;
-        this.animOffset = pOffset;
-        this.canSwap = true;
 
         this.lifes = 2; // Nb de vies - 1
 
