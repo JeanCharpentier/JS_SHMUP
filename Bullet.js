@@ -137,8 +137,8 @@ class BulletsManager{
                                 this.pEmitter.add(4); 
                             }else { // Kill enemy
                                 // Loots
-                                let loot = rnd(0,10);
-                                if(loot < 1) {
+                                let loot = rnd(0,LOOT_RATE);
+                                if(loot <= 1) {
                                     this.gs.puManager.addPowerup(b.x,b.y,"QUAD");
                                 }
                                 

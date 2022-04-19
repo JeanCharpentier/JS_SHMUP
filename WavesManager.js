@@ -164,7 +164,7 @@ class WavesManager {
 
     startWave(pWave) {
         pWave.started = true;
-        console.log("Nouvelle vague!");
+        //console.log("Nouvelle vague!");
         for(let i=0;i<pWave.number;i++){
             let mySprite = new Sprite(pWave.sprite.img);
             Object.assign(mySprite,pWave.sprite);
@@ -210,7 +210,7 @@ class WavesManager {
         let index = this.wavesList.indexOf(pWave);
         if(index != -1) {
             this.wavesList.splice(index,1);
-            console.log("Vague supprimée")
+            //console.log("Vague supprimée")
         }
     }
 

@@ -26,10 +26,13 @@ class Player {
         this.showCanon = false;
         this.score = 0;
 
-        this.powerup = "";
+        this.powerup = "NONE";
+        this.puTimer = 5;
+        this.puChrono = 5;
     }
 
     fire() {
+        console.log("Powerup:"+this.powerup);
         let type = "PLAYERW"; // Change le sprite selon l'état du joueur
         if (this.state == 0) {
             type = "PLAYERW";
@@ -49,7 +52,15 @@ class Player {
         this.sprShip.x = this.x + this.vx;
         this.sprShip.y = this.y + this.vy;
         this.x = this.sprShip.x;
-        this.y = this.sprShip.y;        
+        this.y = this.sprShip.y;     
+        
+        if(this.powerup != "NONE") {
+            this.puTimer -= dt;
+            if(this.puTimer <=0) {
+                this.puTimer = this.puChrono;
+                this.powerup = "NONE";
+            }
+        }
     }
 
     draw(pCtx) {

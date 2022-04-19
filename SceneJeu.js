@@ -5,7 +5,7 @@ class SceneJeu {
         this.imageLoader = null;
         this.imgBackground = null;
 
-        this.puManager = new PowerupManager();
+        this.puManager = new PowerupManager(this.gs);
 
         this.kbInputs = new Inputs(this.gs);
         this.bulletsManager = new BulletsManager(this.gs);

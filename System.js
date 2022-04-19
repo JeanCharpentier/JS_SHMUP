@@ -1,5 +1,6 @@
 const SCALE = 2.5;
 const BG_SPEED = 1.5;
+const LOOT_RATE = 2;
 
 function rnd(min, max) {
     min = Math.ceil(min);

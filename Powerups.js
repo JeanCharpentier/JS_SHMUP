@@ -5,7 +5,7 @@ class Powerup {
         this.sprPU.setTileSheet(16,16);
         this.sprPU.currentFrame = 0;
 
-        this.type = "QUAD";
+        this.type = "WING";
 
         this.x = this.sprPU.x;
         this.y = this.sprPU.y;
@@ -28,7 +28,7 @@ class Powerup {
     update(dt) {
         this.sprPU.update(dt);
         this.sprPU.y = this.y + (20*dt);
-        this.y = this.sprPU.y; 
+        this.y = this.sprPU.y;
     }
 
     draw(pCtx) {
@@ -49,9 +49,25 @@ class PowerupManager {
     }
 
     update(dt) {
-        this.puList.forEach(p => {
+        for(let n=this.puList.length-1;n>=0;n--) {
+            /*this.gs.player.puTimer -= dt;
+            if(this.gs.player.puTimer <= 0) {
+                console.log("End timer PU");
+                this.gs.player.puTimer = this.gs.player.puChrono;
+            }*/
+            this.puList[n].update(dt);
+
+            // Collision avec le joueur
+            if(isColliding(this.puList[n].x,this.puList[n].y,this.puList[n].sprPU.tileSize.x,this.puList[n].sprPU.tileSize.y,this.gs.player.sprShip.x,this.gs.player.sprShip.y,this.gs.player.sprShip.tileSize.x,this.gs.player.sprShip.tileSize.y)) {
+                //console.log("Loot collide player");
+                this.gs.player.powerup = this.puList[n].type;
+                //console.log("Player Powerup :"+this.gs.player.powerup);
+                this.puList.splice(n,1);
+            }
+        }
+        /*this.puList.forEach(p => {
             p.update(dt);
-        });
+        });*/
     }
 
     draw(pCtx){
