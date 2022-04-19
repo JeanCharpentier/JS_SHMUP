@@ -1,0 +1,33 @@
+      _                             
+     | | ___  _   _  ___ _   _ _ __ 
+  _  | |/ _ \| | | |/ _ \ | | | '__|
+ | |_| | (_) | |_| |  __/ |_| | |   
+  \___/ \___/ \__,_|\___|\__,_|_|   
+
+  * Déplacements au clavier (gamepad et tactile en projet)
+  * Le joueur peut tirer sur des ennemis, percuter des ennemis
+  * Tirs automatiques lors d'un appuie long sur une touche
+  * Barre d'énergie qui se vide on hit
+  * Si l'énergie tombe à 0, le joueur respawn et perd une vie
+  * Changement de phase (Blanc/Noir) qui influence les dégats pris et le scoring
+
+    ____                 _             
+ / ___|  ___ ___  _ __(_)_ __   __ _ 
+ \___ \ / __/ _ \| '__| | '_ \ / _` |
+  ___) | (_| (_) | |  | | | | | (_| |
+ |____/ \___\___/|_|  |_|_| |_|\__, |
+                               |___/ 
+
+* Les projectiles de la même couleur que le joueur ajoutent des points au score global ET rechargent l'énergie du joueur
+* Des projectiles de couleur différente au joueur lui font perdre de l'énergie
+* Lorsque le joueur détruit un ennemi, il gagne le nombre de points de l'ennemi
+
+  _____                            _     
+ | ____|_ __  _ __   ___ _ __ ___ (_)___ 
+ |  _| | '_ \| '_ \ / _ \ '_ ` _ \| / __|
+ | |___| | | | | | |  __/ | | | | | \__ \
+ |_____|_| |_|_| |_|\___|_| |_| |_|_|___/
+                                         
+* Plusieurs types d'ennemis (Normaux et Boss)
+* Certains peuvent tirer, d'autres non
+* Les vagues ont des patterns différents, influencant le comportement des ennemis qui la composent

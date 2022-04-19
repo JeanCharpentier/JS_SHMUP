@@ -119,7 +119,7 @@ class BulletsManager{
                             this.gs.player.sprLifes.currentFrame -= 1;
                         }
                         if(this.gs.player.sprLifes.currentFrame == 0){
-                            console.log("GAME OVER");
+                            console.warn("GAME OVER");
                         }
                             
                     }

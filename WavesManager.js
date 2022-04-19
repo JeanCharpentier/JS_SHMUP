@@ -40,12 +40,12 @@ class Alien {
         switch(this.shootType) {
             case "BOSSW":
                 this.shootSpeed = 0.2;
-                this.nbArms = 10;
+                this.nbArms = 5;
                 this.angleOffset = ((2*Math.PI)/this.nbArms)/10;
                 break;
             case "BOSSB":
-                this.shootSpeed = 0.05;
-                this.nbArms = 10;
+                this.shootSpeed = 0.1;
+                this.nbArms = 3;
                 this.angleOffset = ((2*Math.PI)/this.nbArms)/10;    
                 break;
             case "SRINGW":
