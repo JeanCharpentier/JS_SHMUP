@@ -123,8 +123,34 @@ class Inputs{
             this.gs.player.showCanon = false;
         }
 
+        // Debug
+        if(this.keyboard["KeyT"] && !debugKeyPressed) {
+            debugKeyPressed = true;
+            if(debugMode) {
+                debugMode = false;
+            }else {
+                debugMode = true;
+            }
+        }
+        if(!this.keyboard["KeyT"]) {
+            debugKeyPressed = false;
+        }
+
         if(this.shotTimer >= 0) {
             this.shotTimer -= dt;
         }
     }
 }
+
+
+/*
+  ____  _____ ____  _   _  ____ 
+ |  _ \| ____| __ )| | | |/ ___|
+ | | | |  _| |  _ \| | | | |  _ 
+ | |_| | |___| |_) | |_| | |_| |
+ |____/|_____|____/ \___/ \____|
+                                
+ */
+
+ let debugMode = false;
+ let debugKeyPressed = false;

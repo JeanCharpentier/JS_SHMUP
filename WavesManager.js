@@ -69,7 +69,11 @@ class Alien {
                 if(this.nbArms != 1) {
                     for(let i=1;i<=this.nbArms;i++){
                         this.angle += this.angleOffset;
-                        this.gs.bulletsManager.shoot(this.sprite.x, this.sprite.y, this.angle * (2*Math.PI), 2, this.shootType);
+                        if(this.shootType == "BOSSB") {
+                            this.gs.bulletsManager.shoot(this.sprite.x+(this.sprite.tileSize.x/4), this.sprite.y+(this.sprite.tileSize.y/4), this.angle * (2*Math.PI), 2, "BOSSB");
+                            this.gs.bulletsManager.shoot(this.sprite.x+(this.sprite.tileSize.x/4), this.sprite.y+(this.sprite.tileSize.y/4), this.angle * (2*Math.PI) + 45, 2, "BOSSW");
+                        }
+                        
                     }
                 }else {
                     this.gs.bulletsManager.shoot(this.sprite.x, this.sprite.y, this.angle * (-1*(3*Math.PI)/2), 5, this.shootType);
@@ -127,7 +131,9 @@ class AlienWave {
                 }
                 
                 if(this.shootType != "NONE") { // Tire si il peut tirer
-                    alien.fire();
+                    if(!debugMode) {
+                        alien.fire();
+                    } 
                 }
 
                 if(alien.sprite.y > (canvas.height/SCALE) +  alien.sprite.tileSize.y){ // Sortie bas de l'écran
@@ -164,7 +170,6 @@ class WavesManager {
 
     startWave(pWave) {
         pWave.started = true;
-        //console.log("Nouvelle vague!");
         for(let i=0;i<pWave.number;i++){
             let mySprite = new Sprite(pWave.sprite.img);
             Object.assign(mySprite,pWave.sprite);
@@ -210,7 +215,6 @@ class WavesManager {
         let index = this.wavesList.indexOf(pWave);
         if(index != -1) {
             this.wavesList.splice(index,1);
-            //console.log("Vague supprimée")
         }
     }
 

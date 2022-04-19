@@ -19,8 +19,6 @@ class SceneJeu {
     load(pImageLoader) {
         this.imageLoader = pImageLoader;
 
-        //this.tmpPU = new Powerup(10,10); // REMOVE
-
         this.gs.setPlayer(new Player((canvas.width/SCALE)/2,(canvas.height/SCALE)-50,4,this.gs)); // Créer le Player dans le Game Services
 
         
@@ -34,6 +32,7 @@ class SceneJeu {
 
         // Création des ennemis
         let imgEnemies = this.imageLoader.getImage("images/enemies.png");
+        let imgBosses = this.imageLoader.getImage("images/bosses.png");
 
         let sprEnWSmall = new Sprite(imgEnemies);
         sprEnWSmall.setTileSheet(16,16);
@@ -43,12 +42,14 @@ class SceneJeu {
         sprEnBSmall.setTileSheet(16,16);
         sprEnBSmall.currentFrame = 13;
 
-        let sprBossB = new Sprite(imgEnemies);
-        sprBossB.setTileSheet(16,16);
-        sprBossB.currentFrame = 4;
+        let sprBossB = new Sprite(imgBosses);
+        sprBossB.setTileSheet(32,32);
+        sprBossB.currentFrame = 0;
+        sprBossB.addAnimation("spin",[0,1,2,3],0.1,true);
+        sprBossB.startAnimation("spin");
 
-        let sprBossW = new Sprite(imgEnemies);
-        sprBossW.setTileSheet(16,16);
+        let sprBossW = new Sprite(imgBosses);
+        sprBossW.setTileSheet(32,32);
         sprBossW.currentFrame = 0;
 
         this.wavesManager.addWave(new AlienWave(sprEnWSmall,5,0.7,250,(canvas.width/SCALE)/2+30,-100,"sine",10,"SRINGW",1));
@@ -58,8 +59,6 @@ class SceneJeu {
     }
 
     update(dt) {
-
-        //this.tmpPU.update(dt); // REMOVE
         this.backgroundOverlay.update(dt);
         this.kbInputs.update(dt,this.backgroundOverlay);
         this.wavesManager.update(dt,this.backgroundOverlay.distance);
@@ -78,8 +77,6 @@ class SceneJeu {
         // Dessine le fond qui scrolle
         this.background.draw(pCtx);
         this.backgroundOverlay.draw(pCtx);
-
-        //this.tmpPU.draw(pCtx); // REMOVE
 
         this.wavesManager.draw(pCtx);
 

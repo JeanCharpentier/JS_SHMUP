@@ -28,6 +28,7 @@ function load() {
 
     imageLoader.add("images/chain.png");
     imageLoader.add("images/enemies.png");
+    imageLoader.add("images/bosses.png")
 
     imageLoader.add("images/player.png");
 
@@ -39,7 +40,7 @@ function load() {
 }
 
 function startGame() {
-    console.log("StartGame");
+    console.log("Start Game");
 
     lstSprites = [];
 

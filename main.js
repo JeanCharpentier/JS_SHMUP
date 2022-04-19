@@ -25,7 +25,9 @@ function run(time) {
     update(dt);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     draw(ctx);
-    showFPS();
+    if(debugMode) {
+        showFPS();
+    }
 }
 
 function init() {
