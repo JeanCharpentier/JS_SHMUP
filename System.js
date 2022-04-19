@@ -136,6 +136,7 @@ class Inputs{
             debugKeyPressed = false;
         }
 
+        // Tir automatique "On Hold"
         if(this.shotTimer >= 0) {
             this.shotTimer -= dt;
         }

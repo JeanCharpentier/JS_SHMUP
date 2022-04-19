@@ -20,7 +20,6 @@ class SceneJeu {
         this.imageLoader = pImageLoader;
 
         this.gs.setPlayer(new Player((canvas.width/SCALE)/2,(canvas.height/SCALE)-50,4,this.gs)); // Créer le Player dans le Game Services
-
         
 
         this.imgBackground = this.imageLoader.getImage("images/background.png");

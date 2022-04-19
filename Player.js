@@ -6,11 +6,17 @@ class Player {
         this.sprShip = new Sprite(imgShip,pX,pY);
         this.sprShip.setTileSheet(16,16);
         this.sprShip.currentFrame = 0;
+        this.sprShip.addAnimation("blink",[0,3],0.15,false);
 
-        let imgLifes = imageLoader.getImage("images/chain.png");
-        this.sprLifes = new Sprite(imgLifes,5,(canvas.height/SCALE)-16);
-        this.sprLifes.setTileSheet(48,16);
-        this.sprLifes.currentFrame = 5;
+        let imgEnergy = imageLoader.getImage("images/energy.png");
+        this.sprEnergy = new Sprite(imgEnergy,5,(canvas.height/SCALE)-16);
+        this.sprEnergy.setTileSheet(48,16);
+        this.sprEnergy.currentFrame = 5;
+
+        let imgLifes = imageLoader.getImage("images/lifes.png");
+        this.sprLifes = new Sprite(imgLifes,(canvas.width/SCALE)-imgLifes.width-5,(canvas.height/SCALE)-16);
+        this.sprLifes.setTileSheet(24,16);
+        this.sprLifes.currentFrame = 0;
 
         this.x = this.sprShip.x;
         this.y = this.sprShip.y;
@@ -21,7 +27,7 @@ class Player {
         this.animOffset = pOffset;
         this.canSwap = true;
 
-        this.lifes = 3;
+        this.lifes = 2; // Nb de vies - 1
 
         this.showCanon = false;
         this.score = 0;
@@ -32,7 +38,6 @@ class Player {
     }
 
     fire() {
-        console.log("Powerup:"+this.powerup);
         let type = "PLAYERW"; // Change le sprite selon l'état du joueur
         if (this.state == 0) {
             type = "PLAYERW";
@@ -48,6 +53,9 @@ class Player {
     }
 
     update(dt) {
+        this.sprLifes.currentFrame = this.lifes;
+        this.sprLifes.update(dt);
+
         this.sprShip.update(dt);
         this.sprShip.x = this.x + this.vx;
         this.sprShip.y = this.y + this.vy;
@@ -66,6 +74,8 @@ class Player {
     draw(pCtx) {
         this.sprShip.draw(pCtx);
         this.sprLifes.draw(pCtx);
+        this.sprEnergy.draw(pCtx);
+
         pCtx.fillStyle = "Orange";
         pCtx.textAlign = "right";
         pCtx.font = "normal "+ 16/SCALE + "pt Arial";

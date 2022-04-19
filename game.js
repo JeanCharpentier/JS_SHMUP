@@ -24,9 +24,13 @@ function load() {
 
     imageLoader.add("images/background.png");
     imageLoader.add("images/background-overlay.png");
+
     imageLoader.add("images/bullets.png");
 
     imageLoader.add("images/chain.png");
+    imageLoader.add("images/energy.png");
+    imageLoader.add("images/lifes.png");
+
     imageLoader.add("images/enemies.png");
     imageLoader.add("images/bosses.png")
 

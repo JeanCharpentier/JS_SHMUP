@@ -110,18 +110,22 @@ class BulletsManager{
                     if(b.state == this.gs.player.state) { // Si les bullets sont du même type que l'état du joueur, on score + recharge la vie
                         this.lstBullets.splice(index, 1);
                         this.gs.player.score++;
-                        if(this.gs.player.sprLifes.currentFrame < 5){
-                            this.gs.player.sprLifes.currentFrame += 1;
+                        if(this.gs.player.sprEnergy.currentFrame < 5){
+                            this.gs.player.sprEnergy.currentFrame += 1;
                         }
                     }else { // Sinon le joueur pert de la vie
                         this.lstBullets.splice(index, 1);
-                        if(this.gs.player.sprLifes.currentFrame > 0){
-                            this.gs.player.sprLifes.currentFrame -= 1;
+                        if(this.gs.player.sprEnergy.currentFrame > 0){
+                            this.gs.player.sprEnergy.currentFrame -= 1;
                         }
-                        if(this.gs.player.sprLifes.currentFrame == 0){
-                            console.warn("GAME OVER");
-                        }
-                            
+                        if(this.gs.player.sprEnergy.currentFrame == 0){
+                            if(this.gs.player.lifes > 0) {
+                                this.gs.player.lifes--;
+                                this.gs.player.sprEnergy.currentFrame = 5;
+                            }else {
+                                console.warn("GAME OVER");
+                            }
+                        }      
                     }
                 }
             }
