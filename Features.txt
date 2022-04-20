@@ -32,8 +32,19 @@
                                          
 * Plusieurs types d'ennemis (Normaux et Boss)
 * Certains peuvent tirer, d'autres non
+* Certains ennemis dropent des powerups pour le joueur
 * Les vagues ont des patterns différents, influencant le comportement des ennemis qui la composent
 * Si un ennemi percute le joueur, celui-ci perd une vie directement, sans recharger son énergie
+
+  ____                                        
+ |  _ \ _____      _____ _ __ _   _ _ __  ___ 
+ | |_) / _ \ \ /\ / / _ \ '__| | | | '_ \/ __|
+ |  __/ (_) \ V  V /  __/ |  | |_| | |_) \__ \
+ |_|   \___/ \_/\_/ \___|_|   \__,_| .__/|___/
+                                   |_|        
+* Chaque Powerup possède un timer
+* Quadshoot : tire 4 bullets au lieu de 2
+* Shield : rend invulnérable le joueur
 
       _       _    _                       
   ___(_) __ _| |  | |_ ___ _ __ ___  _ __  
@@ -46,3 +57,4 @@
 * Leaderboard (pour bosser AJAX)
 * Screen Shake
 * Twitch Waves (HS mais tellement classe...)
+* Powerup Wingmen : deux petits vaisseaux aliés qui suivent le joueur et prennent les dégats à sa place
