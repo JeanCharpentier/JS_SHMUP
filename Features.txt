@@ -10,7 +10,7 @@
   * Barre d'énergie qui se vide on hit
   * Si l'énergie tombe à 0, le joueur respawn et perd une vie (x3)
   * Invulnérabilité temporaire après perte de vie
-  * Changement de phase (Blanc/Noir) qui influence les dégats pris et le scoring
+  * Changement de phase (Blanc/Noir) qui influence les dégats pris et le scoring (cf Ikaruga)
 
     ____                 _             
  / ___|  ___ ___  _ __(_)_ __   __ _ 
