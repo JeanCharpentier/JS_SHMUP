@@ -29,6 +29,20 @@ class Alien {
 
         if(isColliding(this.sprite.x,this.sprite.y,this.sprite.tileSize.x,this.sprite.tileSize.y,this.gs.player.x,this.gs.player.y,this.gs.player.sprShip.tileSize.x,this.gs.player.sprShip.tileSize.y)) {
             this.collidePlayer = true;
+            if(this.gs.player.powerup != "SHIELD"){
+                    this.gs.player.sprShip.startAnimation("blink");
+                    this.gs.player.sprExplo.x = this.gs.player.x;
+                    this.gs.player.sprExplo.y = this.gs.player.y;
+                    this.gs.player.sprExplo.startAnimation("explo");
+
+                    if(this.gs.player.lifes > 0) {
+                        this.gs.player.lifes--;
+                        this.gs.player.sprEnergy.currentFrame = 5;
+                        this.gs.puManager.addPowerup(this.sprite.x,this.sprite.y,"SHIELD");
+                    }else {
+                        console.warn("GAME OVER");
+                    }
+            }     
         }
     }
 

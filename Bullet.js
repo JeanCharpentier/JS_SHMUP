@@ -80,7 +80,6 @@ class BulletsManager{
     }
 
     shoot(px, py, pAngle, pSpeed, pType) {
-        //console.log("angle " + pAngle.toString());
         let vx, vy;
         vx = pSpeed * Math.cos(pAngle);
         vy = pSpeed * Math.sin(pAngle);

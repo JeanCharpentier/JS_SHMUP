@@ -27,6 +27,12 @@ class Player {
         this.sprShield.setTileSheet(32,32);
         this.sprShield.currentFrame = 0;
 
+        let imgExplo = imageLoader.getImage("images/explosion.png");
+        this.sprExplo = new Sprite(imgExplo,pX,pY);
+        this.sprExplo.setTileSheet(16,16);
+        this.sprExplo.currentFrame = 0;
+        this.sprExplo.addAnimation("explo",[0,1,2],0.15,1);
+
         this.x = this.sprShip.x;
         this.y = this.sprShip.y;
         this.vx = 0;
@@ -60,6 +66,7 @@ class Player {
     update(dt) {
         this.sprLifes.currentFrame = this.lifes;
         this.sprLifes.update(dt);
+        this.sprExplo.update(dt);
 
         this.sprShip.update(dt);
         this.sprShip.x = this.x + this.vx;
@@ -88,6 +95,7 @@ class Player {
             this.sprShield.draw(pCtx);
         }
 
+        this.sprExplo.draw(pCtx);
         this.sprLifes.draw(pCtx);
         this.sprEnergy.draw(pCtx);
 
