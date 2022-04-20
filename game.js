@@ -35,6 +35,7 @@ function load() {
     imageLoader.add("images/bosses.png")
 
     imageLoader.add("images/player.png");
+    imageLoader.add("images/shield.png");
 
     imageLoader.add("images/explosion.png");
 

@@ -22,6 +22,11 @@ class Player {
         this.sprLifes.setTileSheet(24,16);
         this.sprLifes.currentFrame = 0;
 
+        let imgShield = imageLoader.getImage("images/shield.png");
+        this.sprShield = new Sprite(imgShield,(canvas.width/SCALE)-imgLifes.width-5,(canvas.height/SCALE)-16);
+        this.sprShield.setTileSheet(32,32);
+        this.sprShield.currentFrame = 0;
+
         this.x = this.sprShip.x;
         this.y = this.sprShip.y;
         this.vx = 0;
@@ -62,6 +67,11 @@ class Player {
         this.x = this.sprShip.x;
         this.y = this.sprShip.y;     
         
+        if(this.powerup == "SHIELD") {
+            this.sprShield.x = this.x - (this.sprShield.tileSize.x/4);
+            this.sprShield.y = this.y - (this.sprShield.tileSize.y/4);
+            this.sprShield.update(dt);
+        }
         if(this.powerup != "NONE") {
             this.puTimer -= dt;
             if(this.puTimer <=0) {
@@ -73,8 +83,14 @@ class Player {
 
     draw(pCtx) {
         this.sprShip.draw(pCtx);
+
+        if(this.powerup == "SHIELD") {
+            this.sprShield.draw(pCtx);
+        }
+
         this.sprLifes.draw(pCtx);
         this.sprEnergy.draw(pCtx);
+
 
         pCtx.fillStyle = "Orange";
         pCtx.textAlign = "right";

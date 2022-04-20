@@ -115,19 +115,22 @@ class BulletsManager{
                         }
                     }else { // Sinon le joueur perd de la vie
                         this.lstBullets.splice(index, 1);
-                        if(this.gs.player.sprEnergy.currentFrame > 0){
-                            this.gs.player.sprEnergy.currentFrame -= 1;
-                        }
-                        if(this.gs.player.sprEnergy.currentFrame == 0){
-                            this.gs.player.sprShip.startAnimation("blink");
-
-                            if(this.gs.player.lifes > 0) {
-                                this.gs.player.lifes--;
-                                this.gs.player.sprEnergy.currentFrame = 5;
-                            }else {
-                                console.warn("GAME OVER");
+                        if(this.gs.player.powerup != "SHIELD"){
+                            if(this.gs.player.sprEnergy.currentFrame > 0){
+                                this.gs.player.sprEnergy.currentFrame -= 1;
                             }
-                        }      
+                            if(this.gs.player.sprEnergy.currentFrame == 0){
+                                this.gs.player.sprShip.startAnimation("blink");
+    
+                                if(this.gs.player.lifes > 0) {
+                                    this.gs.player.lifes--;
+                                    this.gs.player.sprEnergy.currentFrame = 5;
+                                    this.gs.puManager.addPowerup(b.x,b.y,"SHIELD");
+                                }else {
+                                    console.warn("GAME OVER");
+                                }
+                            }
+                        }     
                     }
                 }
             }

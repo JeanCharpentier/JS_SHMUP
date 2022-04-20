@@ -5,7 +5,8 @@ class Powerup {
         this.sprPU.setTileSheet(16,16);
         this.sprPU.currentFrame = 0;
 
-        this.type = "WING";
+        this.type = "QUAD";
+        this.timer = 0;
 
         this.x = this.sprPU.x;
         this.y = this.sprPU.y;
@@ -16,9 +17,15 @@ class Powerup {
         switch(this.type) {
             case "QUAD":
                 this.sprPU.currentFrame = 0;
+                this.timer = 20;
                 break;
             case "WING":
                 this.sprPU.currentFrame = 1;
+                this.timer = 10;
+                break;
+            case "SHIELD":
+                this.sprPU.currentFrame = 2;
+                this.timer = 5;
                 break;
             default:
                 break;
@@ -59,9 +66,11 @@ class PowerupManager {
 
             // Collision avec le joueur
             if(isColliding(this.puList[n].x,this.puList[n].y,this.puList[n].sprPU.tileSize.x,this.puList[n].sprPU.tileSize.y,this.gs.player.sprShip.x,this.gs.player.sprShip.y,this.gs.player.sprShip.tileSize.x,this.gs.player.sprShip.tileSize.y)) {
-                //console.log("Loot collide player");
+
                 this.gs.player.powerup = this.puList[n].type;
-                //console.log("Player Powerup :"+this.gs.player.powerup);
+                this.gs.player.puTimer = this.puList[n].timer;
+                this.gs.player.puChrono = this.puList[n].timer;
+
                 this.puList.splice(n,1);
             }
         }
