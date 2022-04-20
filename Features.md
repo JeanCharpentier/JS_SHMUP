@@ -1,6 +1,6 @@
 ***!!! A détailler !!!***
 
-*** JOUEUR ***
+***JOUEUR***
 
   * Déplacements au clavier (gamepad et tactile en projet)
   * Le joueur peut tirer sur des ennemis, percuter des ennemis
