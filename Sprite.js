@@ -26,6 +26,7 @@ class Sprite {
             frames: pFrames,
             speed: pSpeed,
             loop: pLoop,
+            loopCount: pLoop,
             end: false
         }
         this.animations.push(animation);
@@ -40,11 +41,11 @@ class Sprite {
     }
 
     startAnimation(pName) {
-        if (this.currentAnimation != null) {
+        /*if (this.currentAnimation != null) {
             if (this.currentAnimation.name == pName) {
                 return;
             }
-        }
+        }*/
         this.animations.forEach(animation => {
             if (animation.name == pName) {
                 this.currentAnimation = animation;
@@ -73,18 +74,22 @@ class Sprite {
                 if (this.frameTimer >= this.currentAnimation.speed) {
                     this.frameTimer = 0;
                     this.currentFrameInAnimation++;
-                    if (this.currentFrameInAnimation > this.currentAnimation.frames.length - 1) {
+
+                    if (this.currentFrameInAnimation > this.currentAnimation.frames.length - 1) { // Animation qui loop à l'infini
                         if (this.currentAnimation.loop == 0) {
                             this.currentFrameInAnimation = 0;
                         }
                         else {
-                            if(this.currentAnimation.loop > 1) {
-                                this.currentAnimation.loop--;
-                                this.currentFrameInAnimation = this.currentAnimation.frames.length - 1;
-                            }else {
-                                this.currentAnimation.end = true;
+                            if(this.currentAnimation.loop >= 1) { // Animation qui boucle un certain nb de fois
+                                if(this.currentAnimation.loopCount > 1){
+                                    this.currentAnimation.loopCount--;
+                                    this.currentFrameInAnimation = this.currentAnimation.frames.length - 1;
+                                }else {
+                                    this.currentAnimation.end = true;
+                                    this.currentAnimation.loopCount = this.currentAnimation.loop;
+                                    //this.currentAnimation.name = "";
+                                }
                             }
-                            
                         }
                     }
                     this.currentFrame = this.currentAnimation.frames[this.currentFrameInAnimation];

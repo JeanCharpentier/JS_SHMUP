@@ -113,18 +113,17 @@ class BulletsManager{
                         if(this.gs.player.sprEnergy.currentFrame < 5){
                             this.gs.player.sprEnergy.currentFrame += 1;
                         }
-                    }else { // Sinon le joueur pert de la vie
+                    }else { // Sinon le joueur perd de la vie
                         this.lstBullets.splice(index, 1);
                         if(this.gs.player.sprEnergy.currentFrame > 0){
                             this.gs.player.sprEnergy.currentFrame -= 1;
                         }
                         if(this.gs.player.sprEnergy.currentFrame == 0){
+                            this.gs.player.sprShip.startAnimation("blink");
+
                             if(this.gs.player.lifes > 0) {
                                 this.gs.player.lifes--;
                                 this.gs.player.sprEnergy.currentFrame = 5;
-
-                                //this.gs.player.sprShip.changeAnimLoop("blink",true);
-                                this.gs.player.sprShip.startAnimation("blink");
                             }else {
                                 console.warn("GAME OVER");
                             }
