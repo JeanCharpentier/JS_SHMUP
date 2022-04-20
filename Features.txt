@@ -22,6 +22,7 @@
 * Les projectiles de la même couleur que le joueur ajoutent des points au score global ET rechargent l'énergie du joueur
 * Des projectiles de couleur différente au joueur lui font perdre de l'énergie
 * Lorsque le joueur détruit un ennemi, il gagne le nombre de points de l'ennemi
+* Le score de chaque "kill" pop du joueur et s'ajoute au score global
 
   _____                            _     
  | ____|_ __  _ __   ___ _ __ ___ (_)___ 
@@ -32,3 +33,4 @@
 * Plusieurs types d'ennemis (Normaux et Boss)
 * Certains peuvent tirer, d'autres non
 * Les vagues ont des patterns différents, influencant le comportement des ennemis qui la composent
+* Si un ennemi pércute le joueur, celui-ci perd une vie directement, sans recharger son énergie

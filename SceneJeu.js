@@ -1,6 +1,6 @@
 class SceneJeu {
     constructor() {
-        this.gs = new GS(); // Game Services
+        this.gs = new GS();
 
         this.imageLoader = null;
         this.imgBackground = null;

@@ -1,9 +1,19 @@
 let imageLoader = new ImageLoader();
 let gameReady = false;
 
+
+
+//let GameService = new GS();
+//GameService.setKBInputs(new Inputs(GameService,keyboard));
+
+//let currentScreen = "";
+
+//let sceneMenu = new SceneMenu(GameService);
 let sceneJeu = new SceneJeu();
 
 let keyboard = [];
+
+
 
 function toucheEnfoncee(t) {
     t.preventDefault();
@@ -72,6 +82,12 @@ function draw(pCtx) {
         pCtx.fillRect(1, 1, 400 * ratio, 100);
         return;
     }
+    /*if(currentScreen == "MENU") {
+        sceneMenu.draw(pCtx);
+    }else{
+        sceneJeu.draw(pCtx);
+    }*/
 
     sceneJeu.draw(pCtx);
+    
 }
