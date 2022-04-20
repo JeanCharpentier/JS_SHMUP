@@ -53,8 +53,8 @@
  |___/_|\__, |_____\__\___|_| |_| |_| .__/ 
         |___/                       |_|    
 
-* Ghosts du vaisseau (pimpage)
+* Ghosts du vaisseau (pimp my ship)
 * Leaderboard (pour bosser AJAX)
-* Screen Shake
+* Screen Shake (trouver dans quel draw()...)
 * Twitch Waves (HS mais tellement classe...)
 * Powerup Wingmen : deux petits vaisseaux aliés qui suivent le joueur et prennent les dégats à sa place
