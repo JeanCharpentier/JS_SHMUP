@@ -157,6 +157,8 @@ class BulletsManager{
                                 
                                 //Score
                                 this.gs.player.score += w.alienList[n].points; // Ajout des points au joueur
+
+                                this.gs.popupManager.addPopup(w.alienList[n].points,this.gs.player.x,this.gs.player.y,0.5);
                                 
                                 w.alienList.splice(n,1);
                             }

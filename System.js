@@ -1,6 +1,6 @@
 const SCALE = 2.5;
 const BG_SPEED = 1.5;
-const LOOT_RATE = 2;
+const LOOT_RATE = 10;
 
 function rnd(min, max) {
     min = Math.ceil(min);
@@ -16,6 +16,58 @@ function isColliding(px1,py1,pw1,ph1,px2,py2,pw2,ph2){
     }
 }
 
+class Popup{
+    constructor(pText,pX,pY,pTime) {
+        this.text = pText;
+        this.x = pX;
+        this.y = pY;
+
+        this.timer = pTime;
+        this.chrono = pTime;
+    }
+
+    update(dt) {
+        if(this.timer >= 0) {
+            this.timer -= dt;
+        }
+        this.y -= dt*60;
+    }
+
+    draw(pCtx) {
+        pCtx.fillStyle = "White";
+        pCtx.font = "normal "+16/SCALE+"pt Arial";
+        pCtx.fillText(this.text, this.x, this.y);
+    }
+}
+
+class PopupManager{
+    constructor() {
+        this.popupList = [];
+    }
+
+    addPopup(pText,pX,pY,pTime) {
+        let popup = new Popup(pText,pX,pY,pTime);
+        this.popupList.push(popup);
+    }
+
+    update(dt) {
+        for(let n=this.popupList.length-1;n>=0;n--) {
+            this.popupList[n].update(dt);
+            if(this.popupList[n].timer <= 0) {
+                this.popupList.splice(n,1);
+            }
+        }
+    }
+
+    draw(pCtx) {
+        this.popupList.forEach(p => {
+            p.draw(pCtx);
+        })
+    }
+}
+
+
+
 class GS{
     constructor() {
         this.player = null;
@@ -23,6 +75,7 @@ class GS{
         this.wavesManager = null;
         this.partEmitter = null;
         this.puManager = null;
+        this.popupManager = null;
     }
 
     setPlayer(pPlayer){
@@ -41,6 +94,10 @@ class GS{
 
     setPUManager(pPUManager) {
         this.puManager = pPUManager;
+    }
+
+    setPopupManager(pPopupManager) {
+        this.popupManager = pPopupManager;
     }
 }
 

@@ -6,6 +6,7 @@ class SceneJeu {
         this.imgBackground = null;
 
         this.puManager = new PowerupManager(this.gs);
+        this.popupManager = new PopupManager();
 
         this.kbInputs = new Inputs(this.gs);
         this.bulletsManager = new BulletsManager(this.gs);
@@ -14,6 +15,7 @@ class SceneJeu {
         this.gs.setBulletsManager(this.bulletsManager); // Ajoute le Bullets Manager au Game Service
         this.gs.setWavesManager(this.wavesManager);
         this.gs.setPUManager(this.puManager);
+        this.gs.setPopupManager(this.popupManager);
     }
 
     load(pImageLoader) {
@@ -64,7 +66,10 @@ class SceneJeu {
 
         this.puManager.update(dt);
         this.gs.player.update(dt);
+        
         this.gs.bulletsManager.update(dt);
+
+        this.gs.popupManager.update(dt);
     }
 
     draw(pCtx) {
@@ -82,7 +87,10 @@ class SceneJeu {
         this.puManager.draw(pCtx);
 
         this.gs.player.draw(pCtx);
+
         this.gs.bulletsManager.draw(pCtx);
+
+        this.gs.popupManager.draw(pCtx);
 
         pCtx.restore();
     }
