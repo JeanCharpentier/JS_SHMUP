@@ -7,10 +7,10 @@
 
 
       _                             
-     | | ___  _   _  ___ _   _ _ __ 
+***     | | ___  _   _  ___ _   _ _ __ 
   _  | |/ _ \| | | |/ _ \ | | | '__|
  | |_| | (_) | |_| |  __/ |_| | |   
-  \___/ \___/ \__,_|\___|\__,_|_|   
+  \___/ \___/ \__,_|\___|\__,_|_| ***  
 
   * Déplacements au clavier (gamepad et tactile en projet)
   * Le joueur peut tirer sur des ennemis, percuter des ennemis
