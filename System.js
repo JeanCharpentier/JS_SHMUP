@@ -25,6 +25,9 @@ class GS{
         this.puManager = null;
         this.popupManager = null;
         this.kbInputs = null;
+        this.menu = null;
+
+        this.gamemode = "MENU";
     }
 
     setPlayer(pPlayer){
@@ -52,6 +55,10 @@ class GS{
     setKBInputs(pKBInputs) {
         this.kbInputs = pKBInputs;
     }
+
+    setMenu(pMenu) {
+        this.menu = pMenu;
+    }
 }
 
 class Inputs{
@@ -59,7 +66,6 @@ class Inputs{
         this.gs = pGS;
 
         this.keyboard = null;
-        //this.keyboard = pKB;
 
         this.shotSpeed = 0.1;
         this.shotTimer = 0;
@@ -132,19 +138,6 @@ class Inputs{
             this.gs.player.showCanon = false;
         }
 
-        // Debug
-        if(this.keyboard["KeyT"] && !debugKeyPressed) {
-            debugKeyPressed = true;
-            if(debugMode) {
-                debugMode = false;
-            }else {
-                debugMode = true;
-            }
-        }
-        if(!this.keyboard["KeyT"]) {
-            debugKeyPressed = false;
-        }
-
         // Tir automatique "On Hold"
         if(this.shotTimer >= 0) {
             this.shotTimer -= dt;
@@ -162,5 +155,4 @@ class Inputs{
                                 
  */
 
- let debugMode = false;
- let debugKeyPressed = false;
+ debugMode = false;
