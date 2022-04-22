@@ -59,7 +59,8 @@ class SceneJeu {
         this.wavesManager.addWave(new AlienWave(sprEnWSmall,5,0.7,250,(canvas.width/SCALE)/2+30,-100,"sine",10,"SRINGW",1));
         this.wavesManager.addWave(new AlienWave(sprEnWSmall,5 ,0.7,250,(canvas.width/SCALE)/2-30,-100,"sine",10,"SRINGW",1));
         this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.3,1500,0,-100,"slash",20,"SRINGB",1));
-        this.wavesManager.addWave(new AlienWave(sprBossB,1,0.5,2000,(canvas.width/SCALE)/2,-100,"boss",50,"BOSSB",0.4));
+        this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.3,2000,0,-100,"slash",20,"SRINGB",1));
+        this.wavesManager.addWave(new AlienWave(sprBossB,1,0.5,2500,(canvas.width/SCALE)/2,-100,"boss",50,"BOSSB",0.4));
 
         this.menu.addButton("Play","GAME");
         this.menu.addButton("Credits","CREDITS");
@@ -100,6 +101,8 @@ class SceneJeu {
             this.gs.popupManager.draw(pCtx);
         }else if(this.gs.gamemode == "CREDITS"){
             pCtx.fillText("Les crédits", 50, (canvas.height/SCALE)-50);
+        }else if(this.gs.gamemode == "GO"){
+            pCtx.fillText("GAME OVER", 50, (canvas.height/SCALE)-50);
         }
         
 

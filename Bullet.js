@@ -127,6 +127,7 @@ class BulletsManager{
                                     this.gs.puManager.addPowerup(b.x,b.y,"SHIELD");
                                 }else {
                                     console.warn("GAME OVER");
+                                    this.gs.gamemode = "GO";
                                 }
                             }
                         }     

@@ -21,15 +21,19 @@ class Menu {
     draw(pCtx){
         pCtx.fillStyle = "Red";
         pCtx.font = "normal "+16+"pt Arial";
-        pCtx.fillText("MENU", 50, 50);
-
+        pCtx.fillText("TITRE", 50, 50);
+        if(this.gs.player.score != 0){
+            pCtx.font = "normal "+8+"pt Arial";
+            pCtx.fillText(this.gs.player.score, 50, 100);
+        }
+        pCtx.font = "normal "+16+"pt Arial";
         for(let i=0;i<this.buttons.length;i++){
             if(i == this.index){
                 pCtx.fillStyle = "Orange";
             }else {
                 pCtx.fillStyle = "Red";
             }
-            pCtx.fillText(this.buttons[i].text,50,100+(i*20));
+            pCtx.fillText(this.buttons[i].text,10,150+(i*20));
         }
     }
 }
