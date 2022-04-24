@@ -1,12 +1,6 @@
 let imageLoader = new ImageLoader();
 let gameReady = false;
 
-//let GameService = new GS();
-//GameService.setKBInputs(new Inputs(GameService,keyboard));
-
-//let currentScreen = "";
-
-//let sceneMenu = new SceneMenu(GameService);
 let sceneJeu = new SceneJeu();
 
 let keyboard = [];
