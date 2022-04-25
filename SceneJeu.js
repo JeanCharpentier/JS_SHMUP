@@ -26,7 +26,7 @@ class SceneJeu {
 
         this.gs.setPlayer(new Player((canvas.width/SCALE)/2,(canvas.height/SCALE)-50,4,this.gs)); // Créer le Player dans le Game Services
         
-
+        // Création des fonds
         this.imgBackground = this.imageLoader.getImage("images/background.png");
         this.background = new Sprite(this.imgBackground,0,0);
 
@@ -56,14 +56,30 @@ class SceneJeu {
         sprBossW.setTileSheet(32,32);
         sprBossW.currentFrame = 0;
 
+        // Création des vagues
         this.wavesManager.addWave(new AlienWave(sprEnWSmall,5,0.7,250,(canvas.width/SCALE)/2+30,-100,"sine",10,"SRINGW",1));
         this.wavesManager.addWave(new AlienWave(sprEnWSmall,5 ,0.7,250,(canvas.width/SCALE)/2-30,-100,"sine",10,"SRINGW",1));
         this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.3,1500,0,-100,"slash",20,"SRINGB",1));
         this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.3,2000,0,-100,"slash",20,"SRINGB",1));
         this.wavesManager.addWave(new AlienWave(sprBossB,1,0.5,2500,(canvas.width/SCALE)/2,-100,"boss",50,"BOSSB",0.4));
 
+        // Création des boutons du menu
         this.menu.addButton("Play","GAME");
         this.menu.addButton("Credits","CREDITS");
+
+        // Création des sons
+        let sndMusic = this.imageLoader.getImage("sons/Song.ogg");
+        sndMusic.addEventListener('ended', function() {
+            if(debugMode == false) {
+                this.volume = 1;
+            }else{
+                this.volume = 0;
+            }
+            this.currentTime = 0;
+            this.play();
+        },false);
+        sndMusic.play();
+        
     }
 
     update(dt) {
@@ -110,19 +126,17 @@ class SceneJeu {
     }
 
     keypressed(pKey) {   
-        console.log(pKey);
+        //console.log(pKey);
 
         // MENU
         if(pKey == "ArrowDown") {
             if(this.gs.menu.index < this.gs.menu.buttons.length-1){
                 this.gs.menu.index += 1;
-                console.log(this.gs.menu.index);
             } 
         }
         if(pKey == "ArrowUp") {
             if(this.gs.menu.index > 0){
                 this.gs.menu.index -= 1;
-                console.log(this.gs.menu.index);
             } 
         }
 

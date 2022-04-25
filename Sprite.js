@@ -41,11 +41,6 @@ class Sprite {
     }
 
     startAnimation(pName) {
-        /*if (this.currentAnimation != null) {
-            if (this.currentAnimation.name == pName) {
-                return;
-            }
-        }*/
         this.animations.forEach(animation => {
             if (animation.name == pName) {
                 this.currentAnimation = animation;

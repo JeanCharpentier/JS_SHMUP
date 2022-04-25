@@ -29,9 +29,18 @@ class ImageLoader {
 
     start(pCallBack) {
         this.callBack = pCallBack;
+        let img;
         this.lstPaths.forEach(path => {
-            let img = new Image();
-            img.onload = this.imageLoaded.bind(this);
+            let ext = getExtension(path);
+            if(ext == "png") {
+                img = new Image();
+                img.onload = this.imageLoaded.bind(this); // Quand l'image est chargée
+            }else {
+                img = new Audio();
+                img.oncanplaythrough = this.imageLoaded.bind(this);
+                console.warn("AUdio chargé");
+            }         
+            
             img.src = path;
             this.lstImages[path] = img;
         });
@@ -39,7 +48,7 @@ class ImageLoader {
 
     imageLoaded(e) {
         this.loadedImageCount++;
-        console.log("Image chargée : ", e.target.currentSrc);
+        console.log("Ressource chargée : ", e.target.currentSrc);
         if (this.loadedImageCount == this.lstPaths.length) {
             console.log("Tout a été chargé !");
             this.callBack();

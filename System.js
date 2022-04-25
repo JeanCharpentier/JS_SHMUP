@@ -16,6 +16,11 @@ function isColliding(px1,py1,pw1,ph1,px2,py2,pw2,ph2){
     }
 }
 
+function getExtension(pFile=""){
+    let ext = pFile.split(".");
+    return ext[ext.length-1];
+}
+
 class GS{
     constructor() {
         this.player = null;
@@ -26,6 +31,7 @@ class GS{
         this.popupManager = null;
         this.kbInputs = null;
         this.menu = null;
+        this.soundManager = null;
 
         this.gamemode = "MENU";
     }
@@ -58,6 +64,10 @@ class GS{
 
     setMenu(pMenu) {
         this.menu = pMenu;
+    }
+
+    setSoundManager(pSManager) {
+        this.soundManager = pSManager;
     }
 }
 
