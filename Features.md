@@ -19,7 +19,9 @@
 
 ***ENNEMIS***
                                          
-* Plusieurs types d'ennemis (Normaux et Boss)
+* Les ennemis possèdent aussi des points de vie
+* Ennemis normaux : En vagues (sinusoidales ou diagonale)
+* Bosses : Solo, beaucoup plus de points de vie et de tirs
 * La capacité des ennemis à tirer est définie à la création de la wave
 * Certains ennemis dropent des powerups pour le joueur de façon aléatoire selon un lootrate défini en GLOBAL
 * Les vagues ont des patterns différents, influencant le comportement des ennemis qui la composent
