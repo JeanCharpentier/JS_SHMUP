@@ -57,6 +57,7 @@ class SceneJeu {
         sprBossW.currentFrame = 0;
 
         // Création des vagues
+        //this.wavesManager.addWave(new AlienWave(sprBossB,1,0.5,250,(canvas.width/SCALE)/2,-100,"boss",50,"BOSSB",0.4));
         this.wavesManager.addWave(new AlienWave(sprEnWSmall,5,0.7,250,(canvas.width/SCALE)/2+30,-100,"sine",10,"SRINGW",1));
         this.wavesManager.addWave(new AlienWave(sprEnWSmall,5 ,0.7,250,(canvas.width/SCALE)/2-30,-100,"sine",10,"SRINGW",1));
         this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.3,1500,0,-100,"slash",20,"SRINGB",1));
@@ -78,8 +79,7 @@ class SceneJeu {
             this.currentTime = 0;
             this.play();
         },false);
-        sndMusic.play();
-        
+        //sndMusic.play();
     }
 
     update(dt) {
@@ -96,6 +96,10 @@ class SceneJeu {
             this.gs.popupManager.update(dt);
         }else if(this.gs.gamemode == "PAUSE"){
 
+        }
+        // Fin de vague / victoire
+        if(this.gs.wavesManager.wavesList.length == 0){
+            this.gs.gamemode = "MENU";
         }
     }
 
@@ -118,10 +122,8 @@ class SceneJeu {
         }else if(this.gs.gamemode == "CREDITS"){
             pCtx.fillText("Les crédits", 50, (canvas.height/SCALE)-50);
         }else if(this.gs.gamemode == "GO"){
-            pCtx.fillText("GAME OVER", 50, (canvas.height/SCALE)-50);
-        }
-        
-
+            pCtx.fillText("GAME OVER", 50, 100);
+        }     
         pCtx.restore();
     }
 

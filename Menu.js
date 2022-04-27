@@ -24,7 +24,7 @@ class Menu {
         pCtx.fillText("TITRE", 50, 50);
         if(this.gs.player.score != 0){
             pCtx.font = "normal "+8+"pt Arial";
-            pCtx.fillText(this.gs.player.score, 50, 100);
+            pCtx.fillText("Score : " + this.gs.player.score, 50, 100);
         }
         pCtx.font = "normal "+16+"pt Arial";
         for(let i=0;i<this.buttons.length;i++){

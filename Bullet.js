@@ -1,10 +1,10 @@
 class Bullet extends Sprite {
-    constructor(px,py,pVX,pVY,pType) {
+    constructor(px,py,pVX,pVY,pType,pCurve) {
         let img;
         img = imageLoader.getImage("images/bullets.png");
         super(img,px,py);
         this.setTileSheet(16,16);
-
+        this.curve = pCurve;
         switch (pType) {
             case "PLAYERW":
                 this.currentFrame = 0;
@@ -59,6 +59,7 @@ class Bullet extends Sprite {
 
     update(dt) {
         super.update(dt);
+        this.vx += this.curve * dt;
         this.x += this.vx;
         this.y += this.vy;
     }
@@ -81,12 +82,17 @@ class BulletsManager{
         this.lstBullets = [];
     }
 
-    shoot(px, py, pAngle, pSpeed, pType) {
+    shoot(px, py, pAngle, pSpeed, pType, pCurve) {
         let vx, vy;
-        //vx = pSpeed * Math.cos(pAngle);
-        vx = 0;
-        vy = pSpeed * Math.sin(pAngle);
-        let b = new Bullet(px, py, vx, vy, pType);
+
+        if(pType == "BOSSB" || pType == "BOSSW") {
+            vx = pSpeed * Math.cos(pAngle);
+            vy = pSpeed * Math.sin(pAngle);
+        }else {
+            vx = 0;
+            vy = pSpeed;
+        }
+        let b = new Bullet(px, py, vx, vy, pType,pCurve);
         this.lstBullets.push(b);
     }
 
@@ -132,7 +138,6 @@ class BulletsManager{
                                     this.gs.player.sprEnergy.currentFrame = 5;
                                     this.gs.puManager.addPowerup(b.x,b.y,"SHIELD");
                                 }else {
-                                    console.warn("GAME OVER");
                                     this.gs.gamemode = "GO";
                                 }
                             }

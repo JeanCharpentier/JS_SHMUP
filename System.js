@@ -8,6 +8,10 @@ function rnd(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function rad(deg) {
+    return deg * (Math.PI / 180);
+}
+
 function isColliding(px1,py1,pw1,ph1,px2,py2,pw2,ph2){
     if(px1<px2+pw2 && px2<px1+pw1 && py1<py2+ph2 && py2<py1+ph1) {
         return true;

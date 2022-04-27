@@ -53,13 +53,13 @@ class Alien {
     fire() {
         switch(this.shootType) {
             case "BOSSW":
-                this.shootSpeed = 0.2;
+                this.shootSpeed = 0.3;
                 this.nbArms = 5;
                 this.angleOffset = ((2*Math.PI)/this.nbArms)/10;
                 break;
             case "BOSSB":
-                this.shootSpeed = 0.1;
-                this.nbArms = 3;
+                this.shootSpeed = 0.3;
+                this.nbArms = 5;
                 this.angleOffset = ((2*Math.PI)/this.nbArms)/10;    
                 break;
             case "SRINGW":
@@ -84,13 +84,17 @@ class Alien {
                     for(let i=1;i<=this.nbArms;i++){
                         this.angle += this.angleOffset;
                         if(this.shootType == "BOSSB") {
-                            this.gs.bulletsManager.shoot(this.sprite.x+(this.sprite.tileSize.x/4), this.sprite.y+(this.sprite.tileSize.y/4), this.angle * (2*Math.PI), 2, "BOSSB");
-                            this.gs.bulletsManager.shoot(this.sprite.x+(this.sprite.tileSize.x/4), this.sprite.y+(this.sprite.tileSize.y/4), this.angle * (2*Math.PI) + 45, 2, "BOSSW");
+                            this.gs.bulletsManager.shoot(this.sprite.x+(this.sprite.tileSize.x/4), this.sprite.y+(this.sprite.tileSize.y/4), this.angle * (2*Math.PI), 2, "BOSSB",0);
+                            this.gs.bulletsManager.shoot(this.sprite.x+(this.sprite.tileSize.x/4), this.sprite.y+(this.sprite.tileSize.y/4), rad(135)*(2*Math.PI), 2, "BOSSW",1);
+                            this.gs.bulletsManager.shoot(this.sprite.x+(this.sprite.tileSize.x/4), this.sprite.y+(this.sprite.tileSize.y/4), rad(180)*(2*Math.PI), 2, "BOSSW",-1);
+                            this.gs.bulletsManager.shoot(this.sprite.x+(this.sprite.tileSize.x/4), this.sprite.y+(this.sprite.tileSize.y/4), rad(135)*(2*Math.PI), 2, "BOSSW",2);
+                            this.gs.bulletsManager.shoot(this.sprite.x+(this.sprite.tileSize.x/4), this.sprite.y+(this.sprite.tileSize.y/4), rad(180)*(2*Math.PI), 2, "BOSSW",-2);
                         }
                         
                     }
                 }else {
-                    this.gs.bulletsManager.shoot(this.sprite.x, this.sprite.y, this.angle * (-1*(3*Math.PI)/2), 5, this.shootType);
+                    this.gs.bulletsManager.shoot(this.sprite.x, this.sprite.y, rad(0), 5, this.shootType,0);
+                    console.log("alien shoot");
                 }
                 
                 this.shootTimer = this.shootSpeed;
