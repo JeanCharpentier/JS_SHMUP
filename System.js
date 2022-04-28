@@ -170,3 +170,4 @@ class Inputs{
  */
 
  debugMode = false;
+ debugSound = true;

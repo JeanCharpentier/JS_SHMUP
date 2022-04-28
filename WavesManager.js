@@ -41,6 +41,7 @@ class Alien {
                         this.gs.puManager.addPowerup(this.sprite.x,this.sprite.y,"SHIELD");
                     }else {
                         console.warn("GAME OVER");
+                        this.gs.gamemode = "GO";
                     }
             }     
         }
@@ -94,7 +95,6 @@ class Alien {
                     }
                 }else {
                     this.gs.bulletsManager.shoot(this.sprite.x, this.sprite.y, rad(0), 5, this.shootType,0);
-                    console.log("alien shoot");
                 }
                 
                 this.shootTimer = this.shootSpeed;
@@ -179,11 +179,16 @@ class AlienWave {
 class WavesManager {
     constructor(pGS){
         this.wavesList = [];
+        this.maxWaves = 0;
         this.gs = pGS;
     }
 
     addWave(pWave) {
         this.wavesList.push(pWave);
+    }
+
+    setMaxWaves() { // Utiliser pour calculer le pourcetange de progress
+        this.maxWaves = this.wavesList.length;
     }
 
     startWave(pWave) {
@@ -233,6 +238,9 @@ class WavesManager {
         let index = this.wavesList.indexOf(pWave);
         if(index != -1) {
             this.wavesList.splice(index,1);
+            let prog = Math.floor(this.wavesList.length/this.maxWaves*100);
+            document.getElementById("wavesProgress").setAttribute('style','width:'+prog+"%");
+            document.getElementById("wavesRemaining").innerHTML = "WAVES REMAINING : "+this.wavesList.length;
         }
     }
 

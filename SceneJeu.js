@@ -63,6 +63,8 @@ class SceneJeu {
         this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.3,1500,0,-100,"slash",20,"SRINGB",1));
         this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.3,2000,0,-100,"slash",20,"SRINGB",1));
         this.wavesManager.addWave(new AlienWave(sprBossB,1,0.5,2500,(canvas.width/SCALE)/2,-100,"boss",50,"BOSSB",0.4));
+        this.wavesManager.setMaxWaves();
+
 
         // Création des boutons du menu
         this.menu.addButton("Play","GAME");
@@ -71,14 +73,15 @@ class SceneJeu {
         // Création des sons
         let sndMusic = this.imageLoader.getImage("sons/Song.ogg");
         sndMusic.addEventListener('ended', function() {
-            if(debugMode == false) {
-                this.volume = 1;
+            if(!debugSound) {
+                this.volume = 0.2;
             }else{
                 this.volume = 0;
             }
             this.currentTime = 0;
             this.play();
         },false);
+        sndMusic.volume = 0.2;
         //sndMusic.play();
     }
 
@@ -157,11 +160,18 @@ class SceneJeu {
             }
         }
         // DEBUG
-        if(pKey == "KeyT"){
+        if(pKey == "F9"){
             if(debugMode) {
                 debugMode = false;
             }else {
                 debugMode = true;
+            }
+        }
+        if(pKey == "F10"){
+            if(debugSound) {
+                debugSound = false;
+            }else {
+                debugSound = true;
             }
         }
     }

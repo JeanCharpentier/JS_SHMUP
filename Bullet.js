@@ -114,9 +114,11 @@ class BulletsManager{
                 if(isColliding(b.x+boxBullet.x,b.y+boxBullet.y,b.tileSize.x-boxBullet.x,b.tileSize.y-boxBullet.y,this.gs.player.x+boxPlayer.x,this.gs.player.y+boxPlayer.y,this.gs.player.sprShip.tileSize.x-boxPlayer.x,this.gs.player.sprShip.tileSize.y-boxPlayer.y)) {
                     this.pEmitter = new ParticleEmitter(this.gs.player.x+(this.gs.player.sprShip.tileSize.x/2),this.gs.player.y+(this.gs.player.sprShip.tileSize.y/2),"black","darkred");
                     this.pEmitter.add(4); 
-                    b.sndExplo1.pause();
-                    b.sndExplo1.currentTime = 0;
-                    b.sndExplo1.play();
+                    if(!debugSound) {
+                        b.sndExplo1.pause();
+                        b.sndExplo1.currentTime = 0;
+                        b.sndExplo1.play();
+                    }
 
                     if(b.state == this.gs.player.state) { // Si les bullets sont du même type que l'état du joueur, on score + recharge la vie
                         this.lstBullets.splice(index, 1);
@@ -169,6 +171,7 @@ class BulletsManager{
                                 //Score
                                 this.gs.player.score += w.alienList[n].points; // Ajout des points au joueur
                                 this.gs.popupManager.addPopup(w.alienList[n].points,this.gs.player.x,this.gs.player.y,0.5);
+                                document.getElementById("domScore").innerHTML = this.gs.player.score; // Change le score dans l'interface Web
                                 
                                 // Suppression de l'ennemi
                                 w.alienList.splice(n,1);
