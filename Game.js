@@ -51,6 +51,8 @@ function load() {
     imageLoader.add("sons/Shoot_00.mp3");
     imageLoader.add("sons/Song.ogg");
 
+    imageLoader.add("images/buttons.png");
+
     imageLoader.start(startGame);
 }
 

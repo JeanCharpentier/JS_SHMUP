@@ -11,18 +11,20 @@ class SceneJeu {
         this.kbInputs = new Inputs(this.gs);
         this.bulletsManager = new BulletsManager(this.gs);
         this.wavesManager = new WavesManager(this.gs);
-        this.menu = new Menu(this.gs);
+        
+        this.menu = null;
         
         this.gs.setBulletsManager(this.bulletsManager); // Ajoute le Bullets Manager au Game Service
         this.gs.setWavesManager(this.wavesManager);
         this.gs.setPUManager(this.puManager);
-        this.gs.setPopupManager(this.popupManager);
-        this.gs.setMenu(this.menu);
-        
+        this.gs.setPopupManager(this.popupManager);      
     }
 
     load(pImageLoader) {
         this.imageLoader = pImageLoader;
+
+        this.menu = new Menu(this.gs);
+        this.gs.setMenu(this.menu);
 
         this.gs.setPlayer(new Player((canvas.width/SCALE)/2,(canvas.height/SCALE)-50,4,this.gs)); // Créer le Player dans le Game Services
         
