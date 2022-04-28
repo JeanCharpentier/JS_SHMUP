@@ -123,6 +123,7 @@ class BulletsManager{
                     if(b.state == this.gs.player.state) { // Si les bullets sont du même type que l'état du joueur, on score + recharge la vie
                         this.lstBullets.splice(index, 1);
                         this.gs.player.score++;
+                        document.getElementById("domScore").innerHTML = this.gs.player.score; // Change le score dans l'interface Web
                         if(this.gs.player.sprEnergy.currentFrame < 5){
                             this.gs.player.sprEnergy.currentFrame += 1;
                         }
