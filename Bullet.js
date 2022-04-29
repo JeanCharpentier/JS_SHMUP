@@ -162,7 +162,8 @@ class BulletsManager{
                                 // Loots
                                 let loot = rnd(0,LOOT_RATE);
                                 if(loot <= 1) {
-                                    this.gs.puManager.addPowerup(b.x,b.y,"QUAD");
+                                    let pu = this.gs.puManager.puType[rnd(0,this.gs.puManager.puType.length)];
+                                    this.gs.puManager.addPowerup(b.x,b.y,pu);
                                 }
                                 
                                 // Particules

@@ -1,1 +1,14 @@
-# Empty CSS file for your own CSS
+body {
+    background-color: #000011;
+}
+
+.col-md-8 {
+    background-color: #526064;
+}
+
+.col-md-4 {
+    background-color: #9b3b45;
+    text-align: center;
+    padding-top:10px;
+    padding-bottom:10px;
+}

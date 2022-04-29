@@ -47,6 +47,7 @@ class PowerupManager {
     constructor(pGS) {
         this.gs = pGS;
         this.puList = [];
+        this.puType = ["QUAD","SHIELD"];
     }
 
     addPowerup(pX,pY,pType) {
@@ -57,11 +58,6 @@ class PowerupManager {
 
     update(dt) {
         for(let n=this.puList.length-1;n>=0;n--) {
-            /*this.gs.player.puTimer -= dt;
-            if(this.gs.player.puTimer <= 0) {
-                console.log("End timer PU");
-                this.gs.player.puTimer = this.gs.player.puChrono;
-            }*/
             this.puList[n].update(dt);
 
             // Collision avec le joueur
@@ -74,9 +70,6 @@ class PowerupManager {
                 this.puList.splice(n,1);
             }
         }
-        /*this.puList.forEach(p => {
-            p.update(dt);
-        });*/
     }
 
     draw(pCtx){
