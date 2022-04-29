@@ -127,6 +127,7 @@ class SceneJeu {
             this.gs.gamemode = this.gs.menu.buttons[this.gs.menu.index].mode;
             if(this.gs.gamemode == "GAME") {
                 this.gs.wavesManager.wavesList = [];
+                this.backgroundOverlay.distance = this.backgroundOverlay.image.height;
                 this.gs.player.lifes = PLIFES;
                 this.gs.player.energy = PENERGY;
                 this.gs.player.x = (canvas.width/SCALE)/2;
