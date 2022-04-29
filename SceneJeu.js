@@ -5,6 +5,8 @@ class SceneJeu {
         this.imageLoader = null;
         this.imgBackground = null;
 
+        this.levels = null;
+
         this.puManager = new PowerupManager(this.gs);
         this.popupManager = new PopupManager();
 
@@ -23,6 +25,8 @@ class SceneJeu {
     load(pImageLoader) {
         this.imageLoader = pImageLoader;
 
+        this.levels = new LevelLoader(this.gs);
+
         this.menu = new Menu(this.gs);
         this.gs.setMenu(this.menu);
 
@@ -36,36 +40,8 @@ class SceneJeu {
         this.backgroundOverlay = new ScrollingBackground(this.imgBackgroundOverlay);
         this.backgroundOverlay.setSpeed(1.5);
 
-        // Création des ennemis
-        let imgEnemies = this.imageLoader.getImage("images/enemies.png");
-        let imgBosses = this.imageLoader.getImage("images/bosses.png");
-
-        let sprEnWSmall = new Sprite(imgEnemies);
-        sprEnWSmall.setTileSheet(16,16);
-        sprEnWSmall.currentFrame = 8;
-
-        let sprEnBSmall = new Sprite(imgEnemies);
-        sprEnBSmall.setTileSheet(16,16);
-        sprEnBSmall.currentFrame = 13;
-
-        let sprBossB = new Sprite(imgBosses);
-        sprBossB.setTileSheet(32,32);
-        sprBossB.currentFrame = 0;
-        sprBossB.addAnimation("spin",[0,1,2,3],0.05,0);
-        sprBossB.startAnimation("spin");
-
-        let sprBossW = new Sprite(imgBosses);
-        sprBossW.setTileSheet(32,32);
-        sprBossW.currentFrame = 0;
-
-        // Création des vagues
-        //this.wavesManager.addWave(new AlienWave(sprBossB,1,0.5,250,(canvas.width/SCALE)/2,-100,"boss",50,"BOSSB",0.4));
-        this.wavesManager.addWave(new AlienWave(sprEnWSmall,5,0.7,250,(canvas.width/SCALE)/2+30,-100,"sine",10,"SRINGW",1));
-        this.wavesManager.addWave(new AlienWave(sprEnWSmall,5 ,0.7,250,(canvas.width/SCALE)/2-30,-100,"sine",10,"SRINGW",1));
-        this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.3,1500,0,-100,"slash",20,"SRINGB",1));
-        this.wavesManager.addWave(new AlienWave(sprEnBSmall,8,0.3,2000,0,-100,"slash",20,"SRINGB",1));
-        this.wavesManager.addWave(new AlienWave(sprBossB,1,0.5,2500,(canvas.width/SCALE)/2,-100,"boss",50,"BOSSB",0.4));
-        this.wavesManager.setMaxWaves();
+        // Création des niveaux
+        //this.levels.createLevel(1);
 
 
         // Création des boutons du menu
@@ -149,6 +125,15 @@ class SceneJeu {
 
         if(pKey == "Enter"){
             this.gs.gamemode = this.gs.menu.buttons[this.gs.menu.index].mode;
+            if(this.gs.gamemode == "GAME") {
+                this.gs.wavesManager.wavesList = [];
+                this.gs.player.lifes = PLIFES;
+                this.gs.player.energy = PENERGY;
+                this.gs.player.x = (canvas.width/SCALE)/2;
+                this.gs.player.y = (canvas.height/SCALE)-50;
+                this.gs.player.score = 0;
+                this.levels.createLevel(1);
+            }
         }
 
         // PAUSE

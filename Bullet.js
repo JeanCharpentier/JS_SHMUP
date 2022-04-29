@@ -124,21 +124,21 @@ class BulletsManager{
                         this.lstBullets.splice(index, 1);
                         this.gs.player.score++;
                         document.getElementById("domScore").innerHTML = this.gs.player.score; // Change le score dans l'interface Web
-                        if(this.gs.player.sprEnergy.currentFrame < 5){
-                            this.gs.player.sprEnergy.currentFrame += 1;
+                        if(this.gs.player.energy < 5){
+                            this.gs.player.energy += 1;
                         }
                     }else { // Sinon le joueur perd de la vie
                         this.lstBullets.splice(index, 1);
                         if(this.gs.player.powerup != "SHIELD"){
-                            if(this.gs.player.sprEnergy.currentFrame > 0){
-                                this.gs.player.sprEnergy.currentFrame -= 1;
+                            if(this.gs.player.energy > 0){
+                                this.gs.player.energy -= 1;
                             }
-                            if(this.gs.player.sprEnergy.currentFrame == 0){
+                            if(this.gs.player.energy == 0){
                                 this.gs.player.sprShip.startAnimation("blink");
     
                                 if(this.gs.player.lifes > 0) {
                                     this.gs.player.lifes--;
-                                    this.gs.player.sprEnergy.currentFrame = 5;
+                                    this.gs.player.energy = 5;
                                     this.gs.puManager.addPowerup(b.x,b.y,"SHIELD");
                                 }else {
                                     this.gs.gamemode = "GO";

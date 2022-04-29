@@ -38,7 +38,8 @@ class Player {
         this.vx = 0;
         this.vy = 0;
 
-        this.lifes = 2; // Nb de vies - 1
+        this.lifes = PLIFES;
+        this.energy = PENERGY;
 
         this.showCanon = false;
         this.score = 0;
@@ -65,6 +66,7 @@ class Player {
 
     update(dt) {
         this.sprLifes.currentFrame = this.lifes;
+        this.sprEnergy.currentFrame = this.energy;
         this.sprLifes.update(dt);
         this.sprExplo.update(dt);
 

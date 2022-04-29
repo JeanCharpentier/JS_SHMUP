@@ -2,6 +2,10 @@ const SCALE = 2.5;
 const BG_SPEED = 1.5;
 const LOOT_RATE = 10;
 
+// Constantes Restart Joueur
+const PLIFES = 2;
+const PENERGY = 5;
+
 function rnd(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
