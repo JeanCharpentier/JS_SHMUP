@@ -33,10 +33,15 @@ class LevelLoader{
                 this.gs.wavesManager.addWave(new AlienWave(this.sprBossB,1,0.5,2500,(canvas.width/SCALE)/2,-100,"boss",50,"BOSSB",0.4));
                 break;
             case 2:
-    
+                this.gs.wavesManager.addWave(new AlienWave(this.sprEnBSmall,8,0.3,250,0,-100,"slash",20,"SRINGB",1));
+                this.gs.wavesManager.addWave(new AlienWave(this.sprEnWSmall,5,0.7,1500,(canvas.width/SCALE)/2+30,-100,"sine",10,"SRINGW",1));
+                this.gs.wavesManager.addWave(new AlienWave(this.sprEnWSmall,5 ,0.7,1750,(canvas.width/SCALE)/2-30,-100,"sine",10,"SRINGW",1));
+                this.gs.wavesManager.addWave(new AlienWave(this.sprEnBSmall,8,0.3,2300,0,-100,"slash",20,"SRINGB",1));
+                this.gs.wavesManager.addWave(new AlienWave(this.sprBossB,1,0.5,2800,(canvas.width/SCALE)/2,-100,"boss",50,"BOSSB",0.4));
                 break;
             case 3:
-    
+                this.gs.wavesManager.addWave(new AlienWave(this.sprBossB,1,0.5,300,((canvas.width/SCALE)/2)-50,-100,"boss",50,"BOSSB",0.4));
+                this.gs.wavesManager.addWave(new AlienWave(this.sprBossB,1,0.5,300,((canvas.width/SCALE)/2)+10,-100,"boss",50,"BOSSB",0.4));
                 break;
             default:
                 console.error("Erreur de chargement de niveau !");

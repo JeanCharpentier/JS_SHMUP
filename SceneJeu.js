@@ -63,6 +63,31 @@ class SceneJeu {
         //sndMusic.play();
     }
 
+    resetPlayer() {
+        this.gs.player.lifes = PLIFES;
+        this.gs.player.energy = PENERGY;
+        this.gs.player.x = (canvas.width/SCALE)/2;
+        this.gs.player.y = (canvas.height/SCALE)-50;
+        this.gs.player.score = 0;
+    }
+
+    loadLevel(pLevel) {
+        this.gs.wavesManager.wavesList = [];
+        this.gs.bulletsManager.lstBullets = [];
+        this.gs.bulletsManager.pEmitter = null;
+        this.backgroundOverlay.distance = this.backgroundOverlay.image.height;
+
+        if(pLevel < MAX_LVL && pLevel >= 0) {
+            this.gs.wavesManager.level = pLevel + 1;
+            this.levels.createLevel(pLevel+1);
+            console.log("New level : "+this.gs.wavesManager.level);
+            document.getElementById("domLvl").innerHTML = this.gs.wavesManager.level;
+            let prog = Math.floor(this.gs.wavesManager.wavesList.length/this.gs.wavesManager.maxWaves*100);
+            document.getElementById("wavesProgress").setAttribute('style','width:'+prog+"%");
+            document.getElementById("wavesRemaining").innerHTML = "WAVES REMAINING : "+this.gs.wavesManager.wavesList.length;
+        }
+    }
+
     update(dt) {
         this.kbInputs.update(dt,this.backgroundOverlay);
 
@@ -80,7 +105,12 @@ class SceneJeu {
         }
         // Fin de vague / victoire
         if(this.gs.wavesManager.wavesList.length == 0){
-            this.gs.gamemode = "MENU";
+            if(this.gs.wavesManager.level < MAX_LVL) {
+                this.loadLevel(this.gs.wavesManager.level);
+            }else {
+                this.gs.gamemode = "MENU";
+            }
+            
         }
     }
 
@@ -126,16 +156,8 @@ class SceneJeu {
         if(pKey == "Enter"){
             this.gs.gamemode = this.gs.menu.buttons[this.gs.menu.index].mode;
             if(this.gs.gamemode == "GAME") {
-                this.gs.wavesManager.wavesList = [];
-                this.gs.bulletsManager.lstBullets = [];
-                this.gs.bulletsManager.pEmitter = null;
-                this.backgroundOverlay.distance = this.backgroundOverlay.image.height;
-                this.gs.player.lifes = PLIFES;
-                this.gs.player.energy = PENERGY;
-                this.gs.player.x = (canvas.width/SCALE)/2;
-                this.gs.player.y = (canvas.height/SCALE)-50;
-                this.gs.player.score = 0;
-                this.levels.createLevel(1);
+                this.resetPlayer();
+                this.loadLevel(0);
             }
         }
 

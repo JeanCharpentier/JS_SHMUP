@@ -1,6 +1,7 @@
 const SCALE = 2.5;
 const BG_SPEED = 1.5;
 const LOOT_RATE = 10;
+const MAX_LVL = 3;
 
 // Constantes Restart Joueur
 const PLIFES = 2;

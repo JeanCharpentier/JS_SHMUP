@@ -21,6 +21,8 @@ class Alien {
         this.shootTimer = 0;   
         
         this.collidePlayer = false;
+
+        this.level = 1;
     }
 
     update(dt) {
