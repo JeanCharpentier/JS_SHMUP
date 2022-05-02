@@ -21,10 +21,6 @@ class Menu {
         this.buttons.push(b);
     }
 
-    update(dt){
-
-    }
-
     draw(pCtx){
         pCtx.fillStyle = "#D04648";
         pCtx.font = "normal "+16+"pt Arial";
@@ -37,7 +33,7 @@ class Menu {
                 this.sprButton.currentFrame = 0;
             }
             this.sprButton.x = (canvas.width/SCALE)/2 - (this.sprButton.tileSize.x/2);
-            this.sprButton.y = (canvas.width/SCALE)/2+(i*this.sprButton.tileSize.y);
+            this.sprButton.y = (canvas.width/SCALE)/2 + (i*this.sprButton.tileSize.y);
             this.sprButton.draw(pCtx);
             pCtx.fillText(this.buttons[i].text,this.sprButton.x+8,this.sprButton.y+24);
         }

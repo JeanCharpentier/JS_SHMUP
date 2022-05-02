@@ -5,7 +5,7 @@ class Bullet extends Sprite {
         super(img,px,py);
         this.setTileSheet(16,16);
         this.curve = pCurve;
-        switch (pType) {
+        switch (pType) { // Tous les types ne sont pas utilisés dans ce jeu
             case "PLAYERW":
                 this.currentFrame = 0;
                 this.friendly = true;
@@ -101,7 +101,14 @@ class BulletsManager{
             let b = this.lstBullets[index];
             b.update(dt);
 
-            // Collisions
+            /*
+               ____      _ _ _     _                 
+  / ___|___ | | (_)___(_) ___  _ __  ___ 
+ | |   / _ \| | | / __| |/ _ \| '_ \/ __|
+ | |__| (_) | | | \__ \ | (_) | | | \__ \
+  \____\___/|_|_|_|___/_|\___/|_| |_|___/
+                                         */
+
             if(!b.friendly) { // Bullets touchent Joueur
                 let boxPlayer = {
                     x: this.gs.player.sprShip.tileSize.x/4,
@@ -120,7 +127,7 @@ class BulletsManager{
                         b.sndExplo1.play();
                     }
 
-                    if(b.state == this.gs.player.state) { // Si les bullets sont du même type que l'état du joueur, on score + recharge la vie
+                    if(b.state == this.gs.player.state) { // Si les bullets sont du même type que l'état du joueur, on score + recharge l'énergie
                         this.lstBullets.splice(index, 1);
                         this.gs.player.score++;
                         document.getElementById("domScore").innerHTML = this.gs.player.score; // Change le score dans l'interface Web

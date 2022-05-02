@@ -40,10 +40,6 @@ class SceneJeu {
         this.backgroundOverlay = new ScrollingBackground(this.imgBackgroundOverlay);
         this.backgroundOverlay.setSpeed(1.5);
 
-        // Création des niveaux
-        //this.levels.createLevel(1);
-
-
         // Création des boutons du menu
         this.menu.addButton("Play","GAME");
         this.menu.addButton("Credits","CREDITS");
@@ -60,7 +56,7 @@ class SceneJeu {
             this.play();
         },false);
         sndMusic.volume = 0.2;
-        //sndMusic.play();
+        sndMusic.play();
     }
 
     resetPlayer() {
@@ -91,18 +87,15 @@ class SceneJeu {
     update(dt) {
         this.kbInputs.update(dt,this.backgroundOverlay);
 
-        if(this.gs.gamemode == "MENU") {
-            this.gs.menu.update(dt);
-        }else if(this.gs.gamemode == "GAME"){
+        if(this.gs.gamemode == "GAME"){
             this.backgroundOverlay.update(dt);
             this.wavesManager.update(dt,this.backgroundOverlay.distance);
             this.puManager.update(dt);
             this.gs.player.update(dt);
             this.gs.bulletsManager.update(dt);
             this.gs.popupManager.update(dt);
-        }else if(this.gs.gamemode == "PAUSE"){
-
         }
+
         // Fin de vague / victoire
         if(this.gs.wavesManager.wavesList.length == 0){
             if(this.gs.wavesManager.level < MAX_LVL) {
@@ -171,6 +164,7 @@ class SceneJeu {
                 this.gs.gamemode = "MENU";
             }
         }
+        
         // DEBUG
         if(pKey == "F9"){
             if(debugMode) {

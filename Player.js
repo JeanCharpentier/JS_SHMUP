@@ -60,7 +60,7 @@ class Player {
             this.gs.bulletsManager.shoot(this.sprShip.x-8,this.sprShip.y,rad(0),-5,type,0);
             this.gs.bulletsManager.shoot(this.sprShip.x+10,this.sprShip.y,rad(0),-5,type,0);
         }
-        this.gs.bulletsManager.shoot(this.sprShip.x-3,this.sprShip.y,rad(0),-5,type,0); // Tir gauche
+        this.gs.bulletsManager.shoot(this.sprShip.x-3,this.sprShip.y,rad(0),-5,type,0);
         this.gs.bulletsManager.shoot(this.sprShip.x+5,this.sprShip.y,rad(0),-5,type,0);
     }
 

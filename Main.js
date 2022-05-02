@@ -36,7 +36,6 @@ function init() {
     ctx.webkitImageSmoothingEnabled = false;
     ctx.mozImageSmoothingEnabled = false;
     load();
-    //interval = setInterval(run, 1000 / 60);
     requestAnimationFrame(run);
 }
 

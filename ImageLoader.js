@@ -37,7 +37,7 @@ class ImageLoader {
                 img.onload = this.imageLoaded.bind(this); // Quand l'image est chargée
             }else {
                 img = new Audio();
-                img.oncanplaythrough = this.imageLoaded.bind(this);
+                img.oncanplaythrough = this.imageLoaded.bind(this); // Quand le son est chargé
             }         
             
             img.src = path;
@@ -47,7 +47,6 @@ class ImageLoader {
 
     imageLoaded(e) {
         this.loadedImageCount++;
-        //console.log("Ressource chargée : ", e.target.currentSrc);
         if (this.loadedImageCount == this.lstPaths.length) {
             console.log("Tout a été chargé !");
             this.callBack();

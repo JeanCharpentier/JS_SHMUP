@@ -43,6 +43,8 @@ function load() {
 
     imageLoader.add("images/powerups.png");
 
+    imageLoader.add("images/buttons.png");
+
     // SONS
     imageLoader.add("sons/Explosion_02.mp3");
     imageLoader.add("sons/Explosion_03.mp3");
@@ -50,8 +52,6 @@ function load() {
     imageLoader.add("sons/Hit_03.mp3");
     imageLoader.add("sons/Shoot_00.mp3");
     imageLoader.add("sons/Song.ogg");
-
-    imageLoader.add("images/buttons.png");
 
     imageLoader.start(startGame);
 }
